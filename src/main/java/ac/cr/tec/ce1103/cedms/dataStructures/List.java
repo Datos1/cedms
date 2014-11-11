@@ -39,7 +39,7 @@ public class List<T> {
      *
      * @param pData
      */
-    public void add(T pData) {
+    public void enQueue(T pData) {
         Node<T> node = new Node<T>(pData);
         if (_head == null)
             _tail = node;

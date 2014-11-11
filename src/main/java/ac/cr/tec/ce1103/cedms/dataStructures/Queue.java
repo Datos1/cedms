@@ -7,7 +7,7 @@ public class Queue<T> extends List<T> {
 
     public static final int HEAD = 0;
 
-    public void add(T data) {
+    public void enQueue(T data) {
         super.append(data);
     }
 
