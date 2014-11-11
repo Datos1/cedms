@@ -36,4 +36,6 @@ public abstract class Core {
     public abstract void difusion(String msg);
 
     protected abstract void readScanner();
+
+    protected abstract void createConnection();
 }

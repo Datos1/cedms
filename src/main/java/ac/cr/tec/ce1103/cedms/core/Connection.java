@@ -7,6 +7,8 @@ public class Connection {
     private int source;
     private int target;
     private int precio;
+    private int port;
+    private int ip;
 
     public Connection(int pSource, int pTarget, int pPrecio) {
         source = pSource;
