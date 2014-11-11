@@ -1,6 +1,5 @@
-package serverClient;
-import java.net.*;
-import java.io.*;
+package ac.cr.tec.ce1103.cedms.serverClient;
+
 /**
  * Created by Stiven on 11/10/2014.
  */

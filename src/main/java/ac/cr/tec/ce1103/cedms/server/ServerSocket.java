@@ -1,8 +1,10 @@
-package server;
-import ac.cr.tec.ce1103.cedms.VARIABLES;
-import java.net.*;
-import java.io.*;
-import ac.cr.tec.ce1103.cedms.VARIABLES.*;
+package ac.cr.tec.ce1103.cedms.server;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
 
 /**
  * Created by Stiven on 11/9/2014.
