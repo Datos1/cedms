@@ -12,6 +12,7 @@ import java.util.Scanner;
 public abstract class Core {
     protected int id;
     protected List<UpdateId> updateIds = new List<UpdateId>();
+    protected List<Connection> connections = new List<Connection>();
     protected Scanner terminal;
     private Socket socket = new Socket();
     private Queue queueIn = new Queue();
@@ -34,5 +35,5 @@ public abstract class Core {
      */
     public abstract void difusion(String msg);
 
-
+    protected abstract void readScanner();
 }
