@@ -49,7 +49,7 @@ public class Server_Socket {
             //serv_socket.close();//finishes the connection
 
         } catch (Exception e) {
-            System.out.println("Error");
+            System.out.println("Error"+e.getMessage());
         }
 
 
