@@ -26,16 +26,16 @@ public abstract class Core {
      *
      * @param msg
      */
-    public abstract void recibir(String msg);
+    //public abstract void recibir(String msg);
 
     /**
      * It diffuses a message through all the system
      *
      * @param msg
      */
-    public abstract void difusion(String msg);
+   /* public abstract void difusion(String msg);
 
     protected abstract void readScanner();
 
-    protected abstract void createConnection();
+    protected abstract void createConnection();*/
 }

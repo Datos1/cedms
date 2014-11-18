@@ -23,7 +23,7 @@ public class Client extends Core {
         terminal = new Scanner(System.in);
         while (on) {
             if (terminal.hasNext()) {
-                sendMessage();
+                //sendMessage();
             }
         }
     }
@@ -34,23 +34,23 @@ public class Client extends Core {
      *
      * @param msg
      */
-    @Override
-    public void recibir(String msg) {
+    //@Override
+    /*public void recibir(String msg) {
 
-    }
+    }*/
 
     /**
      * It diffuses a message through all the system
      *
      * @param msg
      */
-    @Override
-    public void difusion(String msg) {
+   // @Override
+    /*public void difusion(String msg) {
 
     }
 
 
     public void sendMessage(int target, String titulo, String msg) {
 
-    }
+    }*/
 }
