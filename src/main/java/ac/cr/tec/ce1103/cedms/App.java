@@ -27,7 +27,9 @@ public class App {
                 core = new Hub(id, port);
             else if (type.equals(BASE_STATION))
                 core = new BaseStation(id, port);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            System.out.println(USAGE);
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(USAGE);
         }
     }

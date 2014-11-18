@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Client extends Core implements Commons {
     public static final int INITAL_UPDATE_ID = 0;
     private int updateIds = INITAL_UPDATE_ID;
+    public static final String BIENVENIDO = "Bienvenido a CEDMS.";
     public static final int INITAL_MESSAGE_ID = 1;
     private boolean on = true;
 
@@ -18,12 +19,19 @@ public class Client extends Core implements Commons {
 
     public void initScanner() {
         terminal = new Scanner(System.in);
+        System.out.println(BIENVENIDO);
+
+        String ip = askIP();
+        String port = askPort();
+
         while (on) {
+            System.out.println("Seleccione una de las siguientes opciones: 1:");
             if (terminal.hasNext()) {
-                //sendMessage();
+                System.out.println(terminal.next());
             }
         }
     }
+
 
     @Override
     protected void createConnection() {
