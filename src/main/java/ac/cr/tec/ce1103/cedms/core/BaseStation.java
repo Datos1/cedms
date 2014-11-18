@@ -6,22 +6,33 @@ package ac.cr.tec.ce1103.cedms.core;
 public class BaseStation extends Core {
 
 
-    /*public BaseStation() {
+    public BaseStation() {
 
-    }*/
+    }
+
+    @Override
+    public void recibirConnection(int source, int target, int id, int adyacente, int precio, int updateId) {
+
+    }
 
     /**
      * It receives a message and
      *
      * @param msg
      */
-   // @Override
-    /*public void recibir(String msg) {
-
-    }
 
     @Override
     public void difusion(String msg) {
 
-    }*/
+    }
+
+    @Override
+    protected void readScanner() {
+
+    }
+
+    @Override
+    protected void createConnection() {
+
+    }
 }

@@ -21,21 +21,22 @@ public abstract class Core {
     protected Core() {
     }
 
+    public abstract void recibirConnection(int source, int target, int id, int adyacente, int precio, int updateId);
+
     /**
      * It receives a message and
      *
      * @param msg
      */
-    //public abstract void recibir(String msg);
 
     /**
      * It diffuses a message through all the system
      *
      * @param msg
      */
-   /* public abstract void difusion(String msg);
+    public abstract void difusion(String msg);
 
     protected abstract void readScanner();
 
-    protected abstract void createConnection();*/
+    protected abstract void createConnection();
 }

@@ -28,29 +28,29 @@ public class Client extends Core {
         }
     }
 
+    @Override
+    protected void createConnection() {
 
-    /**
-     * It receives a message and
-     *
-     * @param msg
-     */
-    //@Override
-    /*public void recibir(String msg) {
+    }
 
-    }*/
+
+    @Override
+    public void recibirConnection(int source, int target, int id, int adyacente, int precio, int updateId) {
+
+    }
 
     /**
      * It diffuses a message through all the system
      *
      * @param msg
      */
-   // @Override
-    /*public void difusion(String msg) {
+    @Override
+    public void difusion(String msg) {
 
     }
 
 
     public void sendMessage(int target, String titulo, String msg) {
 
-    }*/
+    }
 }
