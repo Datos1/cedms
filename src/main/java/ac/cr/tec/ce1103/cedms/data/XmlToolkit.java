@@ -124,6 +124,7 @@ public class XmlToolkit {
         return XmlToolkit.xmlToString(xml);
     }
 
+
     /**
      * Creates new xml Document in blank
      *
