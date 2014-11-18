@@ -1,14 +1,12 @@
 package ac.cr.tec.ce1103.cedms.dataStructures;
-import com.sun.deploy.util.SyncAccess;
 
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.Lock.*;
 
 public class Queue<T> extends List<T> {
 
     public static final int HEAD = 0;
 
-    public void enQueue(T data) {
+    public void add(T data) {
         super.append(data);
     }
 

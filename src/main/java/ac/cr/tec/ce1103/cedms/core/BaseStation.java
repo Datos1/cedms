@@ -6,8 +6,8 @@ package ac.cr.tec.ce1103.cedms.core;
 public class BaseStation extends Core {
 
 
-    public BaseStation() {
-
+    public BaseStation(int pId, int pPort) {
+        super(pId, pPort);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class BaseStation extends Core {
     }
 
     @Override
-    protected void readScanner() {
+    protected void initScanner() {
 
     }
 

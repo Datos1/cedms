@@ -11,6 +11,7 @@ import java.util.Scanner;
  */
 public abstract class Core {
     protected int id;
+    protected int port;
     protected List<UpdateId> updateIds = new List<UpdateId>();
     protected List<Connection> connections = new List<Connection>();
     protected Scanner terminal;
@@ -18,7 +19,9 @@ public abstract class Core {
     private Queue queueIn = new Queue();
     private Queue queueOut = new Queue();
 
-    protected Core() {
+    protected Core(int pId, int pPort) {
+        this.id = pId;
+        this.port = pPort;
     }
 
     public abstract void recibirConnection(int source, int target, int id, int adyacente, int precio, int updateId);
@@ -36,7 +39,7 @@ public abstract class Core {
      */
     public abstract void difusion(String msg);
 
-    protected abstract void readScanner();
+    protected abstract void initScanner();
 
     protected abstract void createConnection();
 }

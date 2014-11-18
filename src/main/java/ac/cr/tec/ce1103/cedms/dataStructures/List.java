@@ -39,7 +39,7 @@ public class List<T> {
      *
      * @param pData
      */
-    public void enQueue(T pData) {
+    public void add(T pData) {
         Node<T> node = new Node<T>(pData);
         if (_head == null)
             _tail = node;
@@ -164,7 +164,13 @@ public class List<T> {
 
     }
 
-    //se inserta un elemento en la posicion elegida por el usuario.
+    /**
+     * Se inserta un elemento en la posicion elegida por el usuario.
+     *
+     * @param posicion
+     * @param datos
+     */
+    @Deprecated
     public void insertInPosition(int posicion,T datos){
         if (posicion>=0 && posicion <=getLength()){
             if (posicion==0 || posicion==getLength()){

@@ -5,21 +5,18 @@ import java.util.Scanner;
 /**
  * Created by pablo on 10/11/14.
  */
-public class Client extends Core {
+public class Client extends Core implements Commons {
     public static final int INITAL_UPDATE_ID = 0;
     private int updateIds = INITAL_UPDATE_ID;
     public static final int INITAL_MESSAGE_ID = 1;
-    private int id;
-    private int port;
     private boolean on = true;
 
     public Client(int pId, int pPort) {
-        id = pId;
-        port = pPort;
-        readScanner();
+        super(pId, pPort);
+        initScanner();
     }
 
-    public void readScanner() {
+    public void initScanner() {
         terminal = new Scanner(System.in);
         while (on) {
             if (terminal.hasNext()) {

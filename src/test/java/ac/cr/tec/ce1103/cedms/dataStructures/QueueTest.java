@@ -10,7 +10,7 @@ public class QueueTest {
     @Before
     public void setUp() throws Exception {
         for (int i = 0; i < 10; i++) {
-            test.enQueue(i);
+            test.add(i);
         }
         System.out.println(test);
     }
