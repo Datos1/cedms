@@ -17,4 +17,8 @@ public class Queue<T> extends List<T> {
         remove(HEAD);
         return data;
     }
+
+    public boolean isEmpty() {
+        return (this.getLength() == 0);
+    }
 }
