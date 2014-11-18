@@ -1,8 +1,9 @@
 package ac.cr.tec.ce1103.cedms.dataStructures;
+import com.sun.deploy.util.SyncAccess;
 
-/**
- * Created by pablo on 10/11/14.
- */
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.Lock.*;
+
 public class Queue<T> extends List<T> {
 
     public static final int HEAD = 0;
@@ -21,4 +22,16 @@ public class Queue<T> extends List<T> {
     public boolean isEmpty() {
         return (this.getLength() == 0);
     }
+
+
+    public void lock() {
+        Lock lock = null;
+        lock.lock();
+
+    }
+    public void unlock() {
+        Lock lock = null;
+        lock.unlock();
+    }
+
 }

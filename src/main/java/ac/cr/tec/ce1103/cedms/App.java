@@ -10,5 +10,4 @@ public class App {
         newserver.initConnection();
     }
 
-
 }
