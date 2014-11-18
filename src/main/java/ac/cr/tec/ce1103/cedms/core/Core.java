@@ -1,9 +1,11 @@
 package ac.cr.tec.ce1103.cedms.core;
 
+import ac.cr.tec.ce1103.cedms.data.XmlToolkit;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
+import ac.cr.tec.ce1103.cedms.server.Server_Socket;
+import ac.cr.tec.ce1103.cedms.serverClient.Client_Socket;
 
-import java.net.Socket;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -21,14 +23,19 @@ public abstract class Core {
     protected List<UpdateId> updateIds = new List<UpdateId>();
     protected List<Connection> connections = new List<Connection>();
     protected Scanner terminal;
-    protected Socket socket = new Socket();
     protected Queue queueIn = new Queue();
     protected Queue queueOut = new Queue();
-
+    protected Client_Socket clientSocket;
+    protected Server_Socket serverSocket;
+    protected boolean on = true;
 
     protected Core(int pId, int pPort) {
         this.id = pId;
         this.port = pPort;
+    }
+
+    public boolean isOn() {
+        return on;
     }
 
     public abstract void recibirConnection(int source, int target, int id, int adyacente, int precio, int updateId);
@@ -49,8 +56,9 @@ public abstract class Core {
 
     protected abstract void initScanner();
 
-    protected abstract void createConnection();
-
+    protected void createConnection(String pIp, int pPort) {
+        this.clientSocket = new Client_Socket(this, pIp, pPort);
+    }
     protected String askIP() {
         System.out.println(ASK_IP);
         if (terminal.hasNext(IPV4_PATTERN)) {
@@ -67,4 +75,7 @@ public abstract class Core {
         return askPort();
     }
 
+    public void recibirSocket(String messageReceived) {
+        XmlToolkit.readMessage(messageReceived, this);
+    }
 }

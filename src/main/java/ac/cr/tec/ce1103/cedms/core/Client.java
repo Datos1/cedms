@@ -10,7 +10,7 @@ public class Client extends Core implements Commons {
     private int updateIds = INITAL_UPDATE_ID;
     public static final String BIENVENIDO = "Bienvenido a CEDMS.";
     public static final int INITAL_MESSAGE_ID = 1;
-    private boolean on = true;
+
 
     public Client(int pId, int pPort) {
         super(pId, pPort);
@@ -22,7 +22,7 @@ public class Client extends Core implements Commons {
         System.out.println(BIENVENIDO);
 
         String ip = askIP();
-        String port = askPort();
+        int port = askPort();
 
         while (on) {
             System.out.println("Seleccione una de las siguientes opciones: 1:");
@@ -30,12 +30,6 @@ public class Client extends Core implements Commons {
                 System.out.println(terminal.next());
             }
         }
-    }
-
-
-    @Override
-    protected void createConnection() {
-
     }
 
 

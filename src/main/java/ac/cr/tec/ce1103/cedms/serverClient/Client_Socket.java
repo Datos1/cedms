@@ -11,11 +11,11 @@ import java.net.Socket;
 /**
  * Created by Stiven on 11/10/2014.
  */
-public class Client {
+public class Client_Socket {
     private PrintWriter out;
     private BufferedReader in;
 
-    Client(Core core, String hostName, int portNumber) {
+    public Client_Socket(Core core, String hostName, int portNumber) {
         try {
             Socket echoSocket = new Socket(hostName, portNumber);
 
