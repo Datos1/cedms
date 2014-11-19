@@ -11,10 +11,11 @@ import java.util.regex.Pattern;
 public class Client extends Core implements Commons {
     public static final int INITAL_UPDATE_ID = 0;
     private int updateIds = INITAL_UPDATE_ID;
+    public static final String ERROR_DE_CONEXION = "Error de conexion";
     public static final String OPCIONES = "Seleccione una de las siguientes opciones: 1: Agregar Conexion, 2:Enviar Mensajes 3: Ver Mensajes Nuevos 4: Desconectar ";
     public static final String BIENVENIDO = "Bienvenido a CEDMS.";
     public static final int INITAL_MESSAGE_ID = 1;
-    static protected Pattern OPCIONES_PATTERN = Pattern.compile("[1,5]");
+    static protected Pattern OPCIONES_PATTERN = Pattern.compile("[1-5]");
 
 
     public Client(long pId, int pPort) {
@@ -27,14 +28,31 @@ public class Client extends Core implements Commons {
         terminal = new Scanner(System.in);
         System.out.println(BIENVENIDO);
 
-        String ip = askIP();
-        int port = askPort();
-        createConnectionPhase1(ip, port);
+        askAndConnect();
+
         while (on) {
             System.out.println(OPCIONES);
             if (terminal.hasNext(OPCIONES_PATTERN)) {
-                System.out.println(terminal.next());
-            }
+                switch (Integer.parseInt(terminal.next())) {
+                    case 1:
+                        askAndConnect();
+                        break;
+                    case 2:
+                        break;
+
+
+                }
+                System.out.println("------");
+            } else terminal.next();
+        }
+    }
+
+    protected void askAndConnect() {
+        try {
+            createConnectionPhase1(askIP(), askPort());
+        } catch (Exception e) {
+            System.out.println(ERROR_DE_CONEXION);
+            askAndConnect();
         }
     }
 
