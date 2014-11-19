@@ -6,6 +6,7 @@ import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
 import ac.cr.tec.ce1103.cedms.server.Server_Socket;
 import ac.cr.tec.ce1103.cedms.serverClient.Client_Socket;
 
+import java.net.ConnectException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -69,7 +70,8 @@ public abstract class Core {
      * @param pIp
      * @param pPort
      */
-    protected void createConnectionPhase1(String pIp, int pPort) {
+    protected void createConnectionPhase1(String pIp, int pPort) throws ConnectException {
+
         this.clientSocketTemp = new Client_Socket(this, pIp, pPort);
         this.clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, id + "-" + updateCounter++));
     }
