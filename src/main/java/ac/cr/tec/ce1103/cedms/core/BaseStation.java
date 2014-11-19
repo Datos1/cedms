@@ -41,4 +41,19 @@ public class BaseStation extends Core {
 
     }
 
+    /**
+     * Este metodo recibe el mensaje descifrado y ...
+     *
+     * @param source
+     * @param target
+     * @param updateId
+     * @param titulo
+     * @param msg
+     * @param numero
+     */
+    @Override
+    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
+
+    }
+
 }
