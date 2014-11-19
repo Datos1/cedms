@@ -6,33 +6,39 @@ package ac.cr.tec.ce1103.cedms.core;
 public class BaseStation extends Core {
 
 
-    public BaseStation(int pId, int pPort) {
+    public BaseStation(long pId, int pPort) {
         super(pId, pPort);
     }
 
-    @Override
-    public void recibirConnection(int source, int target, int id, int adyacente, int precio, int updateId) {
-
-    }
-
-    /**
-     * It receives a message and
-     *
-     * @param msg
-     */
-
-    @Override
-    public void difusion(String msg) {
-
-    }
 
     @Override
     protected void initScanner() {
 
     }
 
+
+    /**
+     * Recibe la conexion en segunda fase
+     *
+     * @param updateId
+     * @param precio
+     */
     @Override
-    protected void createConnection() {
+    public void recibirConnectionPhase2(String updateId, int precio) {
 
     }
+
+    /**
+     * Recibe la conexion completa
+     *
+     * @param updateId
+     * @param precio
+     * @param id
+     * @param adyacente
+     */
+    @Override
+    public void recibirConnection(String updateId, int precio, int id, int adyacente) {
+
+    }
+
 }

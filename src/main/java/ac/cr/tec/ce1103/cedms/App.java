@@ -18,7 +18,7 @@ public class App {
         if (args.length != 3)
             System.out.println(USAGE);
         try {
-            int id = Integer.parseInt(args[0]);
+            long id = Long.parseLong(args[0]);
             int port = Integer.parseInt(args[1]);
             String type = args[2].toLowerCase();
             if (type.equals(CLIENT))

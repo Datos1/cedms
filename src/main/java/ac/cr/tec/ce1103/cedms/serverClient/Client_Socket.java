@@ -11,7 +11,7 @@ import java.net.Socket;
 /**
  * Created by Stiven on 11/10/2014.
  */
-public class Client_Socket {
+public class Client_Socket implements Runnable {
     private PrintWriter out;
     private BufferedReader in;
 
@@ -32,4 +32,9 @@ public class Client_Socket {
         out.print(text);
     }
 
+
+    @Override
+    public void run() {
+
+    }
 }

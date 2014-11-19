@@ -1,7 +1,6 @@
 package ac.cr.tec.ce1103.cedms.data;
 
 import ac.cr.tec.ce1103.cedms.core.Core;
-import ac.cr.tec.ce1103.cedms.core.UpdateId;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -49,6 +48,7 @@ public class XmlToolkit {
             xmlFile = builder.parse(new InputSource(new StringReader(input)));
         } catch (Exception e) {
             System.out.println("Error en el XML");
+            return;
         }
         String rootName = xmlFile.getDocumentElement().getNodeName();
         Message type = null;
@@ -75,18 +75,16 @@ public class XmlToolkit {
      * @param type
      */
     private static void readMessageAux(Core output, Document xml, Message type) {
-        int updateId = Integer.parseInt(xml.getElementsByTagName(UPDATEID).item(HEAD).getTextContent());
-        int source = Integer.parseInt(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
-        int target = Integer.parseInt(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+        String updateId = xml.getElementsByTagName(UPDATEID).item(HEAD).getTextContent();
         switch (type) {
 
             case CONNECTION:
-                int id = Integer.parseInt(xml.getElementsByTagName(ID).item(HEAD).getTextContent());
-                int adyacente = Integer.parseInt(xml.getElementsByTagName(ADYACENTE).item(HEAD).getTextContent());
-                int precio = Integer.parseInt(xml.getElementsByTagName(PRECIO).item(HEAD).getTextContent());
-                output.recibirConnection(source, target, updateId, id, adyacente, precio);
+                readConnection(output, xml, updateId);
                 break;
             // gets information relevant to message
+            default:
+                long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
+                long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
             case GRAFO:
                 //output.recibirGrafo();
                 break;
@@ -102,7 +100,57 @@ public class XmlToolkit {
         }
     }
 
-    public static String newConnection(int id, int adyacente, int precio, UpdateId updateId) {
+    private static void readConnection(Core output, Document xml, String updateId) {
+        if (xml.getElementsByTagName(TARGET).getLength() != 0) {
+            long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+            output.recibirConnectionPhase1(target, updateId);
+        } else {
+            int precio = Integer.parseInt(xml.getElementsByTagName(PRECIO).item(HEAD).getTextContent());
+
+            if (xml.getElementsByTagName(ID).getLength() != 0) {
+                int id = Integer.parseInt(xml.getElementsByTagName(ID).item(HEAD).getTextContent());
+                int adyacente = Integer.parseInt(xml.getElementsByTagName(ADYACENTE).item(HEAD).getTextContent());
+                output.recibirConnection(updateId, precio, id, adyacente);
+            } else {
+                output.recibirConnectionPhase2(updateId, precio);
+            }
+
+        }
+    }
+
+    public static String newConnectionPhase1(long source, String updateId) {
+        Document xml = newDocument();
+        Element root = xml.createElement(Message.CONNECTION.toString());
+        xml.appendChild(root);
+
+        Element sourceNode = xml.createElement(SOURCE);
+        Element updateIdNode = xml.createElement(UPDATEID);
+
+        sourceNode.appendChild(xml.createTextNode("" + source));
+        updateIdNode.appendChild(xml.createTextNode(updateId));
+
+        root.appendChild(sourceNode);
+        root.appendChild(updateIdNode);
+        return XmlToolkit.xmlToString(xml);
+    }
+
+    public static String newConnectionPhase2(int precio, String updateId) {
+        Document xml = newDocument();
+        Element root = xml.createElement(Message.CONNECTION.toString());
+        xml.appendChild(root);
+
+        Element precioNode = xml.createElement(SOURCE);
+        Element updateIdNode = xml.createElement(UPDATEID);
+
+        precioNode.appendChild(xml.createTextNode("" + precio));
+        updateIdNode.appendChild(xml.createTextNode(updateId));
+
+        root.appendChild(precioNode);
+        root.appendChild(updateIdNode);
+        return XmlToolkit.xmlToString(xml);
+    }
+
+    public static String newConnection(int id, int adyacente, int precio, String updateId) {
         Document xml = newDocument();
         Element root = xml.createElement(Message.CONNECTION.toString());
         xml.appendChild(root);
@@ -115,7 +163,7 @@ public class XmlToolkit {
         idNode.appendChild(xml.createTextNode("" + id));
         adyNode.appendChild(xml.createTextNode("" + adyacente));
         precioNode.appendChild(xml.createTextNode("" + precio));
-        updateIdNode.appendChild(xml.createTextNode(updateId.toString()));
+        updateIdNode.appendChild(xml.createTextNode(updateId));
 
         root.appendChild(idNode);
         root.appendChild(adyNode);
@@ -160,4 +208,6 @@ public class XmlToolkit {
             return null;
         }
     }
+
+
 }

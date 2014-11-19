@@ -11,9 +11,9 @@ import java.net.Socket;
 /**
  * Created by Stiven on 11/9/2014.
  */
-public class Server_Socket {
-
+public class Server_Socket implements Runnable {
     private final Core core;
+    private Thread t;
     private java.net.ServerSocket serv_socket;
     private Socket socket;
     private String messageReceived;
@@ -25,8 +25,11 @@ public class Server_Socket {
         this.core = core;
         try {
             serv_socket = new java.net.ServerSocket(port);
-            initConnection();
-            listen();
+            if (t == null) {
+                t = new Thread(this);
+                t.start();
+            }
+
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
         }
@@ -38,7 +41,6 @@ public class Server_Socket {
         try {//se pregunta al usuario si quiere una conexion, si la quiere hace lo siguiente:
             socket=serv_socket.accept();//waits until there is a connection.
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));//receives the flow of data saved in a buffered reader.
-            output_msg = new DataOutputStream(socket.getOutputStream());//is the flow of data that goes as the output.
 
 
         } catch (IOException e) {
@@ -48,10 +50,21 @@ public class Server_Socket {
 
     }
 
-    protected void listen() throws IOException {
+    protected void listen() {
         while (core.isOn()) {
-            messageReceived = input.readLine();//reads message
+            try {
+                messageReceived = input.readLine();//reads message
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             core.recibirSocket(messageReceived);
         }
+    }
+
+
+    @Override
+    public void run() {
+        initConnection();
+        listen();
     }
 }

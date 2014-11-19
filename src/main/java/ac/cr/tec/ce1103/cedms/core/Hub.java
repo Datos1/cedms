@@ -4,14 +4,10 @@ package ac.cr.tec.ce1103.cedms.core;
  * Created by pablo on 10/11/14.
  */
 public class Hub extends Core {
-    public Hub(int pId, int pPort) {
+    public Hub(long pId, int pPort) {
         super(pId, pPort);
     }
 
-    @Override
-    public void recibirConnection(int source, int target, int id, int adyacente, int precio, int updateId) {
-
-    }
 
     /**
      * It diffuses a message through all the system
@@ -28,8 +24,28 @@ public class Hub extends Core {
 
     }
 
+    /**
+     * Recibe la conexion en segunda fase
+     *
+     * @param updateId
+     * @param precio
+     */
     @Override
-    protected void createConnection() {
+    public void recibirConnectionPhase2(String updateId, int precio) {
 
     }
+
+    /**
+     * Recibe la conexion completa
+     *
+     * @param updateId
+     * @param precio
+     * @param id
+     * @param adyacente
+     */
+    @Override
+    public void recibirConnection(String updateId, int precio, int id, int adyacente) {
+
+    }
+
 }
