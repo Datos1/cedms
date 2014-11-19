@@ -33,7 +33,15 @@ public class Client extends Core implements Commons {
         while (on) {
             System.out.println(OPCIONES);
             if (terminal.hasNext(OPCIONES_PATTERN)) {
-                System.out.println(terminal.next());
+                switch (Integer.parseInt(terminal.next())) {
+                    case 1:
+                        askAndConnect();
+                        break;
+                    case 2:
+                        break;
+
+
+                }
                 System.out.println("------");
             } else terminal.next();
         }
