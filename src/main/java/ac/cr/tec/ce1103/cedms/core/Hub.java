@@ -19,10 +19,6 @@ public class Hub extends Core {
 
     }
 
-    @Override
-    protected void initScanner() {
-
-    }
 
     /**
      * Recibe la conexion en segunda fase

@@ -11,12 +11,6 @@ public class BaseStation extends Core {
     }
 
 
-    @Override
-    protected void initScanner() {
-
-    }
-
-
     /**
      * Recibe la conexion en segunda fase
      *

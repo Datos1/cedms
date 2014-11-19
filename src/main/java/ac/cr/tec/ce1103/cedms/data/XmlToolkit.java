@@ -79,7 +79,7 @@ public class XmlToolkit {
         switch (type) {
 
             case CONNECTION:
-                readConnection(output, xml, updateId);
+                readInConnection(output, xml, updateId);
                 break;
             // gets information relevant to message
             default:
@@ -88,7 +88,7 @@ public class XmlToolkit {
                 //output.recibirGrafo();
                 break;
             case MENSAJE:
-                readMessage(output, xml, updateId);
+                readInMessage(output, xml, updateId);
                 break;
             case DESCONECTAR:
                 //output.desconectar();
@@ -96,7 +96,7 @@ public class XmlToolkit {
         }
     }
 
-    private static void readMessage(Core output, Document xml, String updateId) {
+    private static void readInMessage(Core output, Document xml, String updateId) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
         String titulo = xml.getElementsByTagName(TITULO).item(HEAD).getTextContent();
@@ -105,7 +105,7 @@ public class XmlToolkit {
         output.recibirMensaje(source, target, updateId, titulo, msg, numero);
     }
 
-    private static void readConnection(Core output, Document xml, String updateId) {
+    private static void readInConnection(Core output, Document xml, String updateId) {
         if (xml.getElementsByTagName(TARGET).getLength() != 0) {
             long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
             output.recibirConnectionPhase1(target, updateId);
