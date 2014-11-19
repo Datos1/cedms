@@ -40,7 +40,7 @@ public class Node<T> {
     /**
      * adds next node
      *
-     * @param pNext Node
+     * @param pNext graphNode
      */
     public void setNext(Node<T> pNext) {
         next = pNext;
