@@ -8,26 +8,44 @@ import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import javax.swing.*;
 
 /**
- * Node class for the graphClass.
+ * graphNode class for the graphClass.
  */
-public class Node<T> {//Node class
+public class graphNode<T> {//graphNode class
 
     private T element;//the element is of type base, client or hub.
-    private List<Link> links;//all connections that have each elements
+    private List<graphNode> node_graphs;//list of graph nodes(to make the Adjacency list)
+    private List<Link> links;//all connections that has this node.
     private int actual_links;//number of links per node.
     private int id;//id of each node.
+    private int num_node_graphs;
     private String nombre_elemento;//base,client or hub in string.
+    //agregar una lista de nodos para hacer la lista de adyacencia.
 
 
-    public Node(T name)//name is hub,client or base station.
-    {
-        this.element = name;
-        this.actual_links = -1;
+    public graphNode(T name_type){//name is Object of type hub,client or base station.
+        this.element = name_type;
+        this.actual_links = 0;
         this.links= new List<Link>();
         this.id=1;
 
+
     }
 
+    public int getNum_node_graphs() {
+        return num_node_graphs;
+    }
+
+    public void setNum_node_graphs() {
+        this.num_node_graphs=this.node_graphs.getLength();
+    }
+
+    public List<graphNode> getNode_graphs() {
+        return node_graphs;
+    }
+
+    public void setNode_graphs(List<graphNode> node_graphs) {
+        this.node_graphs = node_graphs;
+    }
 
     public String getNombre_elemento() {
         return nombre_elemento;
@@ -73,16 +91,16 @@ public class Node<T> {//Node class
     }
 
 
-    public void addLink(int initial,int destiny, int weight){
+    public void addLink(graphNode destiny, int weight){
         if (actual_links == -1){
-            links.append(new Link(this.id,destiny,weight));
+            links.append(new Link(this,destiny,weight));
             actual_links++;
         }
         else
         {
             boolean pos= existLink(destiny);
             if (pos == false){
-                links.append(new Link(this.id,destiny,weight));
+                links.append(new Link(this,destiny,weight));
             }
         }
     }
@@ -99,9 +117,9 @@ public class Node<T> {//Node class
     }
 
 
-    public boolean existLink(int link){//checks if there is a link from the parameter in the links of this node.
+    public boolean existLink(graphNode link){//checks if there is a link from the parameter in the links of this node.
         for(int i=0;i<links.getLength();i++){
-            if(links.get(i).getTerminal()==link)
+            if(links.get(i).getTerminal().equals(link))
                 return true;
         }
         return false;

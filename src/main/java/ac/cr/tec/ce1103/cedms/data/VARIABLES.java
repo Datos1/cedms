@@ -5,5 +5,5 @@ package ac.cr.tec.ce1103.cedms.data;
  */
 public interface VARIABLES {
 
-    public static int PUERTO=0;
+    public static int PUERTO=5012;
 }
