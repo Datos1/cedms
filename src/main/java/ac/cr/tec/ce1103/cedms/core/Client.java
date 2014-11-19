@@ -33,7 +33,7 @@ public class Client extends Core implements Commons {
     public Client(long pId, int pPort) {
         super(pId, pPort);
         this.serverSocket = new Server_Socket(this, pPort);
-        //initScanner();
+        initScanner();
     }
 
     public void initScanner() {
