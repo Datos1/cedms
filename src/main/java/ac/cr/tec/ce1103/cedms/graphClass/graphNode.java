@@ -1,10 +1,11 @@
 package ac.cr.tec.ce1103.cedms.graphClass;
 
+import ac.cr.tec.ce1103.cedms.App;
 import ac.cr.tec.ce1103.cedms.core.BaseStation;
 import ac.cr.tec.ce1103.cedms.core.Client;
 import ac.cr.tec.ce1103.cedms.core.Hub;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
-
+import static ac.cr.tec.ce1103.cedms.App.INSTANCE_COUNTER;
 import javax.swing.*;
 
 /**
@@ -21,83 +22,140 @@ public class graphNode<T> {//graphNode class
     private String nombre_elemento;//base,client or hub in string.
     //agregar una lista de nodos para hacer la lista de adyacencia.
 
-
+    /**
+     * constructor
+     * @param name_type
+     */
     public graphNode(T name_type){//name is Object of type hub,client or base station.
         this.element = name_type;
         this.actual_links = 0;
         this.links= new List<Link>();
         this.id=1;
-
-
     }
 
+    /**
+     *
+     * @return number of node graphs.
+     */
     public int getNum_node_graphs() {
         return num_node_graphs;
     }
 
+    /**
+     * sets node graphs
+     */
     public void setNum_node_graphs() {
         this.num_node_graphs=this.node_graphs.getLength();
     }
 
+    /**
+     *
+     * @return the list of graphs
+     */
     public List<graphNode> getNode_graphs() {
         return node_graphs;
     }
 
+    /**
+     * sets list of nodes.
+     * @param node_graphs
+     */
     public void setNode_graphs(List<graphNode> node_graphs) {
         this.node_graphs = node_graphs;
     }
 
+    /**
+     *
+     * @return String name for the type of object
+     */
     public String getNombre_elemento() {
-        return nombre_elemento;
+        this.getElementName();
+        return this.nombre_elemento;
     }
 
-    public void setNombre_elemento(String nombre_elemento) {
-        this.nombre_elemento = nombre_elemento;
-    }
+    /**
+     * sets the string name for
+     *
+     */
+   /* public void setNombre_elemento() {//sets the string name of the element
+        this.getElementName();
+    }*/
 
-
+    /**
+     *
+     * @return int id
+     */
     public int getId() {
         return id;
     }
 
-    public void setId() {//se suma uno al id cada vez que se crea un nuevo nodo,para que se tenga un unico id por nodo.
-        this.id = this.id+1;
+    /**
+     * sets the unique id for each instance of this class.
+     */
+    public void setId() {//se suma uno al INSTANCE_COUNTER cada vez que se crea un nuevo nodo,para que se tenga un unico id por nodo.
+        this.id = INSTANCE_COUNTER;
+
     }
 
-
+    /**
+     *
+     * @return int actual links.
+     */
     public int getActual_links() {
         return links.getLength();
     }
 
-
+    /**
+     *
+     * @param actual_links
+     */
     public void setActual_links(int actual_links) {
         this.actual_links = actual_links;
     }
 
+    /**
+     *
+     * @return the list of links
+     */
     public List<Link> getLinks() {
         return links;
     }
 
+    /**
+     * sets the links
+     * @param links
+     */
     public void setLinks(List<Link> links) {
         this.links = links;
     }
 
+    /**
+     *
+     * @return gets the type of object
+     */
     public T getName() {
         return element;
     }
 
+    /**
+     * sets the type of element
+     * @param name
+     */
     public void setName(T name) {
         this.element = name;
     }
 
-
-    public void addLink(graphNode destiny, int weight){
-        if (actual_links == -1){
+    /**
+     * adds a link for this graph node
+     * @param destiny
+     * @param weight
+     */
+    public void addLink(graphNode destiny, int weight){//adds the link with the param destiny and its weight or price.
+        if (actual_links == -1){//if there are not links
             links.append(new Link(this,destiny,weight));
             actual_links++;
         }
-        else
-        {
+        else{
             boolean pos= existLink(destiny);
             if (pos == false){
                 links.append(new Link(this,destiny,weight));
@@ -105,18 +163,27 @@ public class graphNode<T> {//graphNode class
         }
     }
 
-   public boolean deleteLink(int posicion){
-        if (posicion >= 0 && posicion <= links.getLength()){
+    /**
+     *
+     * @param posicion
+     * @return true if the link was deleted.
+     */
+   public boolean deleteLink(int posicion){//deletes the link on the position of the parameter
+        if (posicion >= 0 && posicion <= links.getLength()){//if position is in a valid range.
             links.remove(posicion);
             actual_links--;
             return true;
         }
-        else JOptionPane.showMessageDialog(null, "No hay enlace en la posicion " + posicion);
+        else JOptionPane.showMessageDialog(null, "No link in position: " + posicion);
 
         return false;
     }
 
-
+    /**
+     *
+     * @param link
+     * @return true if the link exists
+     */
     public boolean existLink(graphNode link){//checks if there is a link from the parameter in the links of this node.
         for(int i=0;i<links.getLength();i++){
             if(links.get(i).getTerminal().equals(link))
@@ -125,22 +192,25 @@ public class graphNode<T> {//graphNode class
         return false;
     }
 
-    public String getElementName(){//gets the string name of the objects of type base station, hub or client.
-        String name_element="";
-        if(this.element instanceof BaseStation){
+    /**
+     *
+     * @return string name of the element, hub, base station or client.
+     */
+    private void getElementName(){//gets the string name of the objects of type base station, hub or client.
+        if(this.element instanceof BaseStation){//if it is instance of Base Station
             this.nombre_elemento="Base Station";
-            name_element="Base Station";
+
         }
-        else if(this.element instanceof Client){
+        else if(this.element instanceof Client){//if it is instance of Client
             this.nombre_elemento="Client";
-            name_element="Client";
+
         }
-        else if(this.element instanceof Hub){
+        else if(this.element instanceof Hub){//if it is instance of Hub
             this.nombre_elemento="Hub";
-            name_element="Hub";
+
         }
 
-        return name_element;
+
     }
 
 
