@@ -175,7 +175,7 @@ public class List<T> {
         if (posicion>=0 && posicion <=getLength()){
             if (posicion==0 || posicion==getLength()){
                 if (posicion==0){//si la posicion es al inicio.
-                    // System.out.println("entro");
+                   // System.out.println("entro");
                     AddHead(datos);
                 }
                 if (posicion == getLength()){//si la posicion es al final.

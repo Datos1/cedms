@@ -3,8 +3,9 @@ package ac.cr.tec.ce1103.cedms;
 
 import ac.cr.tec.ce1103.cedms.core.BaseStation;
 import ac.cr.tec.ce1103.cedms.core.Client;
-import ac.cr.tec.ce1103.cedms.core.Core;
 import ac.cr.tec.ce1103.cedms.core.Hub;
+import ac.cr.tec.ce1103.cedms.graphClass.Graph;
+import ac.cr.tec.ce1103.cedms.graphClass.graphNode;
 
 public class App {
 
@@ -13,8 +14,8 @@ public class App {
     public static final String HUB = "hub";
     public static final String BASE_STATION = "base-station";
 
+
     public static void main(String[] args) {
-        Core core;
         if (args.length != 3)
             System.out.println(USAGE);
         try {
@@ -34,4 +35,4 @@ public class App {
         }
     }
 
-}
+}}
