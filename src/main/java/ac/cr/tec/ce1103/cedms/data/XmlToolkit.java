@@ -83,21 +83,26 @@ public class XmlToolkit {
                 break;
             // gets information relevant to message
             default:
-                long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
-                long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+
             case GRAFO:
                 //output.recibirGrafo();
                 break;
             case MENSAJE:
-                String titulo = xml.getElementsByTagName(TITULO).item(HEAD).getTextContent();
-                String msg = xml.getElementsByTagName(MSG).item(HEAD).getTextContent();
-                int numero = Integer.parseInt(xml.getElementsByTagName(NUMERO).item(HEAD).getTextContent());
-                //output.recibirMensaje(source,target,updateId, titulo, msg, numero);
+                readMessage(output, xml, updateId);
                 break;
             case DESCONECTAR:
                 //output.desconectar();
                 break;
         }
+    }
+
+    private static void readMessage(Core output, Document xml, String updateId) {
+        long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
+        long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+        String titulo = xml.getElementsByTagName(TITULO).item(HEAD).getTextContent();
+        String msg = xml.getElementsByTagName(MSG).item(HEAD).getTextContent();
+        int numero = Integer.parseInt(xml.getElementsByTagName(NUMERO).item(HEAD).getTextContent());
+        output.recibirMensaje(source, target, updateId, titulo, msg, numero);
     }
 
     private static void readConnection(Core output, Document xml, String updateId) {
@@ -210,4 +215,33 @@ public class XmlToolkit {
     }
 
 
+    public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero) {
+        Document xml = newDocument();
+        Element root = xml.createElement(Message.CONNECTION.toString());
+        xml.appendChild(root);
+
+        Element sourceNode = xml.createElement(ID);
+        Element targetNode = xml.createElement(TARGET);
+        Element updateIdNode = xml.createElement(UPDATEID);
+        Element tituloNode = xml.createElement(PRECIO);
+        Element msgNode = xml.createElement(PRECIO);
+        Element numeroNode = xml.createElement(PRECIO);
+
+
+        sourceNode.appendChild(xml.createTextNode("" + source));
+        targetNode.appendChild(xml.createTextNode("" + target));
+        updateIdNode.appendChild(xml.createTextNode(updateId));
+        tituloNode.appendChild(xml.createTextNode(titulo));
+        msgNode.appendChild(xml.createTextNode(msg));
+        numeroNode.appendChild(xml.createTextNode("" + numero));
+
+
+        root.appendChild(sourceNode);
+        root.appendChild(targetNode);
+        root.appendChild(updateIdNode);
+        root.appendChild(tituloNode);
+        root.appendChild(msgNode);
+        root.appendChild(numeroNode);
+        return XmlToolkit.xmlToString(xml);
+    }
 }

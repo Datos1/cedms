@@ -17,9 +17,11 @@ import java.util.regex.Pattern;
 public abstract class Core {
     public static final String ASK_PORT = "Por favor ingrese el puerto de conexion: ";
     public static final String ASK_IP = "Por favor ingrese el ip de conexion: ";
+    public static final String INPUT_ERROR = "Respuesta invalida...";
     static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";
     static protected Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
     static protected Pattern PORT_PATTERN = Pattern.compile("\\d{1,5}");
+    static protected Pattern BOOLEAN_PATTERN = Pattern.compile("[01]");
     static protected Pattern OPCIONES_PATTERN;
     protected long id;
     protected int port;
@@ -73,7 +75,11 @@ public abstract class Core {
     protected void createConnectionPhase1(String pIp, int pPort) throws ConnectException {
 
         this.clientSocketTemp = new Client_Socket(this, pIp, pPort);
-        this.clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, id + "-" + updateCounter++));
+        this.clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, nextUpdateId()));
+    }
+
+    protected String nextUpdateId() {
+        return id + "-" + updateCounter++;
     }
 
     /**
@@ -98,6 +104,16 @@ public abstract class Core {
         return askIP();
     }
 
+    protected boolean yesNoQuestion(String text) {
+        System.out.println(text);
+        if (terminal.hasNext(BOOLEAN_PATTERN)) {
+            return (terminal.next()).equals("1");
+        } else {
+            System.out.println(INPUT_ERROR);
+            terminal.next();
+            return yesNoQuestion(text);
+        }
+    }
     protected int askPort() {
         System.out.println(ASK_PORT);
         if (terminal.hasNext(PORT_PATTERN)) { //verifica que sea en formato puerto
@@ -142,4 +158,16 @@ public abstract class Core {
      * @param adyacente
      */
     public abstract void recibirConnection(String updateId, int precio, int id, int adyacente);
+
+    /**
+     * Este metodo recibe el mensaje descifrado y ...
+     *
+     * @param source
+     * @param target
+     * @param updateId
+     * @param titulo
+     * @param msg
+     * @param numero
+     */
+    public abstract void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero);
 }
