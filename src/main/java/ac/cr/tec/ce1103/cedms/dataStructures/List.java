@@ -219,4 +219,14 @@ public class List<T> {
         }
 
     }
+
+    public boolean find(T x) {
+        Node<T> ele = _head;
+        while (ele != null) {
+            if (ele.getData().equals(x))
+                return true;
+            ele = ele.getNext();
+        }
+        return false;
+    }
 }

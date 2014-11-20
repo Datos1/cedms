@@ -14,11 +14,12 @@ import java.util.Random;
  * Created by pablo on 10/11/14.
  */
 public abstract class Core {
-
+    public static final int INITAL_UPDATE_ID = 0;
+    protected int updateIds = INITAL_UPDATE_ID;
     protected long id;
     protected int port;
     protected int updateCounter = 0;
-    protected List<String> updateIds = new List<String>();
+    protected List<String> updateIdsList = new List<String>(); // importante!! el update id de mensajes posee un append de un guion y el numero
     protected List<Connection> connections = new List<Connection>();
     protected Terminal ui;
     protected Queue queueIn = new Queue();

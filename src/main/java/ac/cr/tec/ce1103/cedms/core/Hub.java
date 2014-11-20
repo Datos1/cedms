@@ -19,18 +19,6 @@ public class Hub extends Core {
 
     }
 
-
-    /**
-     * Recibe la conexion en segunda fase
-     *
-     * @param updateId
-     * @param precio
-     */
-    @Override
-    public void recibirConnectionPhase2(String updateId, int precio) {
-
-    }
-
     /**
      * Recibe la conexion completa
      *

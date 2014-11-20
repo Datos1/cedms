@@ -10,8 +10,6 @@ import ac.cr.tec.ce1103.cedms.server.Server_Socket;
  * Created by pablo on 10/11/14.
  */
 public class Client extends Core implements Commons {
-    public static final int INITAL_UPDATE_ID = 0;
-    private int updateIds = INITAL_UPDATE_ID;
     public static final int INITAL_MESSAGE_ID = 1;
     private List<Mensaje> mensajes = new List<Mensaje>();
     private Queue<Mensaje> nuevosMensajes = new Queue<Mensaje>();
@@ -22,12 +20,6 @@ public class Client extends Core implements Commons {
         this.serverSocket = new Server_Socket(this, pPort);
         ui = new ClientTerminal(this);
     }
-
-
-
-
-
-
 
 
     /**
@@ -70,8 +62,7 @@ public class Client extends Core implements Commons {
             Mensaje nuevo = new Mensaje(source, target, updateId, titulo, msg, numero);
             mensajes.append(nuevo);
             nuevosMensajes.add(nuevo);
-        }
-        else
+        } else
             difusion(XmlToolkit.createMessage(source, target, updateId, titulo, msg, numero));
     }
 

@@ -18,6 +18,7 @@ public abstract class Terminal {
     public static final String ASK_PORT = "Por favor ingrese el puerto de conexion: ";
     public static final String ASK_IP = "Por favor ingrese el ip de conexion: ";
     public static final String INPUT_ERROR = "Respuesta invalida...";
+    public static final String TRUE = "1";
     static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))|localhost";
     static protected Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
     protected static String OPCIONES;
@@ -70,7 +71,7 @@ public abstract class Terminal {
     public boolean yesNoQuestion(String text) {
         System.out.println(text);
         if (terminal.hasNext(BOOLEAN_PATTERN)) {
-            return (terminal.next()).equals("1");
+            return (terminal.next()).equals(TRUE);
         } else {
             System.out.println(INPUT_ERROR);
             terminal.next();
