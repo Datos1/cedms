@@ -18,11 +18,16 @@ public abstract class Terminal {
     public static final String ASK_PORT = "Por favor ingrese el puerto de conexion: ";
     public static final String ASK_IP = "Por favor ingrese el ip de conexion: ";
     public static final String INPUT_ERROR = "Respuesta invalida...";
+    public static final String INVALID_ID = "Formato Id Invalido!";
+    public static final String INVALID_IP = "Formato Ip Invalido!";
+    public static final String INVALID_PORT = "Formato Puerto Invalido!";
     public static final String TRUE = "1";
+    public static final long ID_SMALL_MASK = 1234567890123000l;
     static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))|localhost";
     static protected Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
     protected static String OPCIONES;
     static protected Pattern ID_PATTERN = Pattern.compile("\\d{16}");
+    static protected Pattern ID_PATTERN_SMALL = Pattern.compile("\\d{3}");
     static protected Pattern PORT_PATTERN = Pattern.compile("\\d{1,5}");
     static protected Pattern BOOLEAN_PATTERN = Pattern.compile("[01]");
     static protected Pattern OPCIONES_PATTERN;
@@ -63,9 +68,24 @@ public abstract class Terminal {
         if (terminal.hasNext(IPV4_PATTERN)) {// verificamos que sea un puerto valido
             return terminal.next();
         } else {
+            System.out.println(INVALID_IP);
             terminal.next();
         }
         return askIP();
+    }
+
+    public long askID() {
+        System.out.println(ASK_IP);
+        if (terminal.hasNext(ID_PATTERN)) {// verificamos que sea un puerto valido
+            return Long.parseLong(terminal.next());
+        } else if (terminal.hasNext(ID_PATTERN_SMALL))// para ahorrar tiempo se usan ids de tres digitos
+        {
+            return ID_SMALL_MASK + Long.parseLong(terminal.next());
+        } else {
+            System.out.println(INVALID_ID);
+            terminal.next();
+        }
+        return askID();
     }
 
     public boolean yesNoQuestion(String text) {
@@ -84,6 +104,7 @@ public abstract class Terminal {
         if (terminal.hasNext(PORT_PATTERN)) { //verifica que sea en formato puerto
             return Integer.parseInt(terminal.next());
         } else {
+            System.out.println(INVALID_PORT);
             terminal.next();
         }
         return askPort();

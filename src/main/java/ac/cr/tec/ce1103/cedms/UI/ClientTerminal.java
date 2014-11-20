@@ -16,7 +16,6 @@ public class ClientTerminal extends Terminal {
     public static final String TITULO = "Por favor proporcione el titulo del mensaje: ";
     public static final String ASK_MENSAJE = "Por favor ingrese el mensaje: ";
     public static final String ASK_ID = "Por favor ingrese el id destino: ";
-    public static final String INVALID_ID = "Formato Id Invalido!";
     public static final String NO_NEW_MESSAGES = "No hay mensajes nuevos...";
     public static final String NUEVO_MENSAJE = "Nuevo mensaje de: ";
     public static final String REPLY = "Desea responder o descartar? (1/0): ";
@@ -78,7 +77,6 @@ public class ClientTerminal extends Terminal {
         if (terminal.hasNext(ID_PATTERN)) {
             id = Long.parseLong(terminal.next());
         } else {
-            System.out.println(INVALID_ID);
             terminal.next();
             askAndSend();
         }
