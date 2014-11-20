@@ -17,6 +17,7 @@ public abstract class Terminal {
     public static final String BIENVENIDO = "Bienvenido a CEDMS.";
     public static final String ASK_PORT = "Por favor ingrese el puerto de conexion: ";
     public static final String ASK_IP = "Por favor ingrese el ip de conexion: ";
+    public static final String ASK_ID = "Por favor ingrese el id destino: ";
     public static final String INPUT_ERROR = "Respuesta invalida...";
     public static final String INVALID_ID = "Formato Id Invalido!";
     public static final String INVALID_IP = "Formato Ip Invalido!";
@@ -75,7 +76,7 @@ public abstract class Terminal {
     }
 
     public long askID() {
-        System.out.println(ASK_IP);
+        System.out.println(ASK_ID);
         if (terminal.hasNext(ID_PATTERN)) {// verificamos que sea un puerto valido
             return Long.parseLong(terminal.next());
         } else if (terminal.hasNext(ID_PATTERN_SMALL))// para ahorrar tiempo se usan ids de tres digitos

@@ -15,7 +15,6 @@ public class ClientTerminal extends Terminal {
             " 6: Cambiar peso Nodo 7: Desconectar ";
     public static final String ASK_TITULO = "Por favor proporcione el titulo del mensaje: ";
     public static final String ASK_MENSAJE = "Por favor ingrese el mensaje: ";
-    public static final String ASK_ID = "Por favor ingrese el id destino: ";
     public static final String NO_NEW_MESSAGES = "No hay mensajes nuevos...";
     public static final String NUEVO_MENSAJE = "Nuevo mensaje de: ";
     public static final String REPLY = "Desea responder o descartar? (1/0): ";
@@ -70,8 +69,6 @@ public class ClientTerminal extends Terminal {
     }
 
     private void askAndSend() {
-
-        System.out.println(ASK_ID);
         long id = askID();
         String titulo = askTitulo();
         String msg = askMensaje();
