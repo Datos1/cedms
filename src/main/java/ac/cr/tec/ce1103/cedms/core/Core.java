@@ -72,7 +72,9 @@ public abstract class Core {
     }
 
     protected String nextUpdateId() {
-        return id + "-" + updateCounter++;
+        String upId = id + "-" + updateCounter++;
+        updateIdsList.append(upId);
+        return upId;
     }
 
     /**

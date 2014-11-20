@@ -13,7 +13,7 @@ public class ClientTerminal extends Terminal {
     public static final String OPCIONES = "Seleccione una de las siguientes opciones: 1: Agregar Conexion," +
             " 2:Enviar Mensajes 3: Ver Mensajes Nuevos 4: Ver mensajes procesados 5: Ver Nodos Adyacentes" +
             " 6: Cambiar peso Nodo 7: Desconectar ";
-    public static final String TITULO = "Por favor proporcione el titulo del mensaje: ";
+    public static final String ASK_TITULO = "Por favor proporcione el titulo del mensaje: ";
     public static final String ASK_MENSAJE = "Por favor ingrese el mensaje: ";
     public static final String ASK_ID = "Por favor ingrese el id destino: ";
     public static final String NO_NEW_MESSAGES = "No hay mensajes nuevos...";
@@ -70,25 +70,31 @@ public class ClientTerminal extends Terminal {
     }
 
     private void askAndSend() {
-        String titulo = "";
-        String msg = "";
-        long id = 0;
+
         System.out.println(ASK_ID);
-        if (terminal.hasNext(ID_PATTERN)) {
-            id = Long.parseLong(terminal.next());
+        long id = askID();
+        String titulo = askTitulo();
+        String msg = askMensaje();
+        client.sendMessage(id, titulo, msg);// llamamos a client
+    }
+
+    private String askTitulo() {
+        System.out.println(ASK_TITULO);
+        if (terminal.hasNext()) {
+            return terminal.next();
         } else {
             terminal.next();
-            askAndSend();
+            return askTitulo();
         }
+    }
 
-        System.out.println(TITULO);
-        if (terminal.hasNext()) {
-            titulo = terminal.next();
-        }
+    private String askMensaje() {
         System.out.println(ASK_MENSAJE);
         if (terminal.hasNext()) {
-            msg = terminal.next();
+            return terminal.next();
+        } else {
+            terminal.next();
+            return askTitulo();
         }
-        client.sendMessage(id, titulo, msg);// llamamos a client
     }
 }
