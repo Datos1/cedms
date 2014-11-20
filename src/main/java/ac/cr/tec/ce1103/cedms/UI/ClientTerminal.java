@@ -24,6 +24,7 @@ public class ClientTerminal extends Terminal {
     public ClientTerminal(Client pClient) {
         super(pClient);
         this.client = pClient;// asignamos client
+        init();
     }
 
     @Override

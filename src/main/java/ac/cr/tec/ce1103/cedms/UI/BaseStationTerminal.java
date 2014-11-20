@@ -14,6 +14,7 @@ public class BaseStationTerminal extends Terminal {
     public BaseStationTerminal(BaseStation pBase) {
         super(pBase);
         this.baseStation = pBase;// asignamos client
+        init();
     }
 
     @Override

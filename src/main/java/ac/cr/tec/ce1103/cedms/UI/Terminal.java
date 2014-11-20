@@ -1,6 +1,7 @@
 package ac.cr.tec.ce1103.cedms.UI;
 
 import ac.cr.tec.ce1103.cedms.core.Core;
+import ac.cr.tec.ce1103.cedms.data.Commons;
 
 import java.net.ConnectException;
 import java.util.Scanner;
@@ -9,12 +10,12 @@ import java.util.regex.Pattern;
 /**
  * Created by pablo on 19/11/14.
  */
-public abstract class Terminal {
+public abstract class Terminal implements Commons {
     public static final String DESCONECTO = "Se desconecto: ";
     public static final String CONECTO = "Se conecto: ";
     public static final String SLASH = "----------------------";
     public static final String ERROR_DE_CONEXION = "Error de conexion";
-    public static final String BIENVENIDO = "Bienvenido a CEDMS.";
+    public static final String BIENVENIDO = "Bienvenido a CEDMS";
     public static final String ASK_PORT = "Por favor ingrese el puerto de conexion: ";
     public static final String ASK_IP = "Por favor ingrese el ip de conexion: ";
     public static final String ASK_ID = "Por favor ingrese el id destino: ";
@@ -40,14 +41,15 @@ public abstract class Terminal {
     public Terminal(Core pCore) {
         this.core = pCore;
         terminal = new Scanner(System.in);
-        System.out.println(BIENVENIDO);
+    }
+
+    protected void init() {
+        System.out.println(BIENVENIDO + " " + VERSION);
         askAndConnect();
         while (on) {
             menuOpciones();
         }
-
     }
-
 
     protected abstract void menuOpciones();
 

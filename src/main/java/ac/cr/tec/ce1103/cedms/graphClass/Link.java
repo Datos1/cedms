@@ -11,14 +11,15 @@ public class Link {
 
     /**
      * constructor
+     *
      * @param initial
      * @param terminal
      * @param weight
      */
-    public Link(graphNode initial,graphNode  terminal,int weight){
-        this.initial=initial;//source
-        this.terminal=terminal;//target or destiny
-        this.weight=weight;//price of the link
+    public Link(graphNode initial, graphNode terminal, int weight) {
+        this.initial = initial;//source
+        this.terminal = terminal;//target or destiny
+        this.weight = weight;//price of the link
     }
     /*public Link(graphNode initial,graphNode terminal){//
         this.initial=initial;//source
@@ -27,7 +28,6 @@ public class Link {
     }*/
 
     /**
-     *
      * @return the initial or source graph node
      */
     public graphNode getInitial() {
@@ -36,6 +36,7 @@ public class Link {
 
     /**
      * sets initial or source node
+     *
      * @param initial
      */
     public void setInitial(graphNode initial) {
@@ -43,7 +44,6 @@ public class Link {
     }
 
     /**
-     *
      * @return the terminal or destiny graph node
      */
     public graphNode getTerminal() {
@@ -52,6 +52,7 @@ public class Link {
 
     /**
      * sets the destiny node
+     *
      * @param terminal
      */
     public void setTerminal(graphNode terminal) {
@@ -59,7 +60,6 @@ public class Link {
     }
 
     /**
-     *
      * @return the price or cost of the link
      */
     public int getWeight() {
@@ -68,12 +68,12 @@ public class Link {
 
     /**
      * sets the price or cost of the link
+     *
      * @param weight
      */
     public void setWeight(int weight) {
         this.weight = weight;//assigns the price or cost as the param
     }
-
 
 
 }

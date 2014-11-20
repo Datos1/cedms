@@ -13,6 +13,7 @@ public class HubTerminal extends Terminal {
     public HubTerminal(Hub pHub) {
         super(pHub);
         this.hub = pHub;// asignamos client
+        init();
     }
 
     @Override
