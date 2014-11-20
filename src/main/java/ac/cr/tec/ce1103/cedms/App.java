@@ -1,6 +1,7 @@
 package ac.cr.tec.ce1103.cedms;
 
 
+<<<<<<< HEAD
 import ac.cr.tec.ce1103.cedms.core.*;
 
 
@@ -9,9 +10,18 @@ public class App {
     public static final String USAGE = "Usage: java App.jar id_device port device_type(client/hub/base)";
 
     private static Core core;
+=======
+import ac.cr.tec.ce1103.cedms.core.BaseStation;
+import ac.cr.tec.ce1103.cedms.core.Client;
+import ac.cr.tec.ce1103.cedms.core.Core;
+import ac.cr.tec.ce1103.cedms.core.Hub;
+import ac.cr.tec.ce1103.cedms.data.Commons;
+>>>>>>> remotes/origin/logic
 
+public class App implements Commons {
 
     public static void main(String[] args) {
+        Core core;
         if (args.length != 3)
             System.out.println(USAGE);
         try {
@@ -31,4 +41,9 @@ public class App {
         }
     }
 
+<<<<<<< HEAD
 }
+=======
+
+}
+>>>>>>> remotes/origin/logic
