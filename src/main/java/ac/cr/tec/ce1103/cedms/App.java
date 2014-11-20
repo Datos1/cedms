@@ -3,19 +3,14 @@ package ac.cr.tec.ce1103.cedms;
 
 import ac.cr.tec.ce1103.cedms.core.BaseStation;
 import ac.cr.tec.ce1103.cedms.core.Client;
+import ac.cr.tec.ce1103.cedms.core.Core;
 import ac.cr.tec.ce1103.cedms.core.Hub;
-import ac.cr.tec.ce1103.cedms.graphClass.Graph;
-import ac.cr.tec.ce1103.cedms.graphClass.graphNode;
+import ac.cr.tec.ce1103.cedms.data.Commons;
 
-public class App {
-
-    public static final String USAGE = "Usage: java App id_device  port device_type(client/hub/base_station)";
-    public static final String CLIENT = "client";
-    public static final String HUB = "hub";
-    public static final String BASE_STATION = "base-station";
-
+public class App implements Commons {
 
     public static void main(String[] args) {
+        Core core;
         if (args.length != 3)
             System.out.println(USAGE);
         try {
@@ -35,4 +30,5 @@ public class App {
         }
     }
 
-}}
+
+}

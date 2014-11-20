@@ -18,7 +18,7 @@ public class graphNode<T> {//graphNode class
     private List<Link> links;//all connections that has this node.
     private int actual_links;//number of links per node.
     private int id;//id of each node.
-    private int num_node_graphs;
+    private int num_node_graphs;//number of graphs of this graphNode.
     private String nombre_elemento;//base,client or hub in string.
     //agregar una lista de nodos para hacer la lista de adyacencia.
 
@@ -27,9 +27,10 @@ public class graphNode<T> {//graphNode class
      * @param name_type
      */
     public graphNode(T name_type){//name is Object of type hub,client or base station.
-        this.element = name_type;
+        this.element = name_type;        //initializing the attribute variables.
         this.actual_links = 0;
         this.links= new List<Link>();
+        this.node_graphs=new List<graphNode>();
         this.id=1;
     }
 
@@ -45,7 +46,7 @@ public class graphNode<T> {//graphNode class
      * sets node graphs
      */
     public void setNum_node_graphs() {
-        this.num_node_graphs=this.node_graphs.getLength();
+        this.num_node_graphs=this.node_graphs.getLength();//set number of graphs this graph class has. lenght of list.
     }
 
     /**
@@ -69,17 +70,9 @@ public class graphNode<T> {//graphNode class
      * @return String name for the type of object
      */
     public String getNombre_elemento() {
-        this.getElementName();
+        this.getElementName();//calls method to identify string name of the object
         return this.nombre_elemento;
     }
-
-    /**
-     * sets the string name for
-     *
-     */
-   /* public void setNombre_elemento() {//sets the string name of the element
-        this.getElementName();
-    }*/
 
     /**
      *
@@ -150,18 +143,35 @@ public class graphNode<T> {//graphNode class
      * @param destiny
      * @param weight
      */
-    public void addLink(graphNode destiny, int weight){//adds the link with the param destiny and its weight or price.
-        if (actual_links == -1){//if there are not links
-            links.append(new Link(this,destiny,weight));
+    public void addLink(graphNode destiny, int weight){ //adds the link with the param destiny and its weight or price.
+        if (actual_links == -1){//if there are not links.
+            links.append(new Link(this,destiny,weight));//creates new link and adds it to the list of links of this node.
             actual_links++;
         }
         else{
-            boolean pos= existLink(destiny);
+            boolean pos= existLink(destiny);//if param exists in the list.
             if (pos == false){
-                links.append(new Link(this,destiny,weight));
+                links.append(new Link(this,destiny,weight));//creates and adds link to list.
             }
         }
     }
+
+    /**
+     * adds link
+     * @param destiny
+     */
+    /*public void addLink(graphNode destiny){ //adds the link with the param destiny
+        if (actual_links == -1){//if there are not links.
+            links.append(new Link(this,destiny));
+            actual_links++;
+        }
+        else{
+            boolean pos= existLink(destiny);//if param exists in the list.
+            if (pos == false){
+                links.append(new Link(this,destiny));//creates and adds link to list.
+            }
+        }
+    }*/
 
     /**
      *
@@ -170,11 +180,11 @@ public class graphNode<T> {//graphNode class
      */
    public boolean deleteLink(int posicion){//deletes the link on the position of the parameter
         if (posicion >= 0 && posicion <= links.getLength()){//if position is in a valid range.
-            links.remove(posicion);
-            actual_links--;
+            links.remove(posicion);//deletes from links list the element of that position
+            actual_links--;//reduces variable
             return true;
         }
-        else JOptionPane.showMessageDialog(null, "No link in position: " + posicion);
+        else JOptionPane.showMessageDialog(null, "No link in position: " + posicion);//message no link found
 
         return false;
     }
@@ -186,7 +196,7 @@ public class graphNode<T> {//graphNode class
      */
     public boolean existLink(graphNode link){//checks if there is a link from the parameter in the links of this node.
         for(int i=0;i<links.getLength();i++){
-            if(links.get(i).getTerminal().equals(link))
+            if(links.get(i).getTerminal().equals(link))//compares with the terminal of the link
                 return true;
         }
         return false;
