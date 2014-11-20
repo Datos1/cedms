@@ -1,19 +1,18 @@
 package ac.cr.tec.ce1103.cedms.UI;
 
-import ac.cr.tec.ce1103.cedms.core.BaseStation;
+import ac.cr.tec.ce1103.cedms.core.Hub;
 
 /**
  * Created by pablo on 19/11/14.
  */
-public class BaseStationTerminal extends Terminal {
+public class HubTerminal extends Terminal {
     public static final String OPCIONES = "Seleccione una de las siguientes opciones: 1: Agregar Conexion," +
-            " 2: Imprimir Grafo 3: Ver Mensajes en espera 4: Ver Updates procesados 5:Ver Nodos Adyacentes " +
-            "6: Cambiar peso Nodo 7: Desconectar ";
-    BaseStation baseStation;
+            " 2: Ver updates procesados 3: Ver Nodos Adyacentes 4: Cambiar peso Nodo 5: Desconectar ";
+    Hub hub;
 
-    public BaseStationTerminal(BaseStation pBase) {
-        super(pBase);
-        this.baseStation = pBase;// asignamos client
+    public HubTerminal(Hub pHub) {
+        super(pHub);
+        this.hub = pHub;// asignamos client
     }
 
     @Override
@@ -25,10 +24,8 @@ public class BaseStationTerminal extends Terminal {
                     askAndConnect();
                     break;
                 case 2:
-                    imprimirGrafo();
                     break;
                 case 3:
-                    verMensajes();
                     break;
 
 
@@ -37,12 +34,5 @@ public class BaseStationTerminal extends Terminal {
         } else terminal.next();
     }
 
-    private void imprimirGrafo() {
-
-    }
-
-    private void verMensajes() {
-
-    }
 
 }

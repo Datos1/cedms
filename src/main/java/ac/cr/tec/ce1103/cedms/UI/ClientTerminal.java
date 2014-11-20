@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
  */
 public class ClientTerminal extends Terminal {
     public static final String OPCIONES = "Seleccione una de las siguientes opciones: 1: Agregar Conexion," +
-            " 2:Enviar Mensajes 3: Ver Mensajes Nuevos 4: Ver Nodos Adyacentes 5: Cambiar peso Nodo 6: Desconectar ";
+            " 2:Enviar Mensajes 3: Ver Mensajes Nuevos 4: Ver mensajes procesados 5: Ver Nodos Adyacentes" +
+            " 6: Cambiar peso Nodo 7: Desconectar ";
     public static final String TITULO = "Por favor proporcione el titulo del mensaje: ";
     public static final String ASK_MENSAJE = "Por favor ingrese el mensaje: ";
     public static final String ASK_ID = "Por favor ingrese el id destino: ";
