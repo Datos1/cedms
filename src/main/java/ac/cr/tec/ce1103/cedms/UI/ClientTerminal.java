@@ -18,6 +18,8 @@ public class ClientTerminal extends Terminal {
     public static final String NO_NEW_MESSAGES = "No hay mensajes nuevos...";
     public static final String NUEVO_MENSAJE = "Nuevo mensaje de: ";
     public static final String REPLY = "Desea responder o descartar? (1/0): ";
+    public static final String ASUNTO = "Asunto: ";
+    public static final String MENSAJE = "Mensaje: ";
     static protected Pattern OPCIONES_PATTERN = Pattern.compile("[1-6]");
     protected Client client;
 
@@ -52,19 +54,13 @@ public class ClientTerminal extends Terminal {
         Queue<Mensaje> nuevosMensajes = client.getNuevosMensajes();// llamamos a client
         for (int i = 0; i < nuevosMensajes.getLength(); i++) {
             Mensaje mensaje = nuevosMensajes.deQueue();
-            System.out.println(NUEVO_MENSAJE);
-            System.out.print(mensaje.getSource());
-            System.out.println(mensaje.getTitulo());
+            System.out.print(NUEVO_MENSAJE);
+            System.out.println(mensaje.getSource());
+            System.out.println(ASUNTO + mensaje.getTitulo());
+            System.out.println(MENSAJE + mensaje.getMsg());
             System.out.println(SLASH);
-            System.out.println(mensaje.getMsg());
-            if (yesNoQuestion(REPLY)) {
-                String text = "";
-                System.out.println(ASK_MENSAJE);
-                if (terminal.hasNext()) {
-                    text = terminal.next();
-                    client.difusion(mensaje, text);// llamamos a client
-                }
-            }
+            if (yesNoQuestion(REPLY))
+                client.responderMensaje(mensaje, askMensaje());// llamamos a client
         }
         System.out.println(NO_NEW_MESSAGES);
     }

@@ -110,12 +110,12 @@ public abstract class Core {
 
     /**
      * Recibe la conexion en segunda fase
-     *
-     * @param updateId
+     *  @param updateId
      * @param precio
+     * @param type
      */
-    public void recibirConnectionPhase2(String updateId, int precio) {
-        //no hace nada
+    public void recibirConnectionPhase2(String updateId, int precio, String type) {
+
     }
 
 

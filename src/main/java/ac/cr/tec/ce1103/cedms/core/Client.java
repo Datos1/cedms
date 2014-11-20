@@ -26,12 +26,12 @@ public class Client extends Core implements Commons {
 
     /**
      * Recibe la conexion en segunda fase
-     *
-     * @param updateId
+     *  @param updateId
      * @param precio
+     * @param type
      */
     @Override
-    public void recibirConnectionPhase2(String updateId, int precio) {
+    public void recibirConnectionPhase2(String updateId, int precio, String type) {
 
     }
 
@@ -76,7 +76,13 @@ public class Client extends Core implements Commons {
         return nuevosMensajes;
     }
 
-    public void difusion(Mensaje mensaje, String text) {
+    /**
+     * Este metodo responde el mensaje con otro texto y otro numero.
+     *
+     * @param mensaje
+     * @param text
+     */
+    public void responderMensaje(Mensaje mensaje, String text) {
         difusion(XmlToolkit.createMessage(mensaje.getSource(), mensaje.getTarget(), mensaje.getUpdateId(),
                 mensaje.getTitulo(), text, mensaje.getNumero() + 1));
 

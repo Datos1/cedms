@@ -34,6 +34,8 @@ public class XmlToolkit {
     public static final String NUMERO = "numero";
     public static final String TIPO = "tipo";
     public static final String MENSAJE = "mensaje";
+    public static final String ERROR_EN_FORMATO_DEL_XML = "Error en formato del XML";
+    public static final String ERROR_EN_EL_XML = "Error en el XML";
 
     /**
      * Decodes a message and gives it to the other method
@@ -49,7 +51,7 @@ public class XmlToolkit {
             builder = factory.newDocumentBuilder();
             xmlFile = builder.parse(new InputSource(new StringReader(input)));
         } catch (Exception e) {
-            System.out.println("Error en el XML");
+            System.out.println(ERROR_EN_EL_XML);
             return;
         }
         String rootName = xmlFile.getDocumentElement().getNodeName();
@@ -65,7 +67,8 @@ public class XmlToolkit {
             try {
                 readMessageAux(output, xmlFile, type);
             } catch (Exception e) {
-                System.out.println("Error en formato del XML");
+                e.printStackTrace();
+                System.out.println(ERROR_EN_FORMATO_DEL_XML);
             }
     }
 
@@ -84,8 +87,6 @@ public class XmlToolkit {
                 readInConnection(output, xml, updateId);
                 break;
             // gets information relevant to message
-            default:
-
             case GRAFO:
                 //output.recibirGrafo();
                 break;
@@ -108,8 +109,8 @@ public class XmlToolkit {
     }
 
     private static void readInConnection(Core output, Document xml, String updateId) {
-        if (xml.getElementsByTagName(TARGET).getLength() != 0) {
-            long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+        if (xml.getElementsByTagName(SOURCE).getLength() != 0) {
+            long target = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
             output.recibirConnectionPhase1(target, updateId);
         } else {
             int precio = Integer.parseInt(xml.getElementsByTagName(PRECIO).item(HEAD).getTextContent());
@@ -119,7 +120,8 @@ public class XmlToolkit {
                 int adyacente = Integer.parseInt(xml.getElementsByTagName(ADYACENTE).item(HEAD).getTextContent());
                 output.recibirConnection(updateId, precio, id, adyacente);
             } else {
-                output.recibirConnectionPhase2(updateId, precio);
+                String type = xml.getElementsByTagName(TIPO).item(HEAD).getTextContent();
+                output.recibirConnectionPhase2(updateId, precio, type);
             }
 
         }
@@ -174,14 +176,14 @@ public class XmlToolkit {
 
     public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero) {
         Document xml = newDocument();
-        Element root = xml.createElement(Message.CONNECTION.toString());
+        Element root = xml.createElement(Message.MENSAJE.toString());
         xml.appendChild(root);
 
         Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
         Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
         Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
         Element tituloNode = crearElementoConTexto(xml, TITULO, titulo);
-        Element msgNode = crearElementoConTexto(xml, MENSAJE, msg);
+        Element msgNode = crearElementoConTexto(xml, MSG, msg);
         Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + numero);
 
         appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode);
