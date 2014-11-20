@@ -14,6 +14,7 @@ import java.net.UnknownHostException;
  * Created by Stiven on 11/10/2014.
  */
 public class Client_Socket implements Runnable {
+    public static final String UNKNOWN_HOST = "Unknown Host";
     private PrintWriter out;
     private BufferedReader in;
 
@@ -25,7 +26,7 @@ public class Client_Socket implements Runnable {
             } catch (ConnectException e) {
                 throw e;
             } catch (UnknownHostException e) {
-                e.printStackTrace();
+                System.out.println(UNKNOWN_HOST);
             }
 
             out = new PrintWriter(echoSocket.getOutputStream(), true);
@@ -40,7 +41,7 @@ public class Client_Socket implements Runnable {
     }
 
     public void send(String text) {
-        out.print(text);
+        out.println(text);
     }
 
 

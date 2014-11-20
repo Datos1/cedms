@@ -16,7 +16,6 @@ public class Server_Socket implements Runnable {
     private Thread t;
     private java.net.ServerSocket serv_socket;
     private Socket socket;
-    private String messageReceived;
     private DataOutputStream output_msg;
     private BufferedReader input;
 
@@ -51,13 +50,15 @@ public class Server_Socket implements Runnable {
     }
 
     protected void listen() {
+        String messageReceived;
         while (core.isOn()) {
             try {
-                messageReceived = input.readLine();//reads message
+                if ((messageReceived = input.readLine()) != null)//reads message
+                    core.recibirSocket(messageReceived);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            core.recibirSocket(messageReceived);
+
         }
     }
 
