@@ -24,7 +24,6 @@ public abstract class Core {
     protected Terminal ui;
     protected Queue queueIn = new Queue();
     protected Queue queueOut = new Queue();
-    protected Client_Socket clientSocketTemp;
     protected Server_Socket serverSocket;
     protected boolean on = true;
 
@@ -64,9 +63,10 @@ public abstract class Core {
      * @param pPort
      */
     public void createConnectionPhase1(String pIp, int pPort) throws ConnectException {
-
-        this.clientSocketTemp = new Client_Socket(this, pIp, pPort);
-        this.clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, nextUpdateId()));
+        String updateId = nextUpdateId();
+        Client_Socket clientSocketTemp = new Client_Socket(this, pIp, pPort);
+        clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, updateId));
+        connections.append(new Connection(this.id, updateId, clientSocketTemp));
 
     }
 
