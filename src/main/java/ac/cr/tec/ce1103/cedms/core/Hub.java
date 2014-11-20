@@ -9,6 +9,7 @@ import ac.cr.tec.ce1103.cedms.server.Server_Socket;
 public class Hub extends Core {
     public Hub(long pId, int pPort) {
         super(pId, pPort);
+        type = CoreType.HUB;
         this.serverSocket = new Server_Socket(this, pPort);
         ui = new HubTerminal(this);
     }

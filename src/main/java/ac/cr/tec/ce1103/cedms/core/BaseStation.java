@@ -12,6 +12,7 @@ public class BaseStation extends Core {
 
     public BaseStation(long pId, int pPort) {
         super(pId, pPort);
+        type = CoreType.BASESTATION;
         this.serverSocket = new Server_Socket(this, pPort);
         ui = new BaseStationTerminal(this);
     }

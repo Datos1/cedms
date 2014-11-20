@@ -32,6 +32,8 @@ public class XmlToolkit {
     public static final String TITULO = "titulo";
     public static final String MSG = "msg";
     public static final String NUMERO = "numero";
+    public static final String TIPO = "tipo";
+    public static final String MENSAJE = "mensaje";
 
     /**
      * Decodes a message and gives it to the other method
@@ -123,35 +125,32 @@ public class XmlToolkit {
         }
     }
 
+    //////////////////////////////
     public static String newConnectionPhase1(long source, String updateId) {
         Document xml = newDocument();
         Element root = xml.createElement(Message.CONNECTION.toString());
         xml.appendChild(root);
 
-        Element sourceNode = xml.createElement(SOURCE);
-        Element updateIdNode = xml.createElement(UPDATEID);
+        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
+        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
 
-        sourceNode.appendChild(xml.createTextNode("" + source));
-        updateIdNode.appendChild(xml.createTextNode(updateId));
+        appendChild(root, sourceNode, updateIdNode);
 
-        root.appendChild(sourceNode);
-        root.appendChild(updateIdNode);
         return XmlToolkit.xmlToString(xml);
     }
 
-    public static String newConnectionPhase2(int precio, String updateId) {
+    public static String newConnectionPhase2(int precio, String updateId, String type) {
         Document xml = newDocument();
         Element root = xml.createElement(Message.CONNECTION.toString());
         xml.appendChild(root);
 
-        Element precioNode = xml.createElement(SOURCE);
-        Element updateIdNode = xml.createElement(UPDATEID);
+        Element precioNode = crearElementoConTexto(xml, PRECIO, "" + precio);
+        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
+        Element typeNode = crearElementoConTexto(xml, TIPO, "" + type);
 
-        precioNode.appendChild(xml.createTextNode("" + precio));
-        updateIdNode.appendChild(xml.createTextNode(updateId));
 
-        root.appendChild(precioNode);
-        root.appendChild(updateIdNode);
+        appendChild(root, precioNode, updateIdNode, typeNode);
+
         return XmlToolkit.xmlToString(xml);
     }
 
@@ -160,23 +159,62 @@ public class XmlToolkit {
         Element root = xml.createElement(Message.CONNECTION.toString());
         xml.appendChild(root);
 
-        Element idNode = xml.createElement(ID);
-        Element adyNode = xml.createElement(ADYACENTE);
-        Element precioNode = xml.createElement(PRECIO);
-        Element updateIdNode = xml.createElement(UPDATEID);
+        Element idNode = crearElementoConTexto(xml, ID, "" + id);
+        Element adyNode = crearElementoConTexto(xml, ADYACENTE, "" + adyacente);
+        Element precioNode = crearElementoConTexto(xml, PRECIO, "" + precio);
+        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
 
-        idNode.appendChild(xml.createTextNode("" + id));
-        adyNode.appendChild(xml.createTextNode("" + adyacente));
-        precioNode.appendChild(xml.createTextNode("" + precio));
-        updateIdNode.appendChild(xml.createTextNode(updateId));
+        appendChild(root, idNode, adyNode, precioNode, updateIdNode);
 
-        root.appendChild(idNode);
-        root.appendChild(adyNode);
-        root.appendChild(precioNode);
-        root.appendChild(updateIdNode);
         return XmlToolkit.xmlToString(xml);
     }
 
+
+
+
+    public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero) {
+        Document xml = newDocument();
+        Element root = xml.createElement(Message.CONNECTION.toString());
+        xml.appendChild(root);
+
+        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
+        Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
+        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
+        Element tituloNode = crearElementoConTexto(xml, TITULO, titulo);
+        Element msgNode = crearElementoConTexto(xml, MENSAJE, msg);
+        Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + numero);
+
+        appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode);
+
+        return XmlToolkit.xmlToString(xml);
+    }
+
+    /**
+     * Crea un nodo con nombre definido y con texto adentro.
+     *
+     * @param nombreNodo
+     * @param texto
+     * @return
+     */
+    private static Element crearElementoConTexto(Document document, String nombreNodo, String texto) {
+        Element elemento = document.createElement(nombreNodo);
+        elemento.appendChild((document.createTextNode(texto)));
+        return elemento;
+    }
+
+    /**
+     * le agrega todos los nodos a un root
+     *
+     * @param root la raiz
+     * @param args elementos por agregar
+     * @return
+     */
+    private static Element appendChild(Element root, Element... args) {
+        for (Element arg : args) {
+            root.appendChild(arg);
+        }
+        return root;
+    }
 
     /**
      * Creates new xml Document in blank
@@ -214,34 +252,4 @@ public class XmlToolkit {
         }
     }
 
-
-    public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero) {
-        Document xml = newDocument();
-        Element root = xml.createElement(Message.CONNECTION.toString());
-        xml.appendChild(root);
-
-        Element sourceNode = xml.createElement(ID);
-        Element targetNode = xml.createElement(TARGET);
-        Element updateIdNode = xml.createElement(UPDATEID);
-        Element tituloNode = xml.createElement(PRECIO);
-        Element msgNode = xml.createElement(PRECIO);
-        Element numeroNode = xml.createElement(PRECIO);
-
-
-        sourceNode.appendChild(xml.createTextNode("" + source));
-        targetNode.appendChild(xml.createTextNode("" + target));
-        updateIdNode.appendChild(xml.createTextNode(updateId));
-        tituloNode.appendChild(xml.createTextNode(titulo));
-        msgNode.appendChild(xml.createTextNode(msg));
-        numeroNode.appendChild(xml.createTextNode("" + numero));
-
-
-        root.appendChild(sourceNode);
-        root.appendChild(targetNode);
-        root.appendChild(updateIdNode);
-        root.appendChild(tituloNode);
-        root.appendChild(msgNode);
-        root.appendChild(numeroNode);
-        return XmlToolkit.xmlToString(xml);
-    }
 }

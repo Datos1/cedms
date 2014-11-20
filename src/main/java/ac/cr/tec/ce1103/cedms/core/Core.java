@@ -26,6 +26,7 @@ public abstract class Core {
     protected Queue queueOut = new Queue();
     protected Server_Socket serverSocket;
     protected boolean on = true;
+    protected CoreType type;
 
 
     protected Core(long pId, int pPort) {
@@ -81,11 +82,11 @@ public abstract class Core {
      * @param updateId
      */
     protected void createConnectionPhase2(int precio, String updateId) {
-        difusion(XmlToolkit.newConnectionPhase2(precio, updateId));
+        difusion(XmlToolkit.newConnectionPhase2(precio, updateId, type.toString()));
     }
 
     protected void createConnection(long id, long adyacente, int precio, String updateId) {
-        difusion(XmlToolkit.newConnectionPhase2(precio, updateId));
+        difusion(XmlToolkit.newConnectionPhase2(precio, updateId, type.toString()));
     }
 
 
