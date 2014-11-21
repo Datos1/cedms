@@ -83,7 +83,7 @@ public class Client extends Core implements Commons {
      * @param text
      */
     public void responderMensaje(Mensaje mensaje, String text) {
-        difusion(XmlToolkit.createMessage(mensaje.getSource(), mensaje.getTarget(), mensaje.getUpdateId(),
+        difusion(XmlToolkit.createMessage(mensaje.getTarget(), mensaje.getSource(), mensaje.getUpdateId(),
                 mensaje.getTitulo(), text, mensaje.getNumero() + 1));
 
     }
