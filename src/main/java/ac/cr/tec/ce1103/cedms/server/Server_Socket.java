@@ -40,6 +40,8 @@ public class Server_Socket implements Runnable {
 
         try {//se pregunta al usuario si quiere una conexion, si la quiere hace lo siguiente:
             socket=serv_socket.accept();//waits until there is a connection.
+            System.out.println(socket.getRemoteSocketAddress());
+            System.out.println(socket.getPort());
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));//receives the flow of data saved in a buffered reader.
 
 
