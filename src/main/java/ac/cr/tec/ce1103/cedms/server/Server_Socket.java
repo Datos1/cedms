@@ -31,6 +31,7 @@ public class Server_Socket implements Runnable {
 
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
+            System.exit(-1);
         }
     }
 

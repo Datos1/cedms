@@ -67,12 +67,14 @@ public class ClientTerminal extends Terminal {
 
     private void askAndSend() {
         long id = askID();
+
         String titulo = askTitulo();
         String msg = askMensaje();
         client.sendNewMessage(id, titulo, msg);// llamamos a client
     }
 
     private String askTitulo() {
+        terminal.nextLine();
         System.out.println(ASK_TITULO);
         if (terminal.hasNextLine()) {
             return terminal.nextLine();
@@ -83,6 +85,7 @@ public class ClientTerminal extends Terminal {
     }
 
     private String askMensaje() {
+        terminal.nextLine();
         System.out.println(ASK_MENSAJE);
         if (terminal.hasNextLine()) {
             return terminal.nextLine();
