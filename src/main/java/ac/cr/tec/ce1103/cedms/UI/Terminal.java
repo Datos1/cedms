@@ -26,7 +26,7 @@ public abstract class Terminal implements Commons {
     public static final String INVALID_PORT = "Formato Puerto Invalido!";
     public static final String TRUE = "1";
     public static final long ID_SMALL_MASK = 1234567890123000l;
-    static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))|localhost";
+    static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))|localhost|server";
     static protected Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
     protected static String OPCIONES;
     static protected Pattern ID_PATTERN = Pattern.compile("\\d{16}");

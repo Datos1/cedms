@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/cedms/src/main/java"/>
+	<classpathentry kind="src" path="/cedms/src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: junit:junit:3.8.1"/>
+	<classpathentry kind="var" path="APPLICATION_HOME_DIR/lib/junit-4.11.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/com.jcraft.jsch:com.springsource.com.jcraft.jsch:0.1.41"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="com.jcraft.jsch:com.springsource.com.jcraft.jsch:0.1.41">
+    <archive path="/Users/pablo/.m2/repository/com/jcraft/jsch/com.springsource.com.jcraft.jsch/0.1.41/com.springsource.com.jcraft.jsch-0.1.41.jar" />
+  </library>
+  <library name="Maven: junit:junit:3.8.1">
+    <archive path="/Users/pablo/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar" />
+  </library>
+</eclipse-userlibraries>
+

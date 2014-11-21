@@ -22,6 +22,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="com.jcraft.jsch:com.springsource.com.jcraft.jsch:0.1.41" level="project" />
   </component>
 </module>
 
