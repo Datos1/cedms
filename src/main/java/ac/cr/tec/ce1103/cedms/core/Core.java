@@ -34,16 +34,15 @@ public abstract class Core {
         this.port = pPort;
     }
 
+    /**
+     * Nos dice si esta encendido
+     *
+     * @return
+     */
     public boolean isOn() {
         return on;
     }
 
-
-    /**
-     * It receives a message and
-     *
-     * @param msg
-     */
 
     /**
      * It diffuses a message through all the system
@@ -71,6 +70,24 @@ public abstract class Core {
 
     }
 
+    /**
+     * Nos dice si hay algun base station
+     *
+     * @return la conexion que puede ser nula si es falso
+     */
+    public Connection nearBaseStation() {
+        for (int i = 0; i < connections.getLength(); i++) {
+            Connection connection = connections.get(i);
+            if (connection.getType() != CoreType.BASESTATION)
+                return connection;
+        }
+        return null;
+    }
+
+    /**
+     * Genera el siguiente updateId y lo agrega a a lista
+     * @return
+     */
     protected String nextUpdateId() {
         String upId = id + "-" + updateCounter++;
         updateIdsList.append(upId);
@@ -87,11 +104,21 @@ public abstract class Core {
         difusion(XmlToolkit.newConnectionPhase2(precio, updateId, type.toString()));
     }
 
+    /**
+     * Crea el mensaje de conexion final y lo difunde
+     * @param id
+     * @param adyacente
+     * @param precio
+     * @param updateId
+     */
     protected void createConnection(long id, long adyacente, int precio, String updateId) {
         difusion(XmlToolkit.newConnectionPhase2(precio, updateId, type.toString()));
     }
 
-
+    /**
+     * Recibe mensjes del serversocket y los manda al xml
+     * @param messageReceived
+     */
     public void recibirSocket(String messageReceived) {
         XmlToolkit.readMessage(messageReceived, this);
     }

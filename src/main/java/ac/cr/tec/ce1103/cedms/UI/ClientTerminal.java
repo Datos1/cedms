@@ -69,26 +69,26 @@ public class ClientTerminal extends Terminal {
         long id = askID();
         String titulo = askTitulo();
         String msg = askMensaje();
-        client.sendMessage(id, titulo, msg);// llamamos a client
+        client.sendNewMessage(id, titulo, msg);// llamamos a client
     }
 
     private String askTitulo() {
         System.out.println(ASK_TITULO);
-        if (terminal.hasNext()) {
-            return terminal.next();
+        if (terminal.hasNextLine()) {
+            return terminal.nextLine();
         } else {
-            terminal.next();
+            terminal.nextLine();
             return askTitulo();
         }
     }
 
     private String askMensaje() {
         System.out.println(ASK_MENSAJE);
-        if (terminal.hasNext()) {
-            return terminal.next();
+        if (terminal.hasNextLine()) {
+            return terminal.nextLine();
         } else {
-            terminal.next();
-            return askTitulo();
+            terminal.nextLine();
+            return askMensaje();
         }
     }
 }

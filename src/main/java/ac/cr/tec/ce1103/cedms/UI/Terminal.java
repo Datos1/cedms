@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by pablo on 19/11/14.
+ * Clase abstracta
  */
 public abstract class Terminal implements Commons {
     public static final String DESCONECTO = "Se desconecto: ";

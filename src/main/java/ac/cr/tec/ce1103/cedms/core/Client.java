@@ -68,7 +68,7 @@ public class Client extends Core implements Commons {
             difusion(XmlToolkit.createMessage(source, target, updateId, titulo, msg, numero));
     }
 
-    public void sendMessage(long target, String titulo, String msg) {
+    public void sendNewMessage(long target, String titulo, String msg) {
         difusion(XmlToolkit.createMessage(this.id, target, nextUpdateId(), titulo, msg, INITAL_MESSAGE_ID));
     }
 
@@ -87,4 +87,5 @@ public class Client extends Core implements Commons {
                 mensaje.getTitulo(), text, mensaje.getNumero() + 1));
 
     }
+
 }

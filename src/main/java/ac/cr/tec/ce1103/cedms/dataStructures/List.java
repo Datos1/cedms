@@ -104,8 +104,8 @@ public class List<T> {
         for (int x = 0; x < i; x++)
             ele = ele.getNext();
         ele.setData(pData);
-
         return true;
+
     }
 
     /**
