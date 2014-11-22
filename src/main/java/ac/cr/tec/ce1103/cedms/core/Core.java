@@ -93,7 +93,6 @@ public abstract class Core {
      */
     protected String nextUpdateId() {
         String upId = id + "-" + updateCounter++;
-        updateIdsList.append(upId);
         return upId;
     }
 
@@ -145,7 +144,18 @@ public abstract class Core {
      * @param type
      */
     public void recibirConnectionPhase2(String updateId, int precio, String type) {
-
+        if (!updateIdsList.find(updateId)) {
+            updateIdsList.append(updateId);
+            if (id == this.id)
+                for (int i = 0; i < connections.getLength(); i++) {
+                    Connection connection = connections.get(i);
+                    if (connection.getUpdateId().equals(updateId)) {
+                        connection.setPrecio(precio);
+                        connection.setType(CoreType.parseCoreType(type));
+                    }
+                }
+            difusion(XmlToolkit.newConnectionPhase2(precio, updateId, type));
+        }
     }
 
 
@@ -157,7 +167,20 @@ public abstract class Core {
      * @param id
      * @param adyacente
      */
-    public abstract void recibirConnection(String updateId, int precio, int id, int adyacente);
+    public void recibirConnection(String updateId, int precio, long id, long adyacente) {
+        if (!updateIdsList.find(updateId)) {
+            updateIdsList.append(updateId);
+            if (id == this.id)
+                for (int i = 0; i < connections.getLength(); i++) {
+                    Connection connection = connections.get(i);
+                    if (connection.getUpdateId().equals(updateId)) {
+                        connection.setTarget(adyacente);
+                    }
+
+                }
+            difusion(XmlToolkit.newConnection(id, adyacente, precio, updateId));
+        }
+    }
 
     /**
      * Este metodo recibe el mensaje descifrado y ...

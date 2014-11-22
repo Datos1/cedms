@@ -27,32 +27,7 @@ public class Client extends Core implements Commons {
 
 
     /**
-     * Recibe la conexion en segunda fase, recibimos el tipo
-     *  @param updateId
-     * @param precio
-     * @param type
-     */
-    @Override
-    public void recibirConnectionPhase2(String updateId, int precio, String type) {
-
-    }
-
-    /**
-     * Recibe la conexion completa
-     *
-     * @param updateId
-     * @param precio
-     * @param id
-     * @param adyacente
-     */
-    @Override
-    public void recibirConnection(String updateId, int precio, int id, int adyacente) {
-
-    }
-
-    /**
      * Este metodo recibe el mensaje descifrado y lo agrega a la cola de mensajes.
-
      */
     @Override
     public void recibirMensaje(Mensaje mensaje) {

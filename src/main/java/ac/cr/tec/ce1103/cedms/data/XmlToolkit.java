@@ -151,8 +151,8 @@ public class XmlToolkit {
             int precio = Integer.parseInt(xml.getElementsByTagName(PRECIO).item(HEAD).getTextContent());
 
             if (xml.getElementsByTagName(ID).getLength() != 0) {
-                int id = Integer.parseInt(xml.getElementsByTagName(ID).item(HEAD).getTextContent());
-                int adyacente = Integer.parseInt(xml.getElementsByTagName(ADYACENTE).item(HEAD).getTextContent());
+                long id = Long.parseLong(xml.getElementsByTagName(ID).item(HEAD).getTextContent());
+                long adyacente = Long.parseLong(xml.getElementsByTagName(ADYACENTE).item(HEAD).getTextContent());
                 output.recibirConnection(updateId, precio, id, adyacente);
             } else {
                 String type = xml.getElementsByTagName(TIPO).item(HEAD).getTextContent();
@@ -191,7 +191,7 @@ public class XmlToolkit {
         return XmlToolkit.xmlToString(xml);
     }
 
-    public static String newConnection(int id, int adyacente, int precio, String updateId) {
+    public static String newConnection(long id, long adyacente, int precio, String updateId) {
         Document xml = newDocument();
         Element root = xml.createElement(XmlMessage.CONNECTION.toString());
         xml.appendChild(root);

@@ -51,7 +51,7 @@ public class Connection {
         return target;
     }
 
-    public void setTarget(int target) {
+    public void setTarget(long target) {
         this.target = target;
     }
 
