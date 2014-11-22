@@ -41,15 +41,19 @@ public class BaseStation extends Core {
      * @param titulo
      * @param msg
      * @param numero
-     * @param nodos
      */
     @Override
-    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos) {
+    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
         String newUpdateId = updateId + "-" + numero;
         if (updateIdsList.find(newUpdateId))
             return;
         updateIdsList.append(newUpdateId);
         //luego encontramos la mejor ruta y la mandamos como mensaje
+    }
+
+    @Override
+    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos) {
+
     }
 
 }

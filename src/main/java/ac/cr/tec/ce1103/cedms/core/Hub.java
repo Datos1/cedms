@@ -55,4 +55,9 @@ public class Hub extends Core {
 
     }
 
+    @Override
+    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
+
+    }
+
 }
