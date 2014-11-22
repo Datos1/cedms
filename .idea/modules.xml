@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/cedms.iml" filepath="$PROJECT_DIR$/cedms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cedmsAndroid/cedmsAndroid.iml" filepath="$PROJECT_DIR$/cedmsAndroid/cedmsAndroid.iml" />
     </modules>
   </component>
 </project>

@@ -19,18 +19,6 @@ public class BaseStation extends Core {
         ui = new BaseStationTerminal(this);
     }
 
-    /**
-     * Recibe la conexion completa
-     *
-     * @param updateId
-     * @param precio
-     * @param id
-     * @param adyacente
-     */
-    @Override
-    public void recibirConnection(String updateId, int precio, int id, int adyacente) {
-        // la agregamos al grafo
-    }
 
     /**
      * Este metodo recibe el mensaje descifrado y ...
