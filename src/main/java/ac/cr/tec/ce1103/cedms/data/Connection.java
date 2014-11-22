@@ -13,9 +13,30 @@ public class Connection {
     private String updateId;
     private Client_Socket socket;
 
+    /**
+     * Constructor para las conexiones creadas por un mensaje
+     *
+     * @param pSource
+     * @param updateId
+     * @param pSocket
+     */
     public Connection(long pSource, String updateId, Client_Socket pSocket) {
         source = pSource;
+        this.updateId = updateId;
         socket = pSocket;
+    }
+
+    /**
+     * Constructor para conexiones del grafo
+     *
+     * @param pSource
+     * @param pTarget
+     * @param pPrecio
+     */
+    public Connection(long pSource, long pTarget, int pPrecio) {
+        source = pSource;
+        target = pTarget;
+        precio = pPrecio;
     }
 
     public Client_Socket getSocket() {

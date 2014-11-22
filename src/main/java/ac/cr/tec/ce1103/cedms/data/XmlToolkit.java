@@ -4,6 +4,7 @@ import ac.cr.tec.ce1103.cedms.core.Core;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -21,8 +22,6 @@ import java.io.StringWriter;
  */
 public class XmlToolkit {
 
-    public static final String HEADER
-            = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     public static final String SOURCE = "source";
     public static final int HEAD = 0;
     public static final String TARGET = "target";
@@ -41,6 +40,8 @@ public class XmlToolkit {
     public static final String DISPOSITIVO = "dispositivo";
     public static final String PUERTO = "puerto";
     public static final String DISPOSITIVOS = "dispositivos";
+    public static final String NODO = "nodo";
+    public static final String RUTA = "ruta";
 
     /**
      * Decodes a message and gives it to the other method
@@ -91,9 +92,8 @@ public class XmlToolkit {
             case CONNECTION:
                 readInConnection(output, xml, updateId);
                 break;
-            // gets information relevant to message
             case GRAFO:
-                //output.recibirGrafo();
+                readInGrafo(output, xml, updateId);
                 break;
             case MENSAJE:
                 readInMessage(output, xml, updateId);
@@ -104,13 +104,43 @@ public class XmlToolkit {
         }
     }
 
+    private static void readInGrafo(Core output, Document xml, String updateId) {
+        long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
+        long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+        NodeList dispositivos = xml.getElementsByTagName(DISPOSITIVO);
+        List<Dispositivo> dispositivosList = new List<Dispositivo>();
+        for (int i = 0; i < dispositivos.getLength(); i++) {
+            Element nodo = (Element) dispositivos.item(i);
+            Dispositivo ele = new Dispositivo(nodo.getAttribute(ID), nodo.getAttribute(TIPO), nodo.getAttribute(PUERTO));
+            dispositivosList.append(ele);
+        }
+        NodeList conexiones = xml.getElementsByTagName(CONEXION);
+        List<Connection> conexionesList = new List<Connection>();
+        for (int i = 0; i < conexiones.getLength(); i++) {
+            Element nodo = (Element) conexiones.item(i);
+            Connection ele = new Connection(Long.parseLong(nodo.getAttribute(SOURCE)), Long.parseLong(nodo.getAttribute(TARGET)),
+                    Integer.parseInt(nodo.getAttribute(PRECIO)));
+            conexionesList.append(ele);
+        }
+
+    }
+
     private static void readInMessage(Core output, Document xml, String updateId) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
         String titulo = xml.getElementsByTagName(TITULO).item(HEAD).getTextContent();
         String msg = xml.getElementsByTagName(MSG).item(HEAD).getTextContent();
         int numero = Integer.parseInt(xml.getElementsByTagName(NUMERO).item(HEAD).getTextContent());
-        output.recibirMensaje(source, target, updateId, titulo, msg, numero);
+        if (xml.getElementsByTagName(RUTA).getLength() != 0) {
+            NodeList ruta = xml.getElementsByTagName(NODO);
+            List<Long> nodos = new List<Long>();
+            for (int i = 0; i < ruta.getLength(); i++) {
+                nodos.append(Long.parseLong(ruta.item(i).getNodeValue()));
+            }
+            output.recibirMensaje(source, target, updateId, titulo, msg, numero, nodos);
+        } else {
+            output.recibirMensaje(source, target, updateId, titulo, msg, numero);
+        }
     }
 
     private static void readInConnection(Core output, Document xml, String updateId) {
@@ -177,8 +207,11 @@ public class XmlToolkit {
     }
 
 
-
-
+    /**
+     * Crea los mensajes que se van a mandar por el socket
+     *
+     * @return
+     */
     public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero) {
         Document xml = newDocument();
         Element root = xml.createElement(Message.MENSAJE.toString());
@@ -192,6 +225,23 @@ public class XmlToolkit {
         Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + numero);
 
         appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode);
+
+        return XmlToolkit.xmlToString(xml);
+    }
+
+    public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos) {
+        Document xml = newDocument();
+        Element root = xml.createElement(Message.MENSAJE.toString());
+        xml.appendChild(root);
+
+        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
+        Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
+        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
+        Element tituloNode = crearElementoConTexto(xml, TITULO, titulo);
+        Element msgNode = crearElementoConTexto(xml, MSG, msg);
+        Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + numero);
+
+        appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode, crearRuta(xml, nodos));
 
         return XmlToolkit.xmlToString(xml);
     }
@@ -221,6 +271,20 @@ public class XmlToolkit {
             root.appendChild(arg);
         }
         return root;
+    }
+
+    /**
+     * Crea una ruta llena de nodos
+     * que contienen un long
+     */
+    public static Element crearRuta(Document document, List<Long> nodos) {
+        Element elemento = document.createElement(RUTA);
+        for (int i = 0; i < nodos.getLength(); i++) {
+            Element nodo = document.createElement(NODO);
+            nodo.appendChild(document.createTextNode(nodos.get(i) + ""));
+            elemento.appendChild(nodo);
+        }
+        return elemento;
     }
 
     /**
@@ -326,6 +390,7 @@ public class XmlToolkit {
 
     /**
      * Crea dispositivos para el grafo individuales
+     *
      * @return elemento creado
      */
     private Element crearDispositivo(Document document, long id, CoreType type, int puerto) {
@@ -335,5 +400,4 @@ public class XmlToolkit {
         element.setAttribute(PUERTO, puerto + "");
         return element;
     }
-
 }

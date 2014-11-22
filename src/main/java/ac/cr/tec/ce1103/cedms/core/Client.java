@@ -52,14 +52,19 @@ public class Client extends Core implements Commons {
 
     /**
      * Este metodo recibe el mensaje descifrado y lo agrega a la cola de mensajes.
-     *
-     * @param source
+     *  @param source
      * @param target
      * @param updateId
      * @param titulo
      * @param msg
      * @param numero
+     * @param nodos
      */
+    @Override
+    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos) {
+        recibirMensaje(source, target, updateId, titulo, msg, numero);
+    }
+
     @Override
     public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
         if (target == this.id) {

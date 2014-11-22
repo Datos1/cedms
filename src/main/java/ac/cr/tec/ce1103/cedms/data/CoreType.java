@@ -20,6 +20,19 @@ public enum CoreType {
         this.string = s;
     }
 
+    /**
+     * Transform from String to coretype
+     */
+    public static CoreType parseCoreType(String type) {
+        if (type.equals(CLIENTE.toString()))
+            return CLIENTE;
+        else if (type.equals(HUB.toString()))
+            return HUB;
+        else if (type.equals(BASESTATION.toString()))
+            return BASESTATION;
+        else
+            return null;
+    }
 
     /**
      * Returns the name of this enum constant, as contained in the

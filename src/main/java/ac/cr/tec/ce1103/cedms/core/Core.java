@@ -160,16 +160,16 @@ public abstract class Core {
 
     /**
      * Este metodo recibe el mensaje descifrado y ...
-     *
-     * @param source
+     *  @param source
      * @param target
      * @param updateId
      * @param titulo
      * @param msg
      * @param numero
+     * @param nodos
      */
+    public abstract void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos);
     public abstract void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero);
-
     public List<Connection> getConnections() {
         return connections;
     }

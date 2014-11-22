@@ -14,6 +14,12 @@ public class Dispositivo {
         this.puerto = puerto;
     }
 
+    public Dispositivo(String id, String tipo, String puerto) {
+        this.id = Long.parseLong(id);
+        this.tipo = CoreType.parseCoreType(tipo);
+        this.puerto = Integer.parseInt(puerto);
+    }
+
     public int getPuerto() {
         return puerto;
     }
