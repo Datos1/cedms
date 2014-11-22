@@ -2,7 +2,8 @@ package ac.cr.tec.ce1103.cedms.core;
 
 import ac.cr.tec.ce1103.cedms.UI.HubTerminal;
 import ac.cr.tec.ce1103.cedms.data.CoreType;
-import ac.cr.tec.ce1103.cedms.dataStructures.List;
+import ac.cr.tec.ce1103.cedms.data.Mensaje;
+import ac.cr.tec.ce1103.cedms.data.XmlToolkit;
 import ac.cr.tec.ce1103.cedms.server.Server_Socket;
 
 /**
@@ -20,10 +21,10 @@ public class Hub extends Core {
     /**
      * It diffuses a message through all the system
      *
-     * @param msg
+     * @param xml
      */
     @Override
-    public void difusion(String msg) {
+    public void difusion(String xml) {
 
     }
 
@@ -41,23 +42,12 @@ public class Hub extends Core {
     }
 
     /**
-     * Este metodo recibe el mensaje descifrado y ...
-     *  @param source
-     * @param target
-     * @param updateId
-     * @param titulo
-     * @param msg
-     * @param numero
-     * @param nodos
+     * Este metodo recibe el mensaje descifrado y lo distribuye
      */
     @Override
-    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos) {
-
-    }
-
-    @Override
-    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
-
+    public void recibirMensaje(Mensaje mensaje) {
+        if (mensaje.getRuta() == null)
+            difusion(XmlToolkit.createMessage(mensaje));
     }
 
 }

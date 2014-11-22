@@ -52,26 +52,14 @@ public class Client extends Core implements Commons {
 
     /**
      * Este metodo recibe el mensaje descifrado y lo agrega a la cola de mensajes.
-     *  @param source
-     * @param target
-     * @param updateId
-     * @param titulo
-     * @param msg
-     * @param numero
-     * @param nodos
+
      */
     @Override
-    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos) {
-        recibirMensaje(source, target, updateId, titulo, msg, numero);
-    }
-
-    @Override
-    public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
-        if (target == this.id) {
-            Mensaje nuevo = new Mensaje(source, target, updateId, titulo, msg, numero);
-            nuevosMensajes.add(nuevo);
+    public void recibirMensaje(Mensaje mensaje) {
+        if (mensaje.getTarget() == this.id) {
+            nuevosMensajes.add(mensaje);
         } else
-            difusion(XmlToolkit.createMessage(source, target, updateId, titulo, msg, numero));
+            difusion(XmlToolkit.createMessage(mensaje));
     }
 
     /**
@@ -82,7 +70,7 @@ public class Client extends Core implements Commons {
      * @param msg
      */
     public void sendNewMessage(long target, String titulo, String msg) {
-        difusion(XmlToolkit.createMessage(this.id, target, nextUpdateId(), titulo, msg, INITAL_MESSAGE_ID));
+        difusion(XmlToolkit.createMessage(new Mensaje(this.id, target, nextUpdateId(), titulo, msg, INITAL_MESSAGE_ID)));
     }
 
     public Mensaje getNuevoMensaje() {
@@ -98,8 +86,8 @@ public class Client extends Core implements Commons {
      * @param text
      */
     public void responderMensaje(Mensaje mensaje, String text) {
-        difusion(XmlToolkit.createMessage(mensaje.getTarget(), mensaje.getSource(), mensaje.getUpdateId(),
-                mensaje.getTitulo(), text, mensaje.getNumero() + 1));
+        difusion(XmlToolkit.createMessage(new Mensaje(mensaje.getTarget(), mensaje.getSource(), mensaje.getUpdateId(),
+                mensaje.getTitulo(), text, mensaje.getNumero() + 1)));
 
     }
 

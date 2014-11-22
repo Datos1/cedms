@@ -61,8 +61,8 @@ public class XmlToolkit {
             return;
         }
         String rootName = xmlFile.getDocumentElement().getNodeName();
-        Message type = null;
-        for (Message m : Message.values()) {
+        XmlMessage type = null;
+        for (XmlMessage m : XmlMessage.values()) {
             if (m.equals(rootName)) {   //Identifies type of message
                 type = m;
                 break;
@@ -85,7 +85,7 @@ public class XmlToolkit {
      * @param xml
      * @param type
      */
-    private static void readMessageAux(Core output, Document xml, Message type) {
+    private static void readMessageAux(Core output, Document xml, XmlMessage type) {
         String updateId = xml.getElementsByTagName(UPDATEID).item(HEAD).getTextContent();
         switch (type) {
 
@@ -137,9 +137,9 @@ public class XmlToolkit {
             for (int i = 0; i < ruta.getLength(); i++) {
                 nodos.append(Long.parseLong(ruta.item(i).getNodeValue()));
             }
-            output.recibirMensaje(source, target, updateId, titulo, msg, numero, nodos);
+            output.recibirMensaje(new Mensaje(source, target, updateId, titulo, msg, numero, nodos));
         } else {
-            output.recibirMensaje(source, target, updateId, titulo, msg, numero);
+            output.recibirMensaje(new Mensaje(source, target, updateId, titulo, msg, numero));
         }
     }
 
@@ -165,7 +165,7 @@ public class XmlToolkit {
     //////////////////////////////
     public static String newConnectionPhase1(long source, String updateId) {
         Document xml = newDocument();
-        Element root = xml.createElement(Message.CONNECTION.toString());
+        Element root = xml.createElement(XmlMessage.CONNECTION.toString());
         xml.appendChild(root);
 
         Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
@@ -178,7 +178,7 @@ public class XmlToolkit {
 
     public static String newConnectionPhase2(int precio, String updateId, String type) {
         Document xml = newDocument();
-        Element root = xml.createElement(Message.CONNECTION.toString());
+        Element root = xml.createElement(XmlMessage.CONNECTION.toString());
         xml.appendChild(root);
 
         Element precioNode = crearElementoConTexto(xml, PRECIO, "" + precio);
@@ -193,7 +193,7 @@ public class XmlToolkit {
 
     public static String newConnection(int id, int adyacente, int precio, String updateId) {
         Document xml = newDocument();
-        Element root = xml.createElement(Message.CONNECTION.toString());
+        Element root = xml.createElement(XmlMessage.CONNECTION.toString());
         xml.appendChild(root);
 
         Element idNode = crearElementoConTexto(xml, ID, "" + id);
@@ -206,43 +206,26 @@ public class XmlToolkit {
         return XmlToolkit.xmlToString(xml);
     }
 
-
     /**
-     * Crea los mensajes que se van a mandar por el socket
-     *
+     * crea el mensaje dependiendo si tiene ruta o no, que se van a mandar por el socket
+     * @param mensaje
      * @return
      */
-    public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero) {
+    public static String createMessage(Mensaje mensaje) {
         Document xml = newDocument();
-        Element root = xml.createElement(Message.MENSAJE.toString());
+        Element root = xml.createElement(XmlMessage.MENSAJE.toString());
         xml.appendChild(root);
 
-        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
-        Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
-        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
-        Element tituloNode = crearElementoConTexto(xml, TITULO, titulo);
-        Element msgNode = crearElementoConTexto(xml, MSG, msg);
-        Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + numero);
-
-        appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode);
-
-        return XmlToolkit.xmlToString(xml);
-    }
-
-    public static String createMessage(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos) {
-        Document xml = newDocument();
-        Element root = xml.createElement(Message.MENSAJE.toString());
-        xml.appendChild(root);
-
-        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
-        Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
-        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
-        Element tituloNode = crearElementoConTexto(xml, TITULO, titulo);
-        Element msgNode = crearElementoConTexto(xml, MSG, msg);
-        Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + numero);
-
-        appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode, crearRuta(xml, nodos));
-
+        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + mensaje.getSource());
+        Element targetNode = crearElementoConTexto(xml, TARGET, "" + mensaje.getTarget());
+        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, mensaje.getUpdateId());
+        Element tituloNode = crearElementoConTexto(xml, TITULO, mensaje.getUpdateId());
+        Element msgNode = crearElementoConTexto(xml, MSG, mensaje.getMsg());
+        Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + mensaje.getNumero());
+        if (mensaje.getRuta() == null)// nos fijamos si tiene ruta pegada
+            appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode);
+        else
+            appendChild(root, sourceNode, targetNode, updateIdNode, tituloNode, msgNode, numeroNode, crearRuta(xml, mensaje.getRuta()));
         return XmlToolkit.xmlToString(xml);
     }
 
@@ -335,7 +318,7 @@ public class XmlToolkit {
      */
     public String crearGrafo(long source, long target, String updateId, List<Connection> connections, List<Dispositivo> dispositivos) {
         Document xml = newDocument();
-        Element root = xml.createElement(Message.GRAFO.toString());
+        Element root = xml.createElement(XmlMessage.GRAFO.toString());
         xml.appendChild(root);
 
         Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
@@ -400,4 +383,6 @@ public class XmlToolkit {
         element.setAttribute(PUERTO, puerto + "");
         return element;
     }
+
+
 }

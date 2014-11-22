@@ -53,6 +53,7 @@ public abstract class Terminal implements Commons {
     }
 
     protected void init() {
+        terminal.next();
         System.out.println(BIENVENIDO + " " + VERSION);
         askAndConnect();
         while (on) {

@@ -1,15 +1,20 @@
 package ac.cr.tec.ce1103.cedms.data;
 
+import ac.cr.tec.ce1103.cedms.dataStructures.List;
+
 /**
  * Created by pablo on 18/11/14.
  */
 public class Mensaje {
-    private long source = 0;
-    private long target = 0;
+    private long source;
+    private long target;
     private String updateId;
     private String titulo;
     private String msg;
     private int numero;
+
+
+    private List<Long> ruta;
 
     public Mensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
         this.source = source;
@@ -18,6 +23,11 @@ public class Mensaje {
         this.titulo = titulo;
         this.msg = msg;
         this.numero = numero;
+    }
+
+    public Mensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> ruta) {
+        this(source, target, updateId, titulo, msg, numero);
+        this.ruta = ruta;
     }
 
     public long getSource() {
@@ -42,5 +52,9 @@ public class Mensaje {
 
     public int getNumero() {
         return numero;
+    }
+
+    public List<Long> getRuta() {
+        return ruta;
     }
 }

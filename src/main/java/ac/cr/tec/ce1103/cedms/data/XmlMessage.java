@@ -3,7 +3,7 @@ package ac.cr.tec.ce1103.cedms.data;
 /**
  * Created by pablo on 17/11/14.
  */
-public enum Message {
+public enum XmlMessage {
     GRAFO("grafo"),
     CONNECTION("connection"),
     MENSAJE("mensaje"),
@@ -12,7 +12,7 @@ public enum Message {
 
     private final String comparable;
 
-    Message(String pComparable) {
+    XmlMessage(String pComparable) {
         this.comparable = pComparable;
     }
 

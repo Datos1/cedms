@@ -30,8 +30,8 @@ public class Server_Socket implements Runnable {
                 t.start();
             }
             int newPort = 50000 - new java.util.Random().nextInt(5000);
-            Process p = Runtime.getRuntime().exec("ssh prbls@107.170.181.249 " + port + "localhost:" + newPort);
-            System.out.println(newPort);
+            // Process p = Runtime.getRuntime().exec("ssh prbls@107.170.181.249 " + port + "localhost:" + newPort);
+            //System.out.println(newPort);
 
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());

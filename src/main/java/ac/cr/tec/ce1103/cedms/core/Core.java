@@ -3,6 +3,7 @@ package ac.cr.tec.ce1103.cedms.core;
 import ac.cr.tec.ce1103.cedms.UI.Terminal;
 import ac.cr.tec.ce1103.cedms.data.Connection;
 import ac.cr.tec.ce1103.cedms.data.CoreType;
+import ac.cr.tec.ce1103.cedms.data.Mensaje;
 import ac.cr.tec.ce1103.cedms.data.XmlToolkit;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
@@ -160,16 +161,8 @@ public abstract class Core {
 
     /**
      * Este metodo recibe el mensaje descifrado y ...
-     *  @param source
-     * @param target
-     * @param updateId
-     * @param titulo
-     * @param msg
-     * @param numero
-     * @param nodos
      */
-    public abstract void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> nodos);
-    public abstract void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero);
+    public abstract void recibirMensaje(Mensaje mensaje);
     public List<Connection> getConnections() {
         return connections;
     }
