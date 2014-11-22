@@ -2,9 +2,7 @@ package ac.cr.tec.ce1103.cedms.UI;
 
 import ac.cr.tec.ce1103.cedms.core.BaseStation;
 
-/**
- * Created by pablo on 19/11/14.
- */
+
 public class BaseStationTerminal extends Terminal {
     public static final String OPCIONES = "Seleccione una de las siguientes opciones: 1: Agregar Conexion," +
             " 2: Imprimir Grafo 3: Ver Mensajes en espera 4: Ver Updates procesados 5:Ver Nodos Adyacentes " +

@@ -12,7 +12,7 @@ public class Graph {
     private int num_aristas;//number of links of the graph
     private List graph_nodes = new List<graphNode>();//graph nodes, contains base station,hub or client.
     private Hashtable hashtable_nodes = new Hashtable<Integer, graphNode>();//hashtable for nodes.
-    private List aristas = new List<Link>();//number of arches of the graph
+    private List<Link> aristas = new List<Link>();//number of arches of the graph
 
     /**
      * @return list of arches of the graph
@@ -138,24 +138,51 @@ public class Graph {
         }
     }*/
 
-    /**
-     * creates the adjacency list to identify the connections
-     *
+    /**the nodes of the graph must be created.
+     * creates the adjacency list to identify the connections.(adds the link after making the connection between nodes).
      * @param a
      * @param b
      * @param direction
+     * @param weight
      */
-    public void adjacencyListConnections(graphNode a, graphNode b, int direction) {//creates connection between two nodes forming the adjacency list.(lists inside lists)
-        if (direction == 0 || direction == 1) {// direction param: 1 if it is directed(directed from a to b).
-            if (direction == 0) {            //0 if it has links to both sides.(a to b, b to a)
-                //creates bidirectional link
-                ((graphNode) graph_nodes.get(searchNodePosition(a))).getNode_graphs().append(b);//adds the node to the list
-                ((graphNode) graph_nodes.get(searchNodePosition(b))).getNode_graphs().append(a);
-            } else if (direction == 1)//creates one direction link
-                ((graphNode) graph_nodes.get(searchNodePosition(a))).getNode_graphs().append(b);
-        } else {
-            System.out.println("error");
-        }
+    public void adjacencyListConnections(graphNode a, graphNode b, int direction,int weight) {//creates connection between two nodes forming the adjacency list.(lists inside lists)
+        try{
+            if(existNode(a) && existNode(b)){//if a and b exists in the list of graph nodes.
+                if (direction == 0 || direction == 1) {// direction param: 1 if it is directed(directed from a to b).
+                    if (direction == 0) {            //0 if it has links to both sides.(a to b, b to a)
+                        //creates bidirectional link
+                        //to first direction.
+
+                            graphNode gr_node = (graphNode) graph_nodes.get(searchNodePosition(a));
+                            List<graphNode> grphn = gr_node.getNode_graphs();
+                            grphn.append(b);
+                            gr_node.setNode_graphs(grphn);//adds the node to the adjacency list
+                            ((graphNode) (gr_node)).addLink(b, weight);//makes the link between nodes
+                            graph_nodes.append(gr_node);
+
+
+                        //to the other direction.
+                            graphNode gr_node2 = (graphNode) graph_nodes.get(searchNodePosition(b));
+                            List<graphNode> grphn2 = gr_node2.getNode_graphs();
+                            grphn2.append(a);
+                            gr_node2.setNode_graphs(grphn2);//adds the node to the adjacency list
+                            ((graphNode) (gr_node2)).addLink(b, weight);//makes the link between nodes
+                            graph_nodes.append(gr_node2);
+
+                    } else if (direction == 1) {//creates one direction link
+                        //to first direction.
+                        graphNode gr_node=(graphNode) graph_nodes.get(searchNodePosition(a));
+                        List<graphNode> grphn=gr_node.getNode_graphs();
+                        grphn.append(b);
+                        gr_node.setNode_graphs(grphn);//adds the node to the adjacency list
+                        ((graphNode)(gr_node)).addLink(b,weight);//makes the link between nodes
+                        graph_nodes.append(gr_node);
+                    }
+                }
+            }
+        }catch(Exception e){
+                System.out.println("Error: "+e.getMessage());
+         }
     }
 
     /**
@@ -171,6 +198,20 @@ public class Graph {
         }
     }
 
+    /**
+     *
+     * @param pgraphNode
+     * @return true if node is in the list.
+     */
+    public boolean existNode(graphNode pgraphNode) {
+        for (int i = 0; i < graph_nodes.getLength(); i++) {
+            if (pgraphNode.equals(graph_nodes.get(i))) {//if param is equal to node in list.
+                return true;
+            }
+
+        }
+        return false;
+    }
     /**
      * @param pgraphNode
      * @return returns the node to search, if it is not in the list return null.
@@ -207,7 +248,7 @@ public class Graph {
      */
     public void addNode(graphNode nombre) {
         graph_nodes.append(nombre);//adds the param node to the total of nodes of the graph
-        hashtable_nodes.put(nombre.getId(), new graphNode(nombre));//puts hashtable ??
+       // hashtable_nodes.put(nombre.getId(), new graphNode(nombre));//puts hashtable ??
     }
 
 
