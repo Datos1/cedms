@@ -2,6 +2,8 @@ package ac.cr.tec.ce1103.cedms.core;
 
 import ac.cr.tec.ce1103.cedms.UI.ClientTerminal;
 import ac.cr.tec.ce1103.cedms.data.Commons;
+import ac.cr.tec.ce1103.cedms.data.CoreType;
+import ac.cr.tec.ce1103.cedms.data.Mensaje;
 import ac.cr.tec.ce1103.cedms.data.XmlToolkit;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
@@ -25,7 +27,7 @@ public class Client extends Core implements Commons {
 
 
     /**
-     * Recibe la conexion en segunda fase
+     * Recibe la conexion en segunda fase, recibimos el tipo
      *  @param updateId
      * @param precio
      * @param type
@@ -62,18 +64,26 @@ public class Client extends Core implements Commons {
     public void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
         if (target == this.id) {
             Mensaje nuevo = new Mensaje(source, target, updateId, titulo, msg, numero);
-            mensajes.append(nuevo);
             nuevosMensajes.add(nuevo);
         } else
             difusion(XmlToolkit.createMessage(source, target, updateId, titulo, msg, numero));
     }
 
+    /**
+     * Cuando nos llega un mensaje nuevo lo creamos y lo difundimos
+     *
+     * @param target destino
+     * @param titulo
+     * @param msg
+     */
     public void sendNewMessage(long target, String titulo, String msg) {
         difusion(XmlToolkit.createMessage(this.id, target, nextUpdateId(), titulo, msg, INITAL_MESSAGE_ID));
     }
 
-    public Queue<Mensaje> getNuevosMensajes() {
-        return nuevosMensajes;
+    public Mensaje getNuevoMensaje() {
+        Mensaje mensaje = nuevosMensajes.deQueue();
+        mensajes.append(mensaje);
+        return mensaje;
     }
 
     /**
@@ -88,4 +98,12 @@ public class Client extends Core implements Commons {
 
     }
 
+    /**
+     * Devuelve lista de mensajes
+     *
+     * @return mensajes viejos
+     */
+    public List<Mensaje> getMensajes() {
+        return mensajes;
+    }
 }

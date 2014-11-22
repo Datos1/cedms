@@ -1,8 +1,8 @@
 package ac.cr.tec.ce1103.cedms.UI;
 
 import ac.cr.tec.ce1103.cedms.core.Client;
-import ac.cr.tec.ce1103.cedms.core.Mensaje;
-import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
+import ac.cr.tec.ce1103.cedms.data.Mensaje;
+import ac.cr.tec.ce1103.cedms.dataStructures.List;
 
 import java.util.regex.Pattern;
 
@@ -20,6 +20,7 @@ public class ClientTerminal extends Terminal {
     public static final String REPLY = "Desea responder o descartar? (1/0): ";
     public static final String ASUNTO = "Asunto: ";
     public static final String MENSAJE = "Mensaje: ";
+    public static final String MENSAJE_DE = "Mensaje de: ";
     static protected Pattern OPCIONES_PATTERN = Pattern.compile("[1-6]");
     protected Client client;
 
@@ -29,11 +30,14 @@ public class ClientTerminal extends Terminal {
         init();
     }
 
+    /**
+     * Aqui se muestran las opciones del menu principal
+     */
     @Override
     protected void menuOpciones() {
         System.out.println(OPCIONES);
         if (terminal.hasNext(OPCIONES_PATTERN)) {
-            switch (Integer.parseInt(terminal.next())) {
+            switch (Integer.parseInt(terminal.nextLine())) {
                 case 1:
                     askAndConnect();
                     break;
@@ -43,6 +47,17 @@ public class ClientTerminal extends Terminal {
                 case 3:
                     verMensajes();
                     break;
+                case 4:
+                    verMensajesProcesados();
+                    break;
+                case 5:
+                    verNodosAdyacentes();
+                    break;
+                case 6:
+                    cambiarPesoNodo();
+                    break;
+                case 7:
+                    desconectar();
 
 
             }
@@ -50,10 +65,30 @@ public class ClientTerminal extends Terminal {
         } else terminal.next();
     }
 
+
+    /**
+     * Se muestran todos los mensajes nuevos
+     */
+    private void verMensajesProcesados() {
+        List<Mensaje> mensajes = client.getMensajes();
+        for (int i = 0; i < mensajes.getLength(); i++) {
+            Mensaje mensaje = mensajes.get(i);
+            System.out.print(MENSAJE_DE);
+            System.out.println(mensaje.getSource());
+            System.out.println(ASUNTO + mensaje.getTitulo());
+            System.out.println(MENSAJE + mensaje.getMsg());
+            System.out.println(SLASH);
+        }
+        System.out.println("No hay mas mensajes...");
+    }
+
+    /**
+     * Se muestran todos los mensajes viejos
+     */
     private void verMensajes() {
-        Queue<Mensaje> nuevosMensajes = client.getNuevosMensajes();// llamamos a client
-        for (int i = 0; i < nuevosMensajes.getLength(); i++) {
-            Mensaje mensaje = nuevosMensajes.deQueue();
+        Mensaje mensaje;
+        while ((mensaje = client.getNuevoMensaje()) != null)// llamamos a client
+        {
             System.out.print(NUEVO_MENSAJE);
             System.out.println(mensaje.getSource());
             System.out.println(ASUNTO + mensaje.getTitulo());
@@ -65,14 +100,21 @@ public class ClientTerminal extends Terminal {
         System.out.println(NO_NEW_MESSAGES);
     }
 
+    /**
+     * Con el scanner preguntasmos
+     * el mensaje y lo enviamos por primera vez
+     */
     private void askAndSend() {
         long id = askID();
-
         String titulo = askTitulo();
         String msg = askMensaje();
         client.sendNewMessage(id, titulo, msg);// llamamos a client
     }
 
+    /**
+     * Con el scanner preguntasmos
+     * el titulo del mensaje y lo devolvemos
+     */
     private String askTitulo() {
         terminal.nextLine();
         System.out.println(ASK_TITULO);
@@ -84,8 +126,11 @@ public class ClientTerminal extends Terminal {
         }
     }
 
+    /**
+     * Con el scanner preguntasmos
+     * el mensaje y lo devolvemos.
+     */
     private String askMensaje() {
-        terminal.nextLine();
         System.out.println(ASK_MENSAJE);
         if (terminal.hasNextLine()) {
             return terminal.nextLine();

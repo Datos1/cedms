@@ -1,4 +1,4 @@
-package ac.cr.tec.ce1103.cedms.core;
+package ac.cr.tec.ce1103.cedms.data;
 
 import ac.cr.tec.ce1103.cedms.serverClient.Client_Socket;
 

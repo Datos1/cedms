@@ -4,8 +4,12 @@ package ac.cr.tec.ce1103.cedms;
  * @version 1.01
  */
 
-import ac.cr.tec.ce1103.cedms.core.*;
+import ac.cr.tec.ce1103.cedms.core.BaseStation;
+import ac.cr.tec.ce1103.cedms.core.Client;
+import ac.cr.tec.ce1103.cedms.core.Core;
+import ac.cr.tec.ce1103.cedms.core.Hub;
 import ac.cr.tec.ce1103.cedms.data.Commons;
+import ac.cr.tec.ce1103.cedms.data.CoreType;
 
 
 public class App implements Commons {

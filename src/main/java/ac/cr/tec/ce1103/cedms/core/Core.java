@@ -1,6 +1,8 @@
 package ac.cr.tec.ce1103.cedms.core;
 
 import ac.cr.tec.ce1103.cedms.UI.Terminal;
+import ac.cr.tec.ce1103.cedms.data.Connection;
+import ac.cr.tec.ce1103.cedms.data.CoreType;
 import ac.cr.tec.ce1103.cedms.data.XmlToolkit;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
@@ -167,4 +169,8 @@ public abstract class Core {
      * @param numero
      */
     public abstract void recibirMensaje(long source, long target, String updateId, String titulo, String msg, int numero);
+
+    public List<Connection> getConnections() {
+        return connections;
+    }
 }

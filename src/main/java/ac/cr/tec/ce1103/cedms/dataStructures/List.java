@@ -2,8 +2,6 @@ package ac.cr.tec.ce1103.cedms.dataStructures;
 
 /**
  * List generics
- *
- *
  */
 public class List<T> {
     protected Node<T> _head = null;
@@ -170,51 +168,47 @@ public class List<T> {
      * @param posicion
      * @param datos
      */
-    @Deprecated
-    public void insertInPosition(int posicion,T datos){
-        if (posicion>=0 && posicion <=getLength()){
-            if (posicion==0 || posicion==getLength()){
-                if (posicion==0){//si la posicion es al inicio.
-                   // System.out.println("entro");
+    public void insertInPosition(int posicion, T datos) {
+        if (posicion >= 0 && posicion <= getLength()) {
+            if (posicion == 0 || posicion == getLength()) {
+                if (posicion == 0) {//si la posicion es al inicio.
+                    // System.out.println("entro");
                     AddHead(datos);
                 }
-                if (posicion == getLength()){//si la posicion es al final.
+                if (posicion == getLength()) {//si la posicion es al final.
                     append(datos);
                 }
-            }
-            else{
-                int contador_posicion=1;
-                Node tmp=_head;
-                while(tmp.getNext()!=null && contador_posicion<posicion){
-                    tmp=tmp.getNext();
-                    contador_posicion+=1;
+            } else {
+                int contador_posicion = 1;
+                Node tmp = _head;
+                while (tmp.getNext() != null && contador_posicion < posicion) {
+                    tmp = tmp.getNext();
+                    contador_posicion += 1;
                 }
-                if(tmp.getNext()==null)
+                if (tmp.getNext() == null)
                     return;
-                else{
-                    Node nuevo=new Node(datos);
+                else {
+                    Node nuevo = new Node(datos);
                     nuevo.setNext(tmp.getNext());
                     tmp.setNext(nuevo);
-                   // tmp.getNext().SetPrevious(nuevo);
+                    // tmp.getNext().SetPrevious(nuevo);
                     //nuevo.SetPrevious(tmp);
                 }
             }
-        }
-        else
+        } else
             System.out.println("Posicion invalida");
     }
 
-    public void AddHead(T pdata){//agrega al principio de la lista.
-        if (this._head==null){//si la lista esta vacia.
-            Node<T> newNode=new Node<T>(pdata);
-            this._head=newNode;
-            this._tail=newNode;
-        }
-        else {
-            Node<T> newNode=new Node<T>(pdata);
+    public void AddHead(T pdata) {//agrega al principio de la lista.
+        if (this._head == null) {//si la lista esta vacia.
+            Node<T> newNode = new Node<T>(pdata);
+            this._head = newNode;
+            this._tail = newNode;
+        } else {
+            Node<T> newNode = new Node<T>(pdata);
             newNode.setNext(_head);
-           // this._head.SetPrevious(newNode);
-            this._head=newNode;
+            // this._head.SetPrevious(newNode);
+            this._head = newNode;
 
         }
 

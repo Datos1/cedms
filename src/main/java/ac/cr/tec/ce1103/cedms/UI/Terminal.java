@@ -2,6 +2,8 @@ package ac.cr.tec.ce1103.cedms.UI;
 
 import ac.cr.tec.ce1103.cedms.core.Core;
 import ac.cr.tec.ce1103.cedms.data.Commons;
+import ac.cr.tec.ce1103.cedms.data.Connection;
+import ac.cr.tec.ce1103.cedms.dataStructures.List;
 
 import java.net.ConnectException;
 import java.util.Scanner;
@@ -14,7 +16,8 @@ import java.util.regex.Pattern;
 public abstract class Terminal implements Commons {
     public static final String DESCONECTO = "Se desconecto: ";
     public static final String CONECTO = "Se conecto: ";
-    public static final String SLASH = "----------------------";
+    public static final String SLASH = "-------------------------";
+    public static final String SLASH_FINAL = "___________________________";
     public static final String ERROR_DE_CONEXION = "Error de conexion";
     public static final String BIENVENIDO = "Bienvenido a CEDMS";
     public static final String ASK_PORT = "Por favor ingrese el puerto de conexion: ";
@@ -26,6 +29,11 @@ public abstract class Terminal implements Commons {
     public static final String INVALID_PORT = "Formato Puerto Invalido!";
     public static final String TRUE = "1";
     public static final long ID_SMALL_MASK = 1234567890123000l;
+    public static final String SERVER_IP = "107.170.181.249";
+    public static final String SERVER = "server";
+    public static final String PRECIO = "Precio: ";
+    public static final String CONEXION_HACIA = "Conexion hacia id:";
+    public static final String DE_TIPO = "Y de tipo: ";
     static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))|localhost|server";
     static protected Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
     protected static String OPCIONES;
@@ -52,6 +60,30 @@ public abstract class Terminal implements Commons {
         }
     }
 
+    protected void verNodosAdyacentes() {
+        List<Connection> connections = core.getConnections();
+        for (int i = 0; i < connections.getLength(); i++) {
+            Connection connection = connections.get(i);
+            System.out.println(CONEXION_HACIA);
+            System.out.println(connection.getTarget());
+            System.out.println(PRECIO);
+            System.out.println(connection.getPrecio());
+            System.out.println(DE_TIPO);
+            System.out.println(connection.getType());
+            System.out.println(SLASH);
+        }
+        System.out.println(SLASH_FINAL);
+    }
+
+
+    protected void cambiarPesoNodo() {
+
+    }
+
+    protected void desconectar() {
+
+    }
+
     protected abstract void menuOpciones();
 
 
@@ -70,10 +102,13 @@ public abstract class Terminal implements Commons {
     public String askIP() {
         System.out.println(ASK_IP);
         if (terminal.hasNext(IPV4_PATTERN)) {// verificamos que sea un puerto valido
-            return terminal.next();
+            String ip = terminal.nextLine();
+            if (ip.equals(SERVER))
+                return SERVER_IP;
+            return ip;
         } else {
             System.out.println(INVALID_IP);
-            terminal.next();
+            terminal.nextLine();
         }
         return askIP();
     }
@@ -81,13 +116,13 @@ public abstract class Terminal implements Commons {
     public long askID() {
         System.out.println(ASK_ID);
         if (terminal.hasNext(ID_PATTERN)) {// verificamos que sea un puerto valido
-            return Long.parseLong(terminal.next());
+            return Long.parseLong(terminal.nextLine());
         } else if (terminal.hasNext(ID_PATTERN_SMALL))// para ahorrar tiempo se usan ids de tres digitos
         {
             return ID_SMALL_MASK + Long.parseLong(terminal.next());
         } else {
             System.out.println(INVALID_ID);
-            terminal.next();
+            terminal.nextLine();
         }
         return askID();
     }
@@ -95,10 +130,10 @@ public abstract class Terminal implements Commons {
     public boolean yesNoQuestion(String text) {
         System.out.println(text);
         if (terminal.hasNext(BOOLEAN_PATTERN)) {
-            return (terminal.next()).equals(TRUE);
+            return (terminal.nextLine()).equals(TRUE);
         } else {
             System.out.println(INPUT_ERROR);
-            terminal.next();
+            terminal.nextLine();
             return yesNoQuestion(text);
         }
     }
@@ -106,10 +141,10 @@ public abstract class Terminal implements Commons {
     public int askPort() {
         System.out.println(ASK_PORT);
         if (terminal.hasNext(PORT_PATTERN)) { //verifica que sea en formato puerto
-            return Integer.parseInt(terminal.next());
+            return Integer.parseInt(terminal.nextLine());
         } else {
             System.out.println(INVALID_PORT);
-            terminal.next();
+            terminal.nextLine();
         }
         return askPort();
     }

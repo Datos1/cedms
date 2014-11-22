@@ -1,4 +1,4 @@
-package ac.cr.tec.ce1103.cedms.core;
+package ac.cr.tec.ce1103.cedms.data;
 
 /**
  * Created by pablo on 18/11/14.

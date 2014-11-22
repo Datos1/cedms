@@ -1,6 +1,8 @@
 package ac.cr.tec.ce1103.cedms.core;
 
 import ac.cr.tec.ce1103.cedms.UI.BaseStationTerminal;
+import ac.cr.tec.ce1103.cedms.data.CoreType;
+import ac.cr.tec.ce1103.cedms.data.Mensaje;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import ac.cr.tec.ce1103.cedms.server.Server_Socket;
 
@@ -19,6 +21,7 @@ public class BaseStation extends Core {
 
     /**
      * Recibe la conexion completa
+     *
      * @param updateId
      * @param precio
      * @param id
@@ -31,6 +34,7 @@ public class BaseStation extends Core {
 
     /**
      * Este metodo recibe el mensaje descifrado y ...
+     *
      * @param source
      * @param target
      * @param updateId

@@ -1,6 +1,7 @@
 package ac.cr.tec.ce1103.cedms.data;
 
 import ac.cr.tec.ce1103.cedms.core.Core;
+import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -33,9 +34,13 @@ public class XmlToolkit {
     public static final String MSG = "msg";
     public static final String NUMERO = "numero";
     public static final String TIPO = "tipo";
-    public static final String MENSAJE = "mensaje";
     public static final String ERROR_EN_FORMATO_DEL_XML = "Error en formato del XML";
     public static final String ERROR_EN_EL_XML = "Error en el XML";
+    public static final String CONEXIONES = "conexiones";
+    public static final String CONEXION = "conexion";
+    public static final String DISPOSITIVO = "dispositivo";
+    public static final String PUERTO = "puerto";
+    public static final String DISPOSITIVOS = "dispositivos";
 
     /**
      * Decodes a message and gives it to the other method
@@ -252,6 +257,83 @@ public class XmlToolkit {
             }
             return null;
         }
+    }
+
+    /**
+     * Crea  un grafo listo para ser enviado
+     *
+     * @param source
+     * @param target
+     * @param updateId
+     * @param connections
+     * @param dispositivos
+     * @return
+     */
+    public String crearGrafo(long source, long target, String updateId, List<Connection> connections, List<Dispositivo> dispositivos) {
+        Document xml = newDocument();
+        Element root = xml.createElement(Message.GRAFO.toString());
+        xml.appendChild(root);
+
+        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
+        Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
+        Element updateIdNode = crearElementoConTexto(xml, UPDATEID, updateId);
+        Element conexionesNode = crearConexionesGrafo(xml, connections);
+        Element dispositivosNode = crearDispositivosGrafo(xml, dispositivos);
+
+        appendChild(root, sourceNode, targetNode, updateIdNode, conexionesNode, dispositivosNode);
+        return xmlToString(xml);
+    }
+
+    /**
+     * Creamos un elemento conexiones con hijos de conexion
+     */
+    public Element crearConexionesGrafo(Document document, List<Connection> connections) {
+        Element element = document.createElement(CONEXIONES);
+        for (int i = 0; i < connections.getLength(); i++) {
+            Connection connection = connections.get(i);
+            element.appendChild(crearConexion(document, connection.getSource(), connection.getTarget(), connection.getPrecio()));
+        }
+        return element;
+    }
+
+    /**
+     * Creamos un elemento conexiones con hijos de conexion
+     */
+    public Element crearDispositivosGrafo(Document document, List<Dispositivo> dispositivos) {
+        Element element = document.createElement(DISPOSITIVOS);
+        for (int i = 0; i < dispositivos.getLength(); i++) {
+            Dispositivo dispositivo = dispositivos.get(i);
+            element.appendChild(crearDispositivo(document, dispositivo.getId(), dispositivo.getTipo(), dispositivo.getPuerto()));
+        }
+        return element;
+    }
+
+    /**
+     * Crea conexiones para el grafo individuales
+     * @param document
+     * @param source
+     * @param target
+     * @param precio
+     * @return
+     */
+    private Element crearConexion(Document document, long source, long target, int precio) {
+        Element element = document.createElement(CONEXION);
+        element.setAttribute(SOURCE, source + "");
+        element.setAttribute(TARGET, target + "");
+        element.setAttribute(PRECIO, precio + "");
+        return element;
+    }
+
+    /**
+     * Crea dispositivos para el grafo individuales
+     * @return elemento creado
+     */
+    private Element crearDispositivo(Document document, long id, CoreType type, int puerto) {
+        Element element = document.createElement(DISPOSITIVO);
+        element.setAttribute(SOURCE, id + "");
+        element.setAttribute(TIPO, type + "");
+        element.setAttribute(PUERTO, puerto + "");
+        return element;
     }
 
 }
