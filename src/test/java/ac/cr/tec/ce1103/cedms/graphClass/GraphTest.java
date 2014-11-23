@@ -20,7 +20,7 @@ public class GraphTest {
         GraphNode graph_node2 = new GraphNode(hub1);
         GraphNode graph_node3 = new GraphNode(client1);
        // graphNode graph_node4 = new graphNode(base2);
-        INSTANCE_COUNTER += 1;//contador para el id de cada instancia, ya sea hub, client o base station.
+       // INSTANCE_COUNTER += 1;//contador para el id de cada instancia, ya sea hub, client o base station.
        // graph_node4.setId();
        // graph.addNode(graph_node1);
 
@@ -36,14 +36,14 @@ public class GraphTest {
         int numlinks=(graph.getAllLinks()).getLength();
        // Link link=(Link)lik.getNode(0).getData();
         //graphNode gr=link.getTerminal();
-        List l= ((List) ((graphNode) (graph.getGraph_nodes().get(0))).getLinks());
-        System.out.println("terminal: " + ((Link) l.get(0)).getTerminal().getNombre_elemento()+"\t");
+        //List l= ((List) ((graphNode) (graph.getGraph_nodes().get(0))).getLinks());
+       // System.out.println("terminal: " + ((Link) l.get(0)).getTerminal().getNombre_elemento()+"\t");
 
 
-        List l2= ((List) ((graphNode) (graph.getGraph_nodes().get(1))).getLinks());
-        System.out.println("terminal: " + ((Link) l2.get(0)).getTerminal().getNombre_elemento()+"\t");
-        List l3= ((List) ((graphNode) (graph.getGraph_nodes().get(2))).getLinks());
-        System.out.println("terminal: " + ((Link) l3.get(0)).getTerminal().getNombre_elemento()+"\t");
+        //List l2= ((List) ((graphNode) (graph.getGraph_nodes().get(1))).getLinks());
+        //System.out.println("terminal: " + ((Link) l2.get(0)).getTerminal().getNombre_elemento()+"\t");
+       // List l3= ((List) ((graphNode) (graph.getGraph_nodes().get(2))).getLinks());
+        //System.out.println("terminal: " + ((Link) l3.get(0)).getTerminal().getNombre_elemento()+"\t");
 
         graph.getAllLinks();
         System.out.println("destinos asociados: ");
