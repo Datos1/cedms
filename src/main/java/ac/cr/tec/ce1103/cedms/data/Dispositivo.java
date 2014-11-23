@@ -20,6 +20,12 @@ public class Dispositivo {
         this.puerto = puerto;
     }
 
+    /**
+     * constructor del dispositivo, este convierte los strings del xml a el tipo correspondiente
+     * @param id
+     * @param tipo
+     * @param puerto
+     */
     public Dispositivo(String id, String tipo, String puerto) {
         this.id = Long.parseLong(id);
         this.tipo = CoreType.parseCoreType(tipo);

@@ -59,6 +59,9 @@ public abstract class Terminal implements Commons {
         terminal = new Scanner(System.in);
     }
 
+    /**
+     * inicia la terminal
+     */
     protected void init() {
         terminal.reset();
         printBlankSpace();
@@ -74,6 +77,9 @@ public abstract class Terminal implements Commons {
             System.out.println("");
     }
 
+    /**
+     * imprime los nodos adyacentes a la terminal
+     */
     protected void verNodosAdyacentes() {
         List<Connection> connections = core.getConnections();
         for (int i = 0; i < connections.getLength(); i++) {
@@ -89,7 +95,9 @@ public abstract class Terminal implements Commons {
         System.out.println(SLASH_FINAL);
     }
 
-
+    /**
+     * cambia el peso de una conexion
+     */
     protected void cambiarPesoNodo() {
         System.out.println(PARA_DESCONECTAR);
         core.cambiarPesoNodo(askID(), askPeso());
@@ -102,7 +110,9 @@ public abstract class Terminal implements Commons {
 
     protected abstract void menuOpciones();
 
-
+    /**
+     * crea una conexion en fase 1
+     */
     public void askAndConnect() {
         String ip = askIP();
         int port = askPort();
@@ -114,7 +124,10 @@ public abstract class Terminal implements Commons {
         }
     }
 
-
+    /**
+     * preguntal el ip del dispositivo
+     * @return string
+     */
     public String askIP() {
         System.out.println(ASK_IP);
         if (terminal.hasNext(IPV4_PATTERN)) {// verificamos que sea un puerto valido

@@ -20,7 +20,9 @@ public class HubTerminal extends Terminal {
         this.hub = pHub;// asignamos client
         init();
     }
-
+    /**
+     * menu que segun lo ingresado en consola actua segun las opciones
+     */
     @Override
     protected void menuOpciones() {
         printBlankSpace();
@@ -46,7 +48,9 @@ public class HubTerminal extends Terminal {
             System.out.println(SLASH);
         } else terminal.next();
     }
-
+    /**
+     * imprime los mensajes que ya han sido procesados
+     */
     private void verUpdatesProcesados() {
         List<String> updates = hub.getUpdates();
         for (int i = 0; i < updates.getLength(); i++) {

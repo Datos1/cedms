@@ -29,6 +29,5 @@
     </orderEntry>
     <orderEntry type="library" name="com.jcraft.jsch:com.springsource.com.jcraft.jsch:0.1.41" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
-    <orderEntry type="library" name="Python 2.7.6 (/usr/bin/python) interpreter library" level="application" />
   </component>
 </module>

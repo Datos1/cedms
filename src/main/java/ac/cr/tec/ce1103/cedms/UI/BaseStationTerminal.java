@@ -19,6 +19,9 @@ public class BaseStationTerminal extends Terminal {
         init();
     }
 
+    /**
+     * menu que segun lo ingresado en consola actua segun las opciones
+     */
     @Override
     protected void menuOpciones() {
         System.out.println(OPCIONES);
@@ -44,6 +47,9 @@ public class BaseStationTerminal extends Terminal {
 
     }
 
+    /**
+     * imprime los mensajes que ya han sido procesados
+     */
     private void verUpdatesProcesados() {
         List<String> updates = baseStation.getUpdates();
         for (int i = 0; i < updates.getLength(); i++) {
