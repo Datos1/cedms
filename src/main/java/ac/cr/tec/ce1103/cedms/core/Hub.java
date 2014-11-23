@@ -15,8 +15,8 @@ public class Hub extends Core {
     public Hub(long pId, int pPort) {
         super(pId, pPort);
         type = CoreType.HUB;
-        this.serverSocket = new Server_Socket(this, pPort);
-        ui = new HubTerminal(this);
+        //this.serverSocket = new Server_Socket(this, pPort);
+        //ui = new HubTerminal(this);
     }
 
     /**

@@ -149,8 +149,10 @@ public class GraphNode<T> {//graphNode class
             boolean pos = existLink(destiny);//if param exists in the list.
             if (pos == false) {
                 links.append(new Link(this, destiny, weight));//creates and adds link to list.
+                actual_links++;
             }
         }
+
     }
 
     /**
