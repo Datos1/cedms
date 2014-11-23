@@ -2,6 +2,7 @@ package ac.cr.tec.ce1103.cedms;
 
 /**
  * @version 1.01
+ * ssh -R 5012:localhost:5012 prbls@107.170.181.249 conexion servidor
  */
 
 import ac.cr.tec.ce1103.cedms.core.BaseStation;
