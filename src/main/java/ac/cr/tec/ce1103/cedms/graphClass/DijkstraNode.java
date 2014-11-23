@@ -6,7 +6,7 @@ package ac.cr.tec.ce1103.cedms.graphClass;
 public class DijkstraNode {
 
     private GraphNode data;
-    private GraphNode Antecesor;
+    private DijkstraNode Antecesor;
     private int precio_recorrido;
     private int num_operaciones;
     private boolean nodo_marcado;
@@ -36,11 +36,11 @@ public class DijkstraNode {
         this.data = data;
     }
 
-    public GraphNode getAntecesor() {
+    public DijkstraNode getAntecesor() {
         return Antecesor;
     }
 
-    public void setAntecesor(GraphNode antecesor) {
+    public void setAntecesor(DijkstraNode antecesor) {
         Antecesor = antecesor;
     }
 

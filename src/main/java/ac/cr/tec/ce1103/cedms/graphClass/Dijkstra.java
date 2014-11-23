@@ -3,14 +3,16 @@ package ac.cr.tec.ce1103.cedms.graphClass;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 
 /**
- * Created by stiven on 23/11/14.
+ * dijkstra algorithm class
  */
 public class Dijkstra {
     private Graph grafo;
     private List<GraphNode> camino_mas_corto;//resultado del algoritmo.
     private List<Link> links_procesados;//se va guardando las conexiones procesadas.
-    private DijkstraNode actual;
+    private List<DijkstraNode> dijkstra_nodes_procesados;//actuales nodos procesados.
+    private DijkstraNode actual;//nodo en cuestion para el algoritmo.
     private List<DijkstraNode> dijkstra_nodes;//total nodes of the graph as Dijsktra nodes.
+
 
     public Dijkstra(Graph grafo,DijkstraNode inicial){
         this.grafo=grafo;
@@ -18,6 +20,22 @@ public class Dijkstra {
         this.links_procesados= new List<Link>();
         this.actual=inicial;
         this.dijkstra_nodes=new List<DijkstraNode>();
+    }
+
+    public List<DijkstraNode> getDijkstra_nodes_procesados() {
+        return dijkstra_nodes_procesados;
+    }
+
+    public void setDijkstra_nodes_procesados(List<DijkstraNode> dijkstra_nodes_procesados) {
+        this.dijkstra_nodes_procesados = dijkstra_nodes_procesados;
+    }
+
+    public List<DijkstraNode> getDijkstra_nodes() {
+        return dijkstra_nodes;
+    }
+
+    public void setDijkstra_nodes(List<DijkstraNode> dijkstra_nodes) {
+        this.dijkstra_nodes = dijkstra_nodes;
     }
 
     public void fillGraphNodeAsDijsktraNode(){//creates dijsktra nodes with the graph nodes.
@@ -58,20 +76,28 @@ public class Dijkstra {
         this.grafo = grafo;
     }
 
-    public void initAlgorithm(DijkstraNode nodo){//begins algorithm from the node of the param.
-        fillGraphNodeAsDijsktraNode();//fills the nodes of the graph as the dijsktra nodes.
+    public void Algorithm(DijkstraNode nodo){//begins algorithm from the node of the param.
+        int cont=0;
+        //fillGraphNodeAsDijsktraNode();//fills the nodes of the graph as the dijsktra nodes.
         if(existDijsktraNode(nodo)){//if nodo is in the graph.
-
             Link short_link=shorterConnection(nodo);//it is the adjacence link with the less weight.
-
+            dijkstra_nodes_procesados.append(nodo);
             links_procesados.append(shorterConnection(nodo));//while.
-            this.setActual(new DijkstraNode(links_procesados.get(0).getTerminal()));
+            actual=new DijkstraNode(links_procesados.get(cont).getTerminal());//siguiente nodo en el recorrido.;
+            actual.setAntecesor(nodo);//sets previous node.
+            actual.setPrecio_recorrido(links_procesados.get(cont).getWeight());//sets all weight carried from the beginning to thhis node.
+            cont+=1;
+            Algorithm(actual);
         }
         else{
             System.out.println("node not found");
         }
     }
 
+    public void init(){
+        fillGraphNodeAsDijsktraNode();//fills the nodes of the graph as the dijsktra nodes.
+       // while (dijkstra_nodes_procesados )
+    }
     public List<Link> getNodeLinks(DijkstraNode node){//connections with adjacent nodes of the node in param.
         return node.getData().getLinks();
     }
