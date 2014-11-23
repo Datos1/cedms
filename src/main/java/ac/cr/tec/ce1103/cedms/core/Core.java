@@ -24,6 +24,7 @@ public abstract class Core {
     protected int updateCounter = 0;
     protected List<String> updateIdsList = new List<String>(); // importante!! el update id de mensajes posee un append de un guion y el numero
     protected List<Connection> connections = new List<Connection>();
+    protected List<Mensaje> mensajes = new List<Mensaje>();
     protected Terminal ui;
     protected Queue queueIn = new Queue();
     protected Queue queueOut = new Queue();
@@ -225,5 +226,14 @@ public abstract class Core {
                 XmlToolkit.crearDesconexion(this.id,target);
             }
         }
+    }
+
+    /**
+     * Devuelve lista de mensajes
+     *
+     * @return mensajes viejos
+     */
+    public List<Mensaje> getMensajes() {
+        return mensajes;
     }
 }

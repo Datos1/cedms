@@ -8,6 +8,8 @@ import java.util.Hashtable;
  * class for the graph
  */
 public class Graph<T> {
+    public static final int DIRIGIDO =1;
+    public static final int BOTH =0;
     private int num_nodes;//number of the graph nodes
     private int num_aristas;//number of links of the graph
     private List<GraphNode<T>> graph_nodes = new List<GraphNode<T>>();//graph nodes, contains base station,hub or client.
@@ -30,6 +32,17 @@ public class Graph<T> {
         this.aristas = aristas;
     }
 
+    /**
+     * Agrega links en el nodo
+     * @param source
+     * @param target
+     * @param peso
+     */
+    public void addLinkNewNodes(T source, T target, int peso){
+        GraphNode nodeSource = new GraphNode(source);
+        GraphNode nodeTarget = new GraphNode(target);
+        adjacencyListConnections(nodeSource,nodeTarget,DIRIGIDO,peso);
+    }
     /**
      * @return all links that have each node of the graph(could be repeated!)
      */

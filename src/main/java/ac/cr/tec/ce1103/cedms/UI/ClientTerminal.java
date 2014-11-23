@@ -18,9 +18,9 @@ public class ClientTerminal extends Terminal {
     public static final String NO_NEW_MESSAGES = "No hay mensajes nuevos...";
     public static final String NUEVO_MENSAJE = "Nuevo mensaje de: ";
     public static final String REPLY = "Desea responder o descartar? (1/0): ";
-    public static final String ASUNTO = "Asunto: ";
-    public static final String MENSAJE = "Mensaje: ";
-    public static final String MENSAJE_DE = "Mensaje de: ";
+
+
+
     static protected Pattern OPCIONES_PATTERN = Pattern.compile("[1-6]");
     protected Client client;
 
@@ -65,21 +65,6 @@ public class ClientTerminal extends Terminal {
     }
 
 
-    /**
-     * Se muestran todos los mensajes nuevos
-     */
-    private void verMensajesProcesados() {
-        List<Mensaje> mensajes = client.getMensajes();
-        for (int i = 0; i < mensajes.getLength(); i++) {
-            Mensaje mensaje = mensajes.get(i);
-            System.out.print(MENSAJE_DE);
-            System.out.println(mensaje.getSource());
-            System.out.println(ASUNTO + mensaje.getTitulo());
-            System.out.println(MENSAJE + mensaje.getMsg());
-            System.out.println(SLASH);
-        }
-        System.out.println("No hay mas mensajes...");
-    }
 
     /**
      * Se muestran todos los mensajes viejos
