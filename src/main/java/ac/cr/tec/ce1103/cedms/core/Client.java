@@ -30,10 +30,13 @@ public class Client extends Core implements Commons {
      */
     @Override
     public void recibirMensaje(Mensaje mensaje) {
-        if (mensaje.getTarget() == this.id) {
-            nuevosMensajes.add(mensaje);
-        } else
-            difusion(XmlToolkit.createMessage(mensaje));
+        if (!updateIdsList.find(mensaje.getIdentifier())) {
+            updateIdsList.append(mensaje.getIdentifier());
+            if (mensaje.getTarget() == this.id) {
+                nuevosMensajes.add(mensaje);
+            } else
+                difusion(XmlToolkit.createMessage(mensaje));
+        }
     }
 
     /**

@@ -70,15 +70,16 @@ public class Server_Socket implements Runnable {
 
     private class newServerConnection implements Runnable
     {
+        Thread thread;
         BufferedReader input;
         public newServerConnection(BufferedReader input){
             this.input = input;
-            if (t == null) {
-                t = new Thread(this);
-                t.start();
+            if (thread == null) {
+                thread = new Thread(this);
+                thread.start();
             }
         }
-        Thread thread;
+
         /**
          Listen to connection
          */
@@ -93,6 +94,7 @@ public class Server_Socket implements Runnable {
             while (core.isOn()) {
                 try {
                     if ((messageReceived = input.readLine()) != null)//reads message
+                        System.out.println(messageReceived);
                         core.recibirSocket(messageReceived);
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -42,6 +42,10 @@ public class Mensaje {
         return updateId;
     }
 
+    public String getIdentifier() {
+        return updateId+"-"+numero;
+    }
+
     public String getTitulo() {
         return titulo;
     }

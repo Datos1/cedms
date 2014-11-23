@@ -233,7 +233,7 @@ public class XmlToolkit {
         Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + mensaje.getSource());
         Element targetNode = crearElementoConTexto(xml, TARGET, "" + mensaje.getTarget());
         Element updateIdNode = crearElementoConTexto(xml, UPDATEID, mensaje.getUpdateId());
-        Element tituloNode = crearElementoConTexto(xml, TITULO, mensaje.getUpdateId());
+        Element tituloNode = crearElementoConTexto(xml, TITULO, mensaje.getTitulo());
         Element msgNode = crearElementoConTexto(xml, MSG, mensaje.getMsg());
         Element numeroNode = crearElementoConTexto(xml, NUMERO, "" + mensaje.getNumero());
         if (mensaje.getRuta() == null)// nos fijamos si tiene ruta pegada
