@@ -35,6 +35,9 @@ public abstract class Terminal implements Commons {
     public static final String CONEXION_HACIA = "Conexion hacia id:";
     public static final String DE_TIPO = "Y de tipo: ";
     static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))|localhost|server";
+    public static final String PARA_DESCONECTAR = "Para desconectar: ";
+    public static final String PESO_INVALIDO = "Peso invalido.";
+    public static final String ASK_PESO = "Por favor ingrese el peso deseado: ";
     static protected Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
     protected static String OPCIONES;
     static protected Pattern ID_PATTERN = Pattern.compile("\\d{16}");
@@ -54,11 +57,17 @@ public abstract class Terminal implements Commons {
 
     protected void init() {
         terminal.reset();
+        printBlankSpace();
         System.out.println(BIENVENIDO + " " + VERSION);
         askAndConnect();
         while (on) {
             menuOpciones();
         }
+    }
+
+    protected void printBlankSpace() {
+        for (int i = 0; i < 3; i++)
+            System.out.println("");
     }
 
     protected void verNodosAdyacentes() {
@@ -78,11 +87,13 @@ public abstract class Terminal implements Commons {
 
 
     protected void cambiarPesoNodo() {
-
+        System.out.println(PARA_DESCONECTAR);
+        core.cambiarPesoNodo(askID(), askPeso());
     }
 
-    protected void desconectar() {
 
+    protected void desconectar() {
+        core.desconectar(askID());
     }
 
     protected abstract void menuOpciones();
@@ -114,9 +125,13 @@ public abstract class Terminal implements Commons {
         return askIP();
     }
 
+    /**
+     * Metodo para preguntar ids
+     * @return el id destino
+     */
     public long askID() {
         System.out.println(ASK_ID);
-        if (terminal.hasNext(ID_PATTERN)) {// verificamos que sea un puerto valido
+        if (terminal.hasNext(ID_PATTERN)) {// verificamos que sea un id valido
             return Long.parseLong(terminal.nextLine());
         } else if (terminal.hasNext(ID_PATTERN_SMALL))// para ahorrar tiempo se usan ids de tres digitos
         {
@@ -128,6 +143,21 @@ public abstract class Terminal implements Commons {
         return askID();
     }
 
+    /**
+     * M
+     * @return
+     */
+    public int askPeso() {
+        System.out.println(ASK_PESO);
+        if (terminal.hasNextInt()) {// verificamos que sea un numero valido
+            return Integer.parseInt(terminal.nextLine());
+        }
+         else {
+            System.out.println(PESO_INVALIDO);
+            terminal.nextLine();
+        }
+        return askPeso();
+    }
     public boolean yesNoQuestion(String text) {
         System.out.println(text);
         if (terminal.hasNext(BOOLEAN_PATTERN)) {

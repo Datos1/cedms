@@ -59,7 +59,6 @@ public class ClientTerminal extends Terminal {
                 case 7:
                     desconectar();
 
-
             }
             System.out.println(SLASH);
         } else terminal.next();

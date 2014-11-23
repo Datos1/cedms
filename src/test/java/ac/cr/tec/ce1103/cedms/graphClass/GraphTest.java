@@ -4,7 +4,6 @@ import ac.cr.tec.ce1103.cedms.core.BaseStation;
 import ac.cr.tec.ce1103.cedms.core.Client;
 import ac.cr.tec.ce1103.cedms.core.Hub;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
-import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
 import org.junit.Test;
 
 public class GraphTest {
@@ -69,15 +68,15 @@ public class GraphTest {
 
         /*for (int i = 0; i < graph.getAllLinks().getLength(); i++) {
             List lk = graph.getAllLinks();
-            System.out.println("inicial de pos" + i + " : " + );
-            System.out.println("terminal de pos" + i + " : " + );
-        }*/
-        /*System.out.println("\t");
+            System.out.println("inicial de pos" + i + " : " + (String) (((Link) lk.get(i)).getInitial().getNombre_elemento()));
+            System.out.println("terminal de pos" + i + " : " + (String) (((Link) lk.get(i)).getTerminal().getNombre_elemento()));
+        }
+        System.out.println("\t");
         graph.getArches(graph.getAllLinks());
         for (int i = 0; i < graph.getAllLinks().getLength(); i++) {
             System.out.println("inicial de pos" + i + " : " + graph.getAllLinks().get(i).getInitial().getNombre_elemento());
             System.out.println("terminal de pos" + i + " : " + graph.getAllLinks().get(i).getTerminal().getNombre_elemento());
-        }*/
+        }
         /*for(int i=0;i<((graphNode)(graph.getGraph_nodes().get(0))).getActual_links();i++){
             System.out.println(((Link)(((graphNode)(graph.getGraph_nodes().get(0))).getLinks().get(i))).getWeight());
         }*/

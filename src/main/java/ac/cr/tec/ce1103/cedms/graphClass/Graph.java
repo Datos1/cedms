@@ -7,7 +7,7 @@ import java.util.Hashtable;
 /**
  * class for the graph
  */
-public class Graph {
+public class Graph<T> {
     private int num_nodes;//number of the graph nodes
     private int num_aristas;//number of links of the graph
     private List graph_nodes;//graph nodes, contains base station,hub or client.

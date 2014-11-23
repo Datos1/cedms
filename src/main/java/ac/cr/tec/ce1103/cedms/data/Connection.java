@@ -51,7 +51,7 @@ public class Connection {
         return target;
     }
 
-    public void setTarget(int target) {
+    public void setTarget(long target) {
         this.target = target;
     }
 
@@ -74,4 +74,9 @@ public class Connection {
     public String getUpdateId() {
         return updateId;
     }
+    public void desconectar()
+    {
+        socket.close();
+    }
+
 }

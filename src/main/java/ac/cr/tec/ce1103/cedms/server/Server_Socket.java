@@ -18,36 +18,38 @@ public class Server_Socket implements Runnable {
     private java.net.ServerSocket serv_socket;
     private Socket socket;
     private DataOutputStream output_msg;
-    private BufferedReader input;
+
 
     public Server_Socket(Core core, int port)
     {
         this.core = core;
-        try {
-            serv_socket = new java.net.ServerSocket(port);
-            if (t == null) {
-                t = new Thread(this);
-                t.start();
-            }
-            int newPort = 50000 - new java.util.Random().nextInt(5000);
-            // Process p = Runtime.getRuntime().exec("ssh prbls@107.170.181.249 " + port + "localhost:" + newPort);
-            //System.out.println(newPort);
+            try {
+                serv_socket = new java.net.ServerSocket(port);
+                if (t == null) {
+                    t = new Thread(this);
+                    t.start();
+                }
+                //int newPort = 50000 - new java.util.Random().nextInt(5000);
+                // Process p = Runtime.getRuntime().exec("ssh prbls@107.170.181.249 " + port + "localhost:" + newPort);
+                //System.out.println(newPort);
 
-        } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
-            System.exit(-1);
-        }
+            } catch (IOException e) {
+                System.out.println("Error" + e.getMessage());
+                System.exit(-1);
+            }
+
     }
 
 
     public void initConnection(){
 
         try {//se pregunta al usuario si quiere una conexion, si la quiere hace lo siguiente:
+            BufferedReader input;
             socket=serv_socket.accept();//waits until there is a connection.
             System.out.println(NUEVA_CONEXION);
             System.out.println(socket.getRemoteSocketAddress());
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));//receives the flow of data saved in a buffered reader.
-
+            new newServerConnection(input);
 
         } catch (IOException e) {
             System.out.println("Error"+e.getMessage());
@@ -56,23 +58,47 @@ public class Server_Socket implements Runnable {
 
     }
 
-    protected void listen() {
-        String messageReceived;
-        while (core.isOn()) {
-            try {
-                if ((messageReceived = input.readLine()) != null)//reads message
-                    core.recibirSocket(messageReceived);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-        }
-    }
 
 
     @Override
     public void run() {
-        initConnection();
-        listen();
+        while (core.isOn()) {
+            initConnection();
+        }
+    }
+
+    private class newServerConnection implements Runnable
+    {
+        BufferedReader input;
+        public newServerConnection(BufferedReader input){
+            this.input = input;
+            if (t == null) {
+                t = new Thread(this);
+                t.start();
+            }
+        }
+        Thread thread;
+        /**
+         Listen to connection
+         */
+        @Override
+        public void run() {
+            listen();
+
+        }
+
+        protected void listen() {
+            String messageReceived;
+            while (core.isOn()) {
+                try {
+                    if ((messageReceived = input.readLine()) != null)//reads message
+                        core.recibirSocket(messageReceived);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
     }
 }

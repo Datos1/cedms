@@ -1,6 +1,7 @@
 package ac.cr.tec.ce1103.cedms.UI;
 
 import ac.cr.tec.ce1103.cedms.core.Hub;
+import ac.cr.tec.ce1103.cedms.dataStructures.List;
 
 /**
  * Created by pablo on 19/11/14.
@@ -25,14 +26,23 @@ public class HubTerminal extends Terminal {
                     askAndConnect();
                     break;
                 case 2:
+                    verUpdatesProcesados();
                     break;
                 case 3:
+                    verNodosAdyacentes();
                     break;
-
 
             }
             System.out.println(SLASH);
         } else terminal.next();
+    }
+
+    private void verUpdatesProcesados() {
+        List<String> updates = hub.getUpdates();
+        for (int i = 0; i < updates.getLength(); i++) {
+            System.out.println("UpdateId: ");
+            System.out.println(updates.get(i));
+        }
     }
 
 

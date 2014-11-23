@@ -67,7 +67,7 @@ public abstract class Core {
      */
     public void createConnectionPhase1(String pIp, int pPort) throws ConnectException {
         String updateId = nextUpdateId();
-        Client_Socket clientSocketTemp = new Client_Socket(this, pIp, pPort);
+        Client_Socket clientSocketTemp = new Client_Socket(pIp, pPort);
         clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, updateId));
         connections.append(new Connection(this.id, updateId, clientSocketTemp));
 
@@ -93,7 +93,6 @@ public abstract class Core {
      */
     protected String nextUpdateId() {
         String upId = id + "-" + updateCounter++;
-        updateIdsList.append(upId);
         return upId;
     }
 
@@ -145,7 +144,18 @@ public abstract class Core {
      * @param type
      */
     public void recibirConnectionPhase2(String updateId, int precio, String type) {
-
+        if (!updateIdsList.find(updateId)) {
+            updateIdsList.append(updateId);
+            if (id == this.id)
+                for (int i = 0; i < connections.getLength(); i++) {
+                    Connection connection = connections.get(i);
+                    if (connection.getUpdateId().equals(updateId)) {
+                        connection.setPrecio(precio);
+                        connection.setType(CoreType.parseCoreType(type));
+                    }
+                }
+            difusion(XmlToolkit.newConnectionPhase2(precio, updateId, type));
+        }
     }
 
 
@@ -157,7 +167,20 @@ public abstract class Core {
      * @param id
      * @param adyacente
      */
-    public abstract void recibirConnection(String updateId, int precio, int id, int adyacente);
+    public void recibirConnection(String updateId, int precio, long id, long adyacente) {
+        if (!updateIdsList.find(updateId)) {
+            updateIdsList.append(updateId);
+            if (id == this.id)
+                for (int i = 0; i < connections.getLength(); i++) {
+                    Connection connection = connections.get(i);
+                    if (connection.getUpdateId().equals(updateId)) {
+                        connection.setTarget(adyacente);
+                    }
+
+                }
+            difusion(XmlToolkit.newConnection(id, adyacente, precio, updateId));
+        }
+    }
 
     /**
      * Este metodo recibe el mensaje descifrado y ...
@@ -166,5 +189,42 @@ public abstract class Core {
 
     public List<Connection> getConnections() {
         return connections;
+    }
+
+    /**
+     * Es metodo se encarga de manejar el cambio de pesos
+     * @param peso nuevo peso
+     */
+    public void recibirCambiarPeso(long source, long target, int peso)
+    {
+        difusion(XmlToolkit.crearCambioPeso(source,target,peso));
+    }
+    /**
+     * Es metodo se encarga de manejar las desconexiones
+     */
+    public void recibirDesconectar(long source, long target)
+    {
+        difusion(XmlToolkit.crearDesconexion(source,target));
+    }
+
+    public void cambiarPesoNodo(long target, int peso) {
+        for (int i = 0; i < connections.getLength(); i++) {
+            Connection connection = connections.get(i);
+            if (connection.getTarget()==target) {
+                connection.setPrecio(peso);
+                difusion(XmlToolkit.crearCambioPeso(this.id,target,peso));
+            }
+        }
+    }
+
+    public void desconectar(long target) {
+        for (int i = 0; i < connections.getLength(); i++) {
+            Connection connection = connections.get(i);
+            if (connection.getTarget()==target) {
+                connection.desconectar();
+                connections.remove(i);
+                XmlToolkit.crearDesconexion(this.id,target);
+            }
+        }
     }
 }

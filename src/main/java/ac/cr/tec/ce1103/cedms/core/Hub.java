@@ -1,9 +1,11 @@
 package ac.cr.tec.ce1103.cedms.core;
 
 import ac.cr.tec.ce1103.cedms.UI.HubTerminal;
+import ac.cr.tec.ce1103.cedms.data.Connection;
 import ac.cr.tec.ce1103.cedms.data.CoreType;
 import ac.cr.tec.ce1103.cedms.data.Mensaje;
 import ac.cr.tec.ce1103.cedms.data.XmlToolkit;
+import ac.cr.tec.ce1103.cedms.dataStructures.List;
 import ac.cr.tec.ce1103.cedms.server.Server_Socket;
 
 /**
@@ -17,37 +19,31 @@ public class Hub extends Core {
         ui = new HubTerminal(this);
     }
 
-
-    /**
-     * It diffuses a message through all the system
-     *
-     * @param xml
-     */
-    @Override
-    public void difusion(String xml) {
-
-    }
-
-    /**
-     * Recibe la conexion completa
-     *
-     * @param updateId
-     * @param precio
-     * @param id
-     * @param adyacente
-     */
-    @Override
-    public void recibirConnection(String updateId, int precio, int id, int adyacente) {
-
-    }
-
     /**
      * Este metodo recibe el mensaje descifrado y lo distribuye
      */
     @Override
     public void recibirMensaje(Mensaje mensaje) {
-        if (mensaje.getRuta() == null)
-            difusion(XmlToolkit.createMessage(mensaje));
+        if (mensaje.getRuta() != null) {
+            List<Long> ruta = mensaje.getRuta();
+            for (int i = 0; i < ruta.getLength(); i++) {
+                if (ruta.get(i) == this.id) {
+                    for (int j = 0; j < connections.getLength(); j++) {
+                        Connection connection = connections.get(j);
+                        if (connection.getTarget() == ruta.get(i + 1)) {
+                            connection.getSocket().send(XmlToolkit.createMessage(mensaje));
+                            return;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        difusion(XmlToolkit.createMessage(mensaje));
     }
 
+
+    public List<String> getUpdates() {
+        return updateIdsList;
+    }
 }
