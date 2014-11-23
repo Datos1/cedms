@@ -273,4 +273,12 @@ public class Graph<T> {
         return -1;
     }*/
 
+    public void changePrice(T a, T b, int weight){
+        List aristas=this.getAllLinks();
+        for(int i=0;i<aristas.getLength();i++){
+            if(((Link) aristas.get(i)).getInitial().equals(((Link) a)) && ((Link) aristas.get(i)).getTerminal().equals(((Link) b))){
+
+            }
+        }
+    }
 }
