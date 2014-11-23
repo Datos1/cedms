@@ -46,7 +46,7 @@ public class GraphTest {
         //System.out.println("terminal: " + ((Link) l3.get(0)).getTerminal().getNombre_elemento()+"\t");
 
        //System.out.println(graph.getAllLinks().getLength());
-        System.out.println(((Link) graph.getAllLinks().get(0)).getWeight());
+        /*System.out.println(((Link) graph.getAllLinks().get(0)).getWeight());
         System.out.println(((Link) graph.getAllLinks().get(1)).getWeight());
         System.out.println(((Link) graph.getAllLinks().get(2)).getWeight());
         System.out.println(((Link) graph.getAllLinks().get(3)).getWeight());
@@ -62,7 +62,7 @@ public class GraphTest {
         System.out.println("\t");
         System.out.println(((Link) graph.getAllLinks().get(3)).getInitial().getNombre_elemento());
         System.out.println(((Link) graph.getAllLinks().get(3)).getTerminal().getNombre_elemento());
-        System.out.println("\t");
+        System.out.println("\t");*/
 
         //List l= ((List) ((graphNode) (graph.getGraph_nodes().get(0))).getLinks());
        // System.out.println("terminal: " + ((Link) l.get(0)).getTerminal().getNombre_elemento()+"\t");
@@ -73,7 +73,7 @@ public class GraphTest {
        // List l3= ((List) ((graphNode) (graph.getGraph_nodes().get(2))).getLinks());
         //System.out.println("terminal: " + ((Link) l3.get(0)).getTerminal().getNombre_elemento()+"\t");
 
-        graph.changePrice(((GraphNode) ((Link) graph.getAllLinks().get(0)).getInitial()), ((GraphNode) ((Link) graph.getAllLinks().get(0)).getTerminal()), 555);
+       /* graph.changePrice(((GraphNode) ((Link) graph.getAllLinks().get(0)).getInitial()), ((GraphNode) ((Link) graph.getAllLinks().get(0)).getTerminal()), 555);
         graph.changePrice(((GraphNode) ((Link) graph.getAllLinks().get(3)).getInitial()),((GraphNode) ((Link) graph.getAllLinks().get(3)).getTerminal()),555);
         System.out.println("\t");
         //System.out.println(((Link) graph.getAllLinks().get(1)).getInitial().getNombre_elemento());
@@ -83,7 +83,7 @@ public class GraphTest {
         System.out.println(((Link) graph.getAllLinks().get(1)).getWeight());
         System.out.println(((Link) graph.getAllLinks().get(2)).getWeight());
         System.out.println(((Link) graph.getAllLinks().get(3)).getWeight());
-        //((graphNode) (graph.getGraph_nodes().get(2))).print_NodeLinks();
+        //((graphNode) (graph.getGraph_nodes().get(2))).print_NodeLinks();*/
         //System.out.println(graph.getGraph_nodes().getLength());
           //  i++;
         //}

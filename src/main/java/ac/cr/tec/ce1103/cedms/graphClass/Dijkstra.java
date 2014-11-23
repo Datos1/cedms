@@ -220,6 +220,20 @@ public class Dijkstra {
         return list_integer;
     }
 
+    public List<Integer> sortPrices(List<Integer> numbers){
+        List<Integer> sortPrices=new List<Integer>();
+        for (int i = 0; i < numbers.getLength(); i++)
+            for (int j = 0; i < numbers.getLength(); i++){
+                if(((Integer) numbers.get(i))<((Integer) numbers.get(j))){
+                    sortPrices.append((Integer) numbers.get(i));
+                    numbers.remove(i);
+                }
+
+            }
+        return sortPrices;
+
+    }
+
     /**
      *
      * @param numbers
