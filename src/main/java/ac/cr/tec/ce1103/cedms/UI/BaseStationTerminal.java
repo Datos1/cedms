@@ -3,11 +3,14 @@ package ac.cr.tec.ce1103.cedms.UI;
 import ac.cr.tec.ce1103.cedms.core.BaseStation;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 
+import java.util.regex.Pattern;
+
 
 public class BaseStationTerminal extends Terminal {
     public static final String OPCIONES = "Seleccione una de las siguientes opciones: 1: Agregar Conexion," +
             " 2: Imprimir Grafo 3: Ver Mensajes en espera 4: Ver Updates procesados 5:Ver Nodos Adyacentes " +
             "6: Cambiar peso Nodo 7: Desconectar ";
+    static protected Pattern OPCIONES_PATTERN = Pattern.compile("[1-7]");
     BaseStation baseStation;
 
     public BaseStationTerminal(BaseStation pBase) {
@@ -20,7 +23,7 @@ public class BaseStationTerminal extends Terminal {
     protected void menuOpciones() {
         System.out.println(OPCIONES);
         if (terminal.hasNext(OPCIONES_PATTERN)) {
-            switch (Integer.parseInt(terminal.next())) {
+            switch (Integer.parseInt(terminal.nextLine())) {
                 case 1:
                     askAndConnect();
                     break;
