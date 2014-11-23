@@ -228,7 +228,9 @@ public abstract class Core {
             }
         }
     }
-
+    public List<String> getUpdates() {
+        return updateIdsList;
+    }
     /**
      * Devuelve lista de mensajes
      *

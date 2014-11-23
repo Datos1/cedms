@@ -43,7 +43,5 @@ public class Hub extends Core {
     }
 
 
-    public List<String> getUpdates() {
-        return updateIdsList;
-    }
+
 }

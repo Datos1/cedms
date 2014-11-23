@@ -1,6 +1,7 @@
 package ac.cr.tec.ce1103.cedms.UI;
 
 import ac.cr.tec.ce1103.cedms.core.BaseStation;
+import ac.cr.tec.ce1103.cedms.dataStructures.List;
 
 
 public class BaseStationTerminal extends Terminal {
@@ -40,6 +41,13 @@ public class BaseStationTerminal extends Terminal {
 
     }
 
+    private void verUpdatesProcesados() {
+        List<String> updates = baseStation.getUpdates();
+        for (int i = 0; i < updates.getLength(); i++) {
+            System.out.println("UpdateId: ");
+            System.out.println(updates.get(i));
+        }
+    }
     private void verMensajes() {
 
     }
