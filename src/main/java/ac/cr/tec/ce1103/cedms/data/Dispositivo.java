@@ -8,6 +8,12 @@ public class Dispositivo {
     private CoreType tipo;
     private int puerto;
 
+    /**
+     * constructor de Dispositivo
+     * @param id
+     * @param tipo
+     * @param puerto
+     */
     public Dispositivo(long id, CoreType tipo, int puerto) {
         this.id = id;
         this.tipo = tipo;

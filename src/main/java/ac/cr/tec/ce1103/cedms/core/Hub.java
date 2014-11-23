@@ -12,6 +12,11 @@ import ac.cr.tec.ce1103.cedms.server.Server_Socket;
  * Created by pablo on 10/11/14.
  */
 public class Hub extends Core {
+    /**
+     * constructor del Hub
+     * @param pId
+     * @param pPort
+     */
     public Hub(long pId, int pPort) {
         super(pId, pPort);
         type = CoreType.HUB;
