@@ -223,4 +223,15 @@ public class List<T> {
         }
         return false;
     }
+
+    public Node getNode(Node pdata){
+        Node<T> ele = _head;
+        while (ele != null) {
+            if (ele.getData().equals(pdata))
+                return ele;
+            ele = ele.getNext();
+        }
+        return null;
+
+    }
 }

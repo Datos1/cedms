@@ -40,7 +40,7 @@ public abstract class Core {
     /**
      * Nos dice si esta encendido
      *
-     * @return
+     * @return bool if it is on
      */
     public boolean isOn() {
         return on;
@@ -163,6 +163,7 @@ public abstract class Core {
      * Este metodo recibe el mensaje descifrado y ...
      */
     public abstract void recibirMensaje(Mensaje mensaje);
+
     public List<Connection> getConnections() {
         return connections;
     }
