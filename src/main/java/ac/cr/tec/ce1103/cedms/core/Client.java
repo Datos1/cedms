@@ -20,8 +20,8 @@ public class Client extends Core implements Commons {
     public Client(long pId, int pPort) {
         super(pId, pPort);
         type = CoreType.CLIENTE;
-        //this.serverSocket = new Server_Socket(this, pPort);
-        //ui = new ClientTerminal(this);
+        this.serverSocket = new Server_Socket(this, pPort);
+        ui = new ClientTerminal(this);
     }
 
 
