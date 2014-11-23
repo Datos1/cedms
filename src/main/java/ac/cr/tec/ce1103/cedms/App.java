@@ -19,7 +19,7 @@ public class App implements Commons {
 
     public static void main(String[] args) {
         Core core;
-        if (args.length != 3)
+        if (args.length < 3)
             System.out.println(USAGE);
         else {
             try {

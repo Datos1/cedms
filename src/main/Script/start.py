@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from subprocess import call
 from xml.dom import minidom
+import threading
 
 def start():
         """Correr la progra"""
@@ -12,8 +13,10 @@ def start():
             id= (dispositivo.getAttribute("id"))
             tipo= dispositivo.getAttribute("tipo")
             puerto= (dispositivo.getAttribute("puerto"))
-            print "java -jar ~/cedms.jar "+id+" "+puerto+" "+tipo
-            call(["xterm", '-e', "java -jar ~/cedms.jar "+id+" "+puerto+" "+tipo])#abre una consola con el comando indicado
+            print "java -jar ~/IdeaProjects/cedms/out/artifacts/cedms_jar/cedms.jar "+id+" "+puerto+" "+tipo
+            threading.Thread(target=java, args=(id,puerto,tipo)).start()
+def java(id,puerto,tipo):
+    call(["xterm", '-e', "java -jar ~/IdeaProjects/cedms/out/artifacts/cedms_jar/cedms.jar "+id+" "+puerto+" "+tipo]),()
 
 if __name__ == '__main__':
     start()

@@ -5,7 +5,7 @@ package ac.cr.tec.ce1103.cedms.data;
  * Se encuentran los tipos de core
  */
 public enum CoreType {
-    CLIENTE("client"),
+    CLIENTE("cliente"),
     HUB("hub"),
     BASESTATION("base");
 
