@@ -42,5 +42,28 @@ public class BaseStation extends Core {
 
     }
 
+    /**
+     * Es metodo se encarga de manejar el cambio de pesos
+     *
+     * @param source
+     * @param target
+     * @param peso   nuevo peso
+     */
+    @Override
+    public void cambiarPeso(long source, long target, int peso) {
+
+    }
+
+    /**
+     * Es metodo se encarga de manejar las desconexiones
+     *
+     * @param source
+     * @param target
+     */
+    @Override
+    public void desconectar(long source, long target) {
+
+    }
+
 
 }

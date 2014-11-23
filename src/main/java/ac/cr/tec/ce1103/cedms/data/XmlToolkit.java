@@ -42,6 +42,7 @@ public class XmlToolkit {
     public static final String DISPOSITIVOS = "dispositivos";
     public static final String NODO = "nodo";
     public static final String RUTA = "ruta";
+    public static final String PESO = "peso";
 
     /**
      * Decodes a message and gives it to the other method
@@ -86,22 +87,35 @@ public class XmlToolkit {
      * @param type
      */
     private static void readMessageAux(Core output, Document xml, XmlMessage type) {
-        String updateId = xml.getElementsByTagName(UPDATEID).item(HEAD).getTextContent();
-        switch (type) {
-
-            case CONNECTION:
-                readInConnection(output, xml, updateId);
-                break;
-            case GRAFO:
-                readInGrafo(output, xml, updateId);
-                break;
-            case MENSAJE:
-                readInMessage(output, xml, updateId);
-                break;
-            case DESCONECTAR:
-                //output.desconectar();
-                break;
+        if (type == XmlMessage.DESCONECTAR) readInDesconectar(output, xml);
+        else if (type == XmlMessage.PESO) readInPeso(output, xml);
+        else {
+            String updateId = xml.getElementsByTagName(UPDATEID).item(HEAD).getTextContent();
+            switch (type) {
+                case CONNECTION:
+                    readInConnection(output, xml, updateId);
+                    break;
+                case GRAFO:
+                    readInGrafo(output, xml, updateId);
+                    break;
+                case MENSAJE:
+                    readInMessage(output, xml, updateId);
+                    break;
+            }
         }
+    }
+
+    private static void readInDesconectar(Core output, Document xml) {
+        long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
+        long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+        output.desconectar(source,target);
+    }
+
+    private static void readInPeso(Core output, Document xml) {
+        long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
+        long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
+        int peso = Integer.parseInt(xml.getElementsByTagName(PESO).item(HEAD + 1).getTextContent());
+        output.cambiarPeso(source,target,peso);
     }
 
     private static void readInGrafo(Core output, Document xml, String updateId) {
@@ -307,13 +321,42 @@ public class XmlToolkit {
     }
 
     /**
+     * Metodo se encarga de crear el xml de desconexion
+     * @return String xml
+     */
+    public String crearDesconexion(long source, long target) {
+        Document xml = newDocument();
+        Element root = xml.createElement(XmlMessage.DESCONECTAR.toString());
+        xml.appendChild(root);
+
+        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
+        Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
+        appendChild(root, sourceNode, targetNode);
+
+        return xmlToString(xml);
+    }
+    /**
+     * Metodo se encarga de crear el xml de cambio de Peso
+     * @return String xml
+     */
+    public String crearCambioPeso(long source, long target, int peso)
+    {
+        Document xml = newDocument();
+        Element root = xml.createElement(XmlMessage.PESO.toString());
+        xml.appendChild(root);
+
+        Element sourceNode = crearElementoConTexto(xml, SOURCE, "" + source);
+        Element targetNode = crearElementoConTexto(xml, TARGET, "" + target);
+        Element pesoNode = crearElementoConTexto(xml, PESO, "" + peso);
+
+        appendChild(root, sourceNode, targetNode);
+
+        return xmlToString(xml);
+    }
+    /**
      * Crea  un grafo listo para ser enviado
-     *
-     * @param source
-     * @param target
-     * @param updateId
-     * @param connections
-     * @param dispositivos
+     * @param connections lista conexiones
+     * @param dispositivos lista dispositivos
      * @return
      */
     public String crearGrafo(long source, long target, String updateId, List<Connection> connections, List<Dispositivo> dispositivos) {

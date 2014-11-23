@@ -189,4 +189,14 @@ public abstract class Core {
     public List<Connection> getConnections() {
         return connections;
     }
+
+    /**
+     * Es metodo se encarga de manejar el cambio de pesos
+     * @param peso nuevo peso
+     */
+    public abstract void cambiarPeso(long source, long target, int peso);
+    /**
+     * Es metodo se encarga de manejar las desconexiones
+     */
+    public abstract void desconectar(long source, long target);
 }

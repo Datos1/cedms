@@ -7,6 +7,7 @@ public enum XmlMessage {
     GRAFO("grafo"),
     CONNECTION("connection"),
     MENSAJE("mensaje"),
+    PESO("peso"),
     DESCONECTAR("desconectar");
 
 
