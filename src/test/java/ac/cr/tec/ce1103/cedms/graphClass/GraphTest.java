@@ -36,7 +36,6 @@ public class GraphTest {
         //int numlinks=(graph.getAllLinks()).getLength();
        // Link link=(Link)lik.getNode(0).getData();
         //graphNode gr=link.getTerminal();
-<<<<<<< HEAD
         //List l= ((List) ((GraphNode) (graph.getGraph_nodes().get(0))).getLinks());
         //System.out.println("terminal: " + ((Link) l.get(0)).getTerminal().getNombre_elemento()+"\t");
 
@@ -65,7 +64,6 @@ public class GraphTest {
         System.out.println(((Link) graph.getAllLinks().get(3)).getTerminal().getNombre_elemento());
         System.out.println("\t");
 
-=======
         //List l= ((List) ((graphNode) (graph.getGraph_nodes().get(0))).getLinks());
        // System.out.println("terminal: " + ((Link) l.get(0)).getTerminal().getNombre_elemento()+"\t");
 
@@ -74,7 +72,6 @@ public class GraphTest {
         //System.out.println("terminal: " + ((Link) l2.get(0)).getTerminal().getNombre_elemento()+"\t");
        // List l3= ((List) ((graphNode) (graph.getGraph_nodes().get(2))).getLinks());
         //System.out.println("terminal: " + ((Link) l3.get(0)).getTerminal().getNombre_elemento()+"\t");
->>>>>>> master
 
         graph.changePrice(((GraphNode) ((Link) graph.getAllLinks().get(0)).getInitial()), ((GraphNode) ((Link) graph.getAllLinks().get(0)).getTerminal()), 555);
         graph.changePrice(((GraphNode) ((Link) graph.getAllLinks().get(3)).getInitial()),((GraphNode) ((Link) graph.getAllLinks().get(3)).getTerminal()),555);
