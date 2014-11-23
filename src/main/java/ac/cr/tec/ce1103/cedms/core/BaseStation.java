@@ -1,9 +1,12 @@
 package ac.cr.tec.ce1103.cedms.core;
 
 import ac.cr.tec.ce1103.cedms.UI.BaseStationTerminal;
+import ac.cr.tec.ce1103.cedms.data.Connection;
 import ac.cr.tec.ce1103.cedms.data.CoreType;
+import ac.cr.tec.ce1103.cedms.data.Dispositivo;
 import ac.cr.tec.ce1103.cedms.data.Mensaje;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
+import ac.cr.tec.ce1103.cedms.graphClass.Graph;
 import ac.cr.tec.ce1103.cedms.server.Server_Socket;
 
 /**
@@ -11,7 +14,7 @@ import ac.cr.tec.ce1103.cedms.server.Server_Socket;
  */
 public class BaseStation extends Core {
     private List<Mensaje> mensajesPendientes = new List<Mensaje>();
-
+    private Graph<Dispositivo> grafoConexiones;
     public BaseStation(long pId, int pPort) {
         super(pId, pPort);
         type = CoreType.BASESTATION;
@@ -21,15 +24,11 @@ public class BaseStation extends Core {
 
     /**
      * Recibe la conexion completa
-     *
-     * @param updateId
-     * @param precio
-     * @param id
-     * @param adyacente
+     * y la agrega al grafo
      */
     @Override
-    public void recibirConnection(String updateId, int precio, int id, int adyacente) {
-        // la agregamos al grafo
+    public void recibirConnection(String updateId, int precio, long id, long adyacente) {
+       // grafoConexiones.addNode();
     }
 
     /**
@@ -45,12 +44,10 @@ public class BaseStation extends Core {
     /**
      * Es metodo se encarga de manejar el cambio de pesos
      *
-     * @param source
-     * @param target
      * @param peso   nuevo peso
      */
     @Override
-    public void cambiarPeso(long source, long target, int peso) {
+    public void recibirCambiarPeso(long source, long target, int peso) {
 
     }
 
@@ -61,7 +58,7 @@ public class BaseStation extends Core {
      * @param target
      */
     @Override
-    public void desconectar(long source, long target) {
+    public void recibirDesconectar(long source, long target) {
 
     }
 

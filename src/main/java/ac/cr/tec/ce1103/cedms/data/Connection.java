@@ -74,4 +74,9 @@ public class Connection {
     public String getUpdateId() {
         return updateId;
     }
+    public void desconectar()
+    {
+        socket.close();
+    }
+
 }

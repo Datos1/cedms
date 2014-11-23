@@ -13,13 +13,13 @@ import java.net.UnknownHostException;
 /**
  * Created by Stiven on 11/10/2014.
  */
-public class Client_Socket implements Runnable {
+public class Client_Socket {
     public static final String UNKNOWN_HOST = "Unknown Host";
     private PrintWriter out;
-    private BufferedReader in;
+    Socket echoSocket = null;
 
-    public Client_Socket(Core core, String hostName, int portNumber) throws ConnectException {
-        Socket echoSocket = null;
+    public Client_Socket(String hostName, int portNumber) throws ConnectException {
+
         try {
             try {
                 echoSocket = new Socket(hostName, portNumber);
@@ -31,8 +31,6 @@ public class Client_Socket implements Runnable {
 
             out = new PrintWriter(echoSocket.getOutputStream(), true);
 
-            in = new BufferedReader(
-                    new InputStreamReader(echoSocket.getInputStream()));
         } catch (ConnectException e) {
             throw e;
         } catch (IOException e) {
@@ -45,8 +43,11 @@ public class Client_Socket implements Runnable {
     }
 
 
-    @Override
-    public void run() {
-
+    public void close() {
+        try {
+            echoSocket.close();
+        } catch (IOException e) {
+            e.getMessage();
+        }
     }
 }

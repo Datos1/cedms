@@ -67,7 +67,7 @@ public abstract class Core {
      */
     public void createConnectionPhase1(String pIp, int pPort) throws ConnectException {
         String updateId = nextUpdateId();
-        Client_Socket clientSocketTemp = new Client_Socket(this, pIp, pPort);
+        Client_Socket clientSocketTemp = new Client_Socket(pIp, pPort);
         clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, updateId));
         connections.append(new Connection(this.id, updateId, clientSocketTemp));
 
@@ -194,9 +194,36 @@ public abstract class Core {
      * Es metodo se encarga de manejar el cambio de pesos
      * @param peso nuevo peso
      */
-    public abstract void cambiarPeso(long source, long target, int peso);
+    public void recibirCambiarPeso(long source, long target, int peso)
+    {
+        difusion(XmlToolkit.crearCambioPeso(source,target,peso));
+    }
     /**
      * Es metodo se encarga de manejar las desconexiones
      */
-    public abstract void desconectar(long source, long target);
+    public void recibirDesconectar(long source, long target)
+    {
+        difusion(XmlToolkit.crearDesconexion(source,target));
+    }
+
+    public void cambiarPesoNodo(long target, int peso) {
+        for (int i = 0; i < connections.getLength(); i++) {
+            Connection connection = connections.get(i);
+            if (connection.getTarget()==target) {
+                connection.setPrecio(peso);
+                difusion(XmlToolkit.crearCambioPeso(this.id,target,peso));
+            }
+        }
+    }
+
+    public void desconectar(long target) {
+        for (int i = 0; i < connections.getLength(); i++) {
+            Connection connection = connections.get(i);
+            if (connection.getTarget()==target) {
+                connection.desconectar();
+                connections.remove(i);
+                XmlToolkit.crearDesconexion(this.id,target);
+            }
+        }
+    }
 }

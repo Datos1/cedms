@@ -108,14 +108,14 @@ public class XmlToolkit {
     private static void readInDesconectar(Core output, Document xml) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
-        output.desconectar(source,target);
+        output.recibirDesconectar(source, target);
     }
 
     private static void readInPeso(Core output, Document xml) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
         int peso = Integer.parseInt(xml.getElementsByTagName(PESO).item(HEAD + 1).getTextContent());
-        output.cambiarPeso(source,target,peso);
+        output.recibirCambiarPeso(source, target, peso);
     }
 
     private static void readInGrafo(Core output, Document xml, String updateId) {
@@ -324,7 +324,7 @@ public class XmlToolkit {
      * Metodo se encarga de crear el xml de desconexion
      * @return String xml
      */
-    public String crearDesconexion(long source, long target) {
+    public static String crearDesconexion(long source, long target) {
         Document xml = newDocument();
         Element root = xml.createElement(XmlMessage.DESCONECTAR.toString());
         xml.appendChild(root);
@@ -339,7 +339,7 @@ public class XmlToolkit {
      * Metodo se encarga de crear el xml de cambio de Peso
      * @return String xml
      */
-    public String crearCambioPeso(long source, long target, int peso)
+    public static String crearCambioPeso(long source, long target, int peso)
     {
         Document xml = newDocument();
         Element root = xml.createElement(XmlMessage.PESO.toString());

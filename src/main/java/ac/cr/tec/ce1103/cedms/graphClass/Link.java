@@ -3,7 +3,7 @@ package ac.cr.tec.ce1103.cedms.graphClass;
 /**
  * class that connects a graph node to another
  */
-public class Link {
+public class Link<T> {
 
     private graphNode initial;//source(id) this id is the attribute from the class graphNode.
     private graphNode terminal;//destiny(id)this id is the attribute from the class graphNode.
