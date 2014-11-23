@@ -30,11 +30,10 @@ public class graphNode<T> {//graphNode class
      */
     public graphNode(T name_type) {//name is Object of type hub,client or base station.
         this.element = name_type;        //initializing the attribute variables.
-        this.actual_links = 0;//number of links
-        this.links = new List<Link>();//links of type Link
-        this.node_graphs = new List<graphNode>();//nodes that are associated with this node.
-        this.nombre_elemento=getNombre_elemento();//the string name of the type object.
-        this.id = -1;//id with default value.
+        this.actual_links = 0;
+        this.links = new List<Link>();
+        this.node_graphs = new List<graphNode>();
+        this.id = 1;
     }
 
     /**
@@ -154,6 +153,22 @@ public class graphNode<T> {//graphNode class
         }
     }
 
+    /**
+     * adds link
+     * @param destiny
+     */
+    /*public void addLink(graphNode destiny){ //adds the link with the param destiny
+        if (actual_links == -1){//if there are not links.
+            links.append(new Link(this,destiny));
+            actual_links++;
+        }
+        else{
+            boolean pos= existLink(destiny);//if param exists in the list.
+            if (pos == false){
+                links.append(new Link(this,destiny));//creates and adds link to list.
+            }
+        }
+    }*/
 
     /**
      * @param posicion
@@ -203,25 +218,11 @@ public class graphNode<T> {//graphNode class
      *
      * @return true if list of links of the node are different from null.
      */
-    public boolean hasLinks(){//validates if this nodes links are empty.
+    public boolean hasLinks(){
         if(links==null)
             return false;
         else
             return true;
-    }
-
-    /**
-     * prints the links of a node.
-     *
-     */
-    public void print_NodeLinks(){//prints links of node ignoring if a link is null in order to not get caught in a null pointer exception.
-        for(int i=0;i<links.getLength();i++) {
-
-            if (links.get(i) == null) {
-                continue;
-            }
-            else System.out.println(((Link) (links.get(i))).getTerminal().getNombre_elemento());
-        }
     }
 
 }

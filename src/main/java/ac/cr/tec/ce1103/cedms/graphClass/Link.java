@@ -5,8 +5,8 @@ package ac.cr.tec.ce1103.cedms.graphClass;
  */
 public class Link<T> {
 
-    private graphNode initial;//source(id) this id is the attribute from the class graphNode.
-    private graphNode terminal;//destiny(id)this id is the attribute from the class graphNode.
+    private GraphNode<T> initial;//source(id) this id is the attribute from the class graphNode.
+    private GraphNode<T> terminal;//destiny(id)this id is the attribute from the class graphNode.
     private int weight;//cost of link
 
     /**
@@ -16,7 +16,7 @@ public class Link<T> {
      * @param terminal
      * @param weight
      */
-    public Link(graphNode initial, graphNode terminal, int weight) {
+    public Link(GraphNode<T> initial, GraphNode<T> terminal, int weight) {
         this.initial = initial;//source
         this.terminal = terminal;//target or destiny
         this.weight = weight;//price of the link
@@ -30,7 +30,7 @@ public class Link<T> {
     /**
      * @return the initial or source graph node
      */
-    public graphNode getInitial() {
+    public GraphNode<T> getInitial() {
         return initial;
     }
 
@@ -39,14 +39,14 @@ public class Link<T> {
      *
      * @param initial
      */
-    public void setInitial(graphNode initial) {
+    public void setInitial(GraphNode<T> initial) {
         this.initial = initial;//assigns initial as the param
     }
 
     /**
      * @return the terminal or destiny graph node
      */
-    public graphNode getTerminal() {
+    public GraphNode<T> getTerminal() {
         return terminal;
     }
 
@@ -55,7 +55,7 @@ public class Link<T> {
      *
      * @param terminal
      */
-    public void setTerminal(graphNode terminal) {
+    public void setTerminal(GraphNode<T> terminal) {
         this.terminal = terminal;//assigns terminal as the param
     }
 

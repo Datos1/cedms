@@ -16,9 +16,13 @@ public class GraphTest {
         BaseStation base2 = new BaseStation(1234567, 5012);
         Hub hub1 = new Hub(123456, 5012);
         Client client1 = new Client(1239, 5012);
-        graphNode graph_node1 = new graphNode(base1);
-        graphNode graph_node2 = new graphNode(hub1);
-        graphNode graph_node3 = new graphNode(client1);
+        GraphNode graph_node1 = new GraphNode(base1);
+        GraphNode graph_node2 = new GraphNode(hub1);
+        GraphNode graph_node3 = new GraphNode(client1);
+       // graphNode graph_node4 = new graphNode(base2);
+        INSTANCE_COUNTER += 1;//contador para el id de cada instancia, ya sea hub, client o base station.
+       // graph_node4.setId();
+       // graph.addNode(graph_node1);
 
         graph.addNode(graph_node1);
         graph.addNode(graph_node2);
@@ -28,9 +32,18 @@ public class GraphTest {
         graph.adjacencyListConnections(graph_node1, graph_node2, 0,34);
         graph.adjacencyListConnections(graph_node3, graph_node1, 0,56);
 
+       // String lik= ((graphNode) graph.getGraph_nodes().get(2)).getNombre_elemento();
+        int numlinks=(graph.getAllLinks()).getLength();
+       // Link link=(Link)lik.getNode(0).getData();
+        //graphNode gr=link.getTerminal();
         List l= ((List) ((graphNode) (graph.getGraph_nodes().get(0))).getLinks());
+        System.out.println("terminal: " + ((Link) l.get(0)).getTerminal().getNombre_elemento()+"\t");
+
+
         List l2= ((List) ((graphNode) (graph.getGraph_nodes().get(1))).getLinks());
+        System.out.println("terminal: " + ((Link) l2.get(0)).getTerminal().getNombre_elemento()+"\t");
         List l3= ((List) ((graphNode) (graph.getGraph_nodes().get(2))).getLinks());
+        System.out.println("terminal: " + ((Link) l3.get(0)).getTerminal().getNombre_elemento()+"\t");
 
         graph.getAllLinks();
         System.out.println("destinos asociados: ");

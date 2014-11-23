@@ -14,7 +14,6 @@ import ac.cr.tec.ce1103.cedms.server.Server_Socket;
  */
 public class Client extends Core implements Commons {
     public static final int INITAL_MESSAGE_ID = 1;
-    private List<Mensaje> mensajes = new List<Mensaje>();
     private Queue<Mensaje> nuevosMensajes = new Queue<Mensaje>();
 
 
@@ -66,12 +65,4 @@ public class Client extends Core implements Commons {
 
     }
 
-    /**
-     * Devuelve lista de mensajes
-     *
-     * @return mensajes viejos
-     */
-    public List<Mensaje> getMensajes() {
-        return mensajes;
-    }
 }

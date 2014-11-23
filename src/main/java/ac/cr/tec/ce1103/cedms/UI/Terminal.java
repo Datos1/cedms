@@ -3,6 +3,7 @@ package ac.cr.tec.ce1103.cedms.UI;
 import ac.cr.tec.ce1103.cedms.core.Core;
 import ac.cr.tec.ce1103.cedms.data.Commons;
 import ac.cr.tec.ce1103.cedms.data.Connection;
+import ac.cr.tec.ce1103.cedms.data.Mensaje;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
 
 import java.net.ConnectException;
@@ -38,6 +39,9 @@ public abstract class Terminal implements Commons {
     public static final String PARA_DESCONECTAR = "Para desconectar: ";
     public static final String PESO_INVALIDO = "Peso invalido.";
     public static final String ASK_PESO = "Por favor ingrese el peso deseado: ";
+    public static final String MENSAJE_DE = "Mensaje de: ";
+    public static final String ASUNTO = "Asunto: ";
+    public static final String MENSAJE = "Mensaje: ";
     static protected Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
     protected static String OPCIONES;
     static protected Pattern ID_PATTERN = Pattern.compile("\\d{16}");
@@ -178,6 +182,23 @@ public abstract class Terminal implements Commons {
             terminal.nextLine();
         }
         return askPort();
+    }
+
+
+    /**
+     * Se muestran todos los mensajes nuevos
+     */
+    protected void verMensajesProcesados() {
+        List<Mensaje> mensajes = core.getMensajes();
+        for (int i = 0; i < mensajes.getLength(); i++) {
+            Mensaje mensaje = mensajes.get(i);
+            System.out.print(MENSAJE_DE);
+            System.out.println(mensaje.getSource());
+            System.out.println(ASUNTO + mensaje.getTitulo());
+            System.out.println(MENSAJE + mensaje.getMsg());
+            System.out.println(SLASH);
+        }
+        System.out.println("No hay mas mensajes...");
     }
 
     public void nuevaConexionPrint(long id) {
