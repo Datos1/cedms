@@ -11,6 +11,8 @@ import ac.cr.tec.ce1103.cedms.core.Hub;
 import ac.cr.tec.ce1103.cedms.data.Commons;
 import ac.cr.tec.ce1103.cedms.data.CoreType;
 
+import java.net.ConnectException;
+
 
 public class App implements Commons {
 
@@ -18,10 +20,8 @@ public class App implements Commons {
 
 
     public static void main(String[] args) {
-        Core core;
-        if (args.length < 3)
-            System.out.println(USAGE);
-        else {
+        Core core = null;
+        if (args.length >= 3) {
             try {
                 long id = Long.parseLong(args[0]);
                 int port = Integer.parseInt(args[1]);
@@ -37,6 +37,21 @@ public class App implements Commons {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(USAGE);
             }
+
+            if (args.length > 3)
+                for (int i = 3; i < args.length; i++) {
+                    if (core != null) {
+                        try {
+                            core.createConnectionInicial("localhost",Integer.parseInt(args[i]));
+                        } catch (ConnectException e) {
+                            e.getMessage();
+                        }
+                    }
+                }
+
+        }
+        else {
+            System.out.println(USAGE);
         }
     }
 

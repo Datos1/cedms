@@ -240,4 +240,15 @@ public abstract class Core {
     public List<Mensaje> getMensajes() {
         return mensajes;
     }
+
+
+    /**
+     * Metodos sin completar para las conexiones iniciales
+     * @param localhost
+     * @param port
+     * @throws ConnectException
+     */
+    public void createConnectionInicial(String localhost, int port) throws ConnectException{
+
+    }
 }
