@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grafo>
+    <dispositivos>
+        <dispositivo id="1234567890123456" tipo="cliente" puerto="7789" />
+        <dispositivo id="1234567890123457" tipo="cliente" puerto="7788" />
+        <dispositivo id="1234567890123458" tipo="hub" puerto="65432" />
+        <dispositivo id="1234567890123459" tipo="base" puerto="2001" />
+        <dispositivo id="1234567890123450" tipo="hub" puerto="9987" />
+        <dispositivo id="1234567890123451" tipo="base" puerto="666" />
+    </dispositivos>
+    <conexiones>
+    ￼￼￼￼<conexion source="1234567890123456" target="1234567890123457" precio="10" />
+        <conexion source="1234567890123457" target="1234567890123456" precio="4" />
+        <conexion source="1234567890123458" target="1234567890123451" precio="6" />
+        <conexion source="1234567890123458" target="1234567890123450" precio="11" />
+        <conexion source="1234567890123458" target="1234567890123459" precio="10" />
+        <conexion source="1234567890123451" target="1234567890123456" precio="3" />
+        <conexion source="1234567890123451" target="1234567890123458" precio="9" />
+        <conexion source="1234567890123450" target="1234567890123457" precio="8" />
+        <conexion source="1234567890123456" target="1234567890123450" precio="7" />
+
+    </conexiones>
+</grafo>
