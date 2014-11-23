@@ -36,6 +36,7 @@ public class BaseStation extends Core {
         dispositivosGrafo.append(source);
         dispositivosGrafo.append(target);
         grafoConexiones.addLinkNewNodes(source,target,precio);
+//si hay conexion al source mandar mensajes pendientes.
     }
 
     /**
