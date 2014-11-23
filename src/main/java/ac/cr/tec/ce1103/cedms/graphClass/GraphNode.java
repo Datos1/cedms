@@ -12,11 +12,11 @@ import static ac.cr.tec.ce1103.cedms.App.INSTANCE_COUNTER;
 /**
  * graphNode class for the graphClass.
  */
-public class graphNode<T> {//graphNode class
+public class GraphNode<T> {//graphNode class
 
     private T element;//the element is of type base, client or hub.
-    private List<graphNode> node_graphs;//list of graph nodes(to make the Adjacency list)
-    private List<Link> links;//all connections that has this node.
+    private List<GraphNode<T>> node_graphs;//list of graph nodes(to make the Adjacency list)
+    private List<Link<T>> links;//all connections that has this node.
     private int actual_links;//number of links per node.
     private int id;//id of each node.
     private int num_node_graphs;//number of graphs of this graphNode.
@@ -28,11 +28,11 @@ public class graphNode<T> {//graphNode class
      *
      * @param name_type
      */
-    public graphNode(T name_type) {//name is Object of type hub,client or base station.
+    public GraphNode(T name_type) {//name is Object of type hub,client or base station.
         this.element = name_type;        //initializing the attribute variables.
         this.actual_links = 0;
-        this.links = new List<Link>();
-        this.node_graphs = new List<graphNode>();
+        this.links = new List<Link<T>>();
+        this.node_graphs = new List<GraphNode<T>>();
         this.id = 1;
     }
 
@@ -53,7 +53,7 @@ public class graphNode<T> {//graphNode class
     /**
      * @return the list of graphs
      */
-    public List<graphNode> getNode_graphs() {
+    public List<GraphNode<T>> getNode_graphs() {
         return node_graphs;
     }
 
@@ -62,7 +62,7 @@ public class graphNode<T> {//graphNode class
      *
      * @param node_graphs
      */
-    public void setNode_graphs(List<graphNode> node_graphs) {
+    public void setNode_graphs(List<GraphNode<T>> node_graphs) {
         this.node_graphs = node_graphs;
     }
 
@@ -106,7 +106,7 @@ public class graphNode<T> {//graphNode class
     /**
      * @return the list of links
      */
-    public List<Link> getLinks() {
+    public List<Link<T>> getLinks() {
         return links;
     }
 
@@ -115,7 +115,7 @@ public class graphNode<T> {//graphNode class
      *
      * @param links
      */
-    public void setLinks(List<Link> links) {
+    public void setLinks(List<Link<T>> links) {
         this.links = links;
     }
 
@@ -141,7 +141,7 @@ public class graphNode<T> {//graphNode class
      * @param destiny
      * @param weight
      */
-    public void addLink(graphNode destiny, int weight) { //adds the link with the param destiny and its weight or price.
+    public void addLink(GraphNode destiny, int weight) { //adds the link with the param destiny and its weight or price.
         if (actual_links == -1) {//if there are not links.
             links.append(new Link(this, destiny, weight));//creates new link and adds it to the list of links of this node.
             actual_links++;
@@ -188,7 +188,7 @@ public class graphNode<T> {//graphNode class
      * @param link
      * @return true if the link exists
      */
-    public boolean existLink(graphNode link) {//checks if there is a link from the parameter in the links of this node.
+    public boolean existLink(GraphNode link) {//checks if there is a link from the parameter in the links of this node.
         for (int i = 0; i < links.getLength(); i++) {
             if (links.get(i).getTerminal().equals(link))//compares with the terminal of the link
                 return true;

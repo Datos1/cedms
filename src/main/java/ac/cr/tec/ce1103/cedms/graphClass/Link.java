@@ -50,7 +50,7 @@ public class Link<T> {
         return terminal;
     }
 
-    /** 
+    /**
      * sets the destiny node
      *
      * @param terminal
@@ -77,8 +77,3 @@ public class Link<T> {
 
 
 }
-
-
-
-
-
