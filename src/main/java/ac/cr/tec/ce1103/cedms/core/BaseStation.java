@@ -6,6 +6,7 @@ import ac.cr.tec.ce1103.cedms.data.CoreType;
 import ac.cr.tec.ce1103.cedms.data.Dispositivo;
 import ac.cr.tec.ce1103.cedms.data.Mensaje;
 import ac.cr.tec.ce1103.cedms.dataStructures.List;
+import ac.cr.tec.ce1103.cedms.dataStructures.Queue;
 import ac.cr.tec.ce1103.cedms.graphClass.Graph;
 import ac.cr.tec.ce1103.cedms.graphClass.GraphNode;
 import ac.cr.tec.ce1103.cedms.server.Server_Socket;
@@ -14,7 +15,7 @@ import ac.cr.tec.ce1103.cedms.server.Server_Socket;
  * Created by pablo on 10/11/14.
  */
 public class BaseStation extends Core {
-    private List<Mensaje> mensajesPendientes = new List<Mensaje>();
+    private Queue<Mensaje> mensajesPendientes = new Queue<Mensaje>();
     private Graph<Dispositivo> grafoConexiones;
     private List<Dispositivo> dispositivosGrafo;
     public BaseStation(long pId, int pPort) {
