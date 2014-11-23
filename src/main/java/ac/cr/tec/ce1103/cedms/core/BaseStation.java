@@ -24,7 +24,7 @@ public class BaseStation extends Core {
         this.serverSocket = new Server_Socket(this, pPort);
         ui = new BaseStationTerminal(this);
     }
-
+    //holamundo
     /**
      * Recibe la conexion completa
      * y la agrega al grafo

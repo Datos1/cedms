@@ -31,6 +31,11 @@ public class HubTerminal extends Terminal {
                 case 3:
                     verNodosAdyacentes();
                     break;
+                case 4:
+                    cambiarPesoNodo();
+                    break;
+                case 5:
+                    desconectar();
 
             }
             System.out.println(SLASH);
