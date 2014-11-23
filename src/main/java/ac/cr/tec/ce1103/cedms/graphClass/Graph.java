@@ -10,14 +10,14 @@ import java.util.Hashtable;
 public class Graph<T> {
     private int num_nodes;//number of the graph nodes
     private int num_aristas;//number of links of the graph
-    private List graph_nodes = new List<graphNode>();//graph nodes, contains base station,hub or client.
-    private Hashtable hashtable_nodes = new Hashtable<Integer, graphNode>();//hashtable for nodes.
-    private List<Link> aristas = new List<Link>();//number of arches of the graph
+    private List<GraphNode<T>> graph_nodes = new List<GraphNode<T>>();//graph nodes, contains base station,hub or client.
+    private Hashtable hashtable_nodes = new Hashtable<Integer, GraphNode<T>>();//hashtable for nodes.
+    private List<Link<T>> aristas = new List<Link<T>>();//number of arches of the graph
 
     /**
      * @return list of arches of the graph
      */
-    public List getAristas() {
+    public List<Link<T>> getAristas() {
         return aristas;
     }
 
@@ -33,10 +33,10 @@ public class Graph<T> {
     /**
      * @return all links that have each node of the graph(could be repeated!)
      */
-    public List<Link> getAllLinks() {
+    public List<Link<T>> getAllLinks() {
         List all_connections = new List<Link>();
         for (int i = 0; i < graph_nodes.getLength(); i++) {
-            all_connections.append(((graphNode) graph_nodes.get(i)).getLinks());//adds all existing links of each node to the list.
+            all_connections.append(((GraphNode) graph_nodes.get(i)).getLinks());//adds all existing links of each node to the list.
         }
         return all_connections;
     }
@@ -45,27 +45,26 @@ public class Graph<T> {
      * @param plink_list
      * @return list without the repeated links.
      */
-    public List getArches(List<Link> plink_list) {//removes the repeated links
-        for (int i = 0; i < plink_list.getLength(); i++) {
+    public List<Link<T>> getArches(List<Link<T>> plink_list) {//removes the repeated links
+        for (int i = 0; i < plink_list.getLength(); i++)
             for (int j = 0; j < plink_list.getLength(); j++) { //if it has the same initial and same terminal
-                graphNode lnk1 = (graphNode) ((plink_list.get(i)).getInitial());
-                graphNode lnk2 = (graphNode) ((plink_list.get(j)).getInitial());
-                graphNode lnk3 = (graphNode) ((plink_list.get(j)).getTerminal());
-                graphNode lnk4 = (graphNode) ((plink_list.get(i)).getTerminal());
+                GraphNode<T> lnk1 = (plink_list.get(i)).getInitial();
+                GraphNode<T> lnk2 = (GraphNode) ((plink_list.get(j)).getInitial());
+                GraphNode<T> lnk3 = (GraphNode) ((plink_list.get(j)).getTerminal());
+                GraphNode<T> lnk4 = (GraphNode) ((plink_list.get(i)).getTerminal());
 
                 if (lnk1.equals(lnk2) && lnk4.equals(lnk3))
                     plink_list.remove(i);//removes the repeated link.
                 else
                     continue;
             }
-        }
         return plink_list;
     }
 
     /**
      * @return list of all the nodes of the graph.
      */
-    public List getGraph_nodes() {
+    public List<GraphNode<T>> getGraph_nodes() {
         return graph_nodes;
     }
 
@@ -97,7 +96,7 @@ public class Graph<T> {
     /**
      * @return hashtable of nodes
      */
-    public Hashtable<Integer, graphNode> getHashtable_nodes() {
+    public Hashtable<Integer, GraphNode<T>> getHashtable_nodes() {
         return hashtable_nodes;
     }
 
@@ -106,7 +105,7 @@ public class Graph<T> {
      *
      * @param hashtable_nodes
      */
-    public void setHashtable_nodes(Hashtable<Integer, graphNode> hashtable_nodes) {
+    public void setHashtable_nodes(Hashtable<Integer, GraphNode<T>> hashtable_nodes) {
         this.hashtable_nodes = hashtable_nodes;
     }
 
@@ -145,7 +144,7 @@ public class Graph<T> {
      * @param direction
      * @param weight
      */
-    public void adjacencyListConnections(graphNode a, graphNode b, int direction,int weight) {//creates connection between two nodes forming the adjacency list.(lists inside lists)
+    public void adjacencyListConnections(GraphNode<T> a, GraphNode<T> b, int direction,int weight) {//creates connection between two nodes forming the adjacency list.(lists inside lists)
         try{
             if(existNode(a) && existNode(b)){//if a and b exists in the list of graph nodes.
                 if (direction == 0 || direction == 1) {// direction param: 1 if it is directed(directed from a to b).
@@ -153,29 +152,29 @@ public class Graph<T> {
                         //creates bidirectional link
                         //to first direction.
 
-                            graphNode gr_node = (graphNode) graph_nodes.get(searchNodePosition(a));
-                            List<graphNode> grphn = gr_node.getNode_graphs();
+                            GraphNode<T> gr_node = (GraphNode) graph_nodes.get(searchNodePosition(a));
+                            List<GraphNode<T>> grphn = gr_node.getNode_graphs();
                             grphn.append(b);
                             gr_node.setNode_graphs(grphn);//adds the node to the adjacency list
-                            ((graphNode) (gr_node)).addLink(b, weight);//makes the link between nodes
+                            ((GraphNode) (gr_node)).addLink(b, weight);//makes the link between nodes
                             graph_nodes.append(gr_node);
 
 
                         //to the other direction.
-                            graphNode gr_node2 = (graphNode) graph_nodes.get(searchNodePosition(b));
-                            List<graphNode> grphn2 = gr_node2.getNode_graphs();
+                            GraphNode gr_node2 = (GraphNode) graph_nodes.get(searchNodePosition(b));
+                            List<GraphNode> grphn2 = gr_node2.getNode_graphs();
                             grphn2.append(a);
                             gr_node2.setNode_graphs(grphn2);//adds the node to the adjacency list
-                            ((graphNode) (gr_node2)).addLink(b, weight);//makes the link between nodes
+                            gr_node2.addLink(b, weight);//makes the link between nodes
                             graph_nodes.append(gr_node2);
 
                     } else if (direction == 1) {//creates one direction link
                         //to first direction.
-                        graphNode gr_node=(graphNode) graph_nodes.get(searchNodePosition(a));
-                        List<graphNode> grphn=gr_node.getNode_graphs();
+                        GraphNode<T> gr_node=(GraphNode) graph_nodes.get(searchNodePosition(a));
+                        List<GraphNode<T>> grphn=gr_node.getNode_graphs();
                         grphn.append(b);
                         gr_node.setNode_graphs(grphn);//adds the node to the adjacency list
-                        ((graphNode)(gr_node)).addLink(b,weight);//makes the link between nodes
+                        gr_node.addLink(b, weight);//makes the link between nodes
                         graph_nodes.append(gr_node);
                     }
                 }
@@ -191,9 +190,9 @@ public class Graph<T> {
     public void createLinks() {//the adjacency list must be created at this point, then the links are created based on the adjacency list.
         for (int j = 0; j < graph_nodes.getLength(); j++) {
             //List gr_node=(List)graph_nodes.get(j);
-            int lenght = ((graphNode) (graph_nodes.get(j))).getNode_graphs().getLength();
+            int lenght = ((GraphNode) (graph_nodes.get(j))).getNode_graphs().getLength();
             for (int i = 0; i < lenght; i++) {
-                ((graphNode) graph_nodes.get(j)).addLink((graphNode) (((graphNode) graph_nodes.get(j)).getNode_graphs().get(i)), 12);//12= peso o precio que se agarra del xml.
+                (graph_nodes.get(j)).addLink((graph_nodes.get(j)).getNode_graphs().get(i), 12);//12= peso o precio que se agarra del xml.
             }
         }
     }
@@ -203,7 +202,7 @@ public class Graph<T> {
      * @param pgraphNode
      * @return true if node is in the list.
      */
-    public boolean existNode(graphNode pgraphNode) {
+    public boolean existNode(GraphNode<T> pgraphNode) {
         for (int i = 0; i < graph_nodes.getLength(); i++) {
             if (pgraphNode.equals(graph_nodes.get(i))) {//if param is equal to node in list.
                 return true;
@@ -216,10 +215,10 @@ public class Graph<T> {
      * @param pgraphNode
      * @return returns the node to search, if it is not in the list return null.
      */
-    public graphNode searchNode(graphNode pgraphNode) {//returns the specified node, if not is null.
+    public GraphNode searchNode(GraphNode<T> pgraphNode) {//returns the specified node, if not is null.
         for (int i = 0; i < graph_nodes.getLength(); i++) {
             if (pgraphNode.equals(graph_nodes.get(i))) {//if param is equal to node in list.
-                return (graphNode) graph_nodes.get(i);
+                return (GraphNode) graph_nodes.get(i);
             }
 
         }
@@ -230,7 +229,7 @@ public class Graph<T> {
      * @param pgraphNode
      * @return position of the element.
      */
-    public int searchNodePosition(graphNode pgraphNode) {//return the actual position of the node in the parameter
+    public int searchNodePosition(GraphNode<T> pgraphNode) {//return the actual position of the node in the parameter
         for (int i = 0; i < graph_nodes.getLength(); i++) {
             if (pgraphNode.equals(graph_nodes.get(i))) {//if param is equal to node in list.
                 return i;
@@ -246,7 +245,7 @@ public class Graph<T> {
      *
      * @param nombre
      */
-    public void addNode(graphNode nombre) {
+    public void addNode(GraphNode nombre) {
         graph_nodes.append(nombre);//adds the param node to the total of nodes of the graph
        // hashtable_nodes.put(nombre.getId(), new graphNode(nombre));//puts hashtable ??
     }
