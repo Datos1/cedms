@@ -60,19 +60,7 @@ public abstract class Core {
     }
 
 
-    /**
-     * This sends the connection on phase 1
-     *
-     * @param pIp
-     * @param pPort
-     */
-    public void createConnectionPhase1(String pIp, int pPort) throws ConnectException {
-        String updateId = nextUpdateId();
-        Client_Socket clientSocketTemp = new Client_Socket(pIp, pPort);
-        clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, updateId));
-        connections.append(new Connection(this.id, updateId, clientSocketTemp));
 
-    }
 
     /**
      * Nos dice si hay algun base station
@@ -96,6 +84,19 @@ public abstract class Core {
         String upId = id + "-" + updateCounter++;
         return upId;
     }
+    /**
+     * This sends the connection on phase 1
+     *
+     * @param pIp
+     * @param pPort
+     */
+    public void createConnectionPhase1(String pIp, int pPort) throws ConnectException {
+        String updateId = nextUpdateId();
+        Client_Socket clientSocketTemp = new Client_Socket(pIp, pPort);
+        clientSocketTemp.send(XmlToolkit.newConnectionPhase1(id, updateId));
+        connections.append(new Connection(this.id, updateId, clientSocketTemp));
+
+    }
 
     /**
      * This sends the connection on phase 2
@@ -115,7 +116,7 @@ public abstract class Core {
      * @param updateId
      */
     protected void createConnection(long id, long adyacente, int precio, String updateId) {
-        difusion(XmlToolkit.newConnectionPhase2(precio, updateId, type.toString()));
+        difusion(XmlToolkit.newConnection(id,adyacente,precio,updateId));
     }
 
     /**

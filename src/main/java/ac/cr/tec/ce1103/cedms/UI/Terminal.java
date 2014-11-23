@@ -34,7 +34,7 @@ public abstract class Terminal implements Commons {
     public static final String SERVER = "server";
     public static final String PRECIO = "Precio: ";
     public static final String CONEXION_HACIA = "Conexion hacia id:";
-    public static final String DE_TIPO = "Y de tipo: ";
+    public static final String DE_TIPO = "Tipo: ";
     static protected final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))|localhost|server";
     public static final String PARA_DESCONECTAR = "Para desconectar: ";
     public static final String PESO_INVALIDO = "Peso invalido.";
