@@ -16,7 +16,11 @@ public class Client extends Core implements Commons {
     public static final int INITAL_MESSAGE_ID = 1;
     private Queue<Mensaje> nuevosMensajes = new Queue<Mensaje>();
 
-
+    /**
+     * constructor del Client
+     * @param pId
+     * @param pPort
+     */
     public Client(long pId, int pPort) {
         super(pId, pPort);
         type = CoreType.CLIENTE;
@@ -30,12 +34,12 @@ public class Client extends Core implements Commons {
      */
     @Override
     public void recibirMensaje(Mensaje mensaje) {
-        if (!updateIdsList.find(mensaje.getIdentifier())) {
-            updateIdsList.append(mensaje.getIdentifier());
+        if (!updateIdsList.find(mensaje.getIdentifier())) {//busca que el mensaje no se haya recibido anteriormente
+            updateIdsList.append(mensaje.getIdentifier()); //agrega el identificador del mensaje
             if (mensaje.getTarget() == this.id) {
-                nuevosMensajes.add(mensaje);
+                nuevosMensajes.add(mensaje);//si el mensaje es para este core lo recibe y lo agrega a mensajes
             } else
-                difusion(XmlToolkit.createMessage(mensaje));
+                difusion(XmlToolkit.createMessage(mensaje));//si no es para este lo difunde
         }
     }
 
@@ -50,6 +54,10 @@ public class Client extends Core implements Commons {
         difusion(XmlToolkit.createMessage(new Mensaje(this.id, target, nextUpdateId(), titulo, msg, INITAL_MESSAGE_ID)));
     }
 
+    /**
+     * saca un mensaje de la cola
+     * @return Mensaje
+     */
     public Mensaje getNuevoMensaje() {
         Mensaje mensaje = nuevosMensajes.deQueue();
         mensajes.append(mensaje);

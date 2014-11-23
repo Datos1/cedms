@@ -18,6 +18,12 @@ public class BaseStation extends Core {
     private Queue<Mensaje> mensajesPendientes = new Queue<Mensaje>();
     private Graph<Dispositivo> grafoConexiones;
     private List<Dispositivo> dispositivosGrafo;
+
+    /**
+     * constructor del BaseStation
+     * @param pId
+     * @param pPort
+     */
     public BaseStation(long pId, int pPort) {
         super(pId, pPort);
         type = CoreType.BASESTATION;
@@ -32,9 +38,9 @@ public class BaseStation extends Core {
     public void recibirConnection(String updateId, int precio, long id, long adyacente) {
         Dispositivo source = new Dispositivo(id,null,0);
         Dispositivo target = new Dispositivo(adyacente,null,0);
-        dispositivosGrafo.append(source);
-        dispositivosGrafo.append(target);
-        grafoConexiones.addLinkNewNodes(source,target,precio);
+        dispositivosGrafo.append(source);//dispositivos del grafo
+        dispositivosGrafo.append(target);//disporitivos del grafo
+        grafoConexiones.addLinkNewNodes(source,target,precio);//se agrega la conexion al grafo
 //si hay conexion al source mandar mensajes pendientes.
     }
 

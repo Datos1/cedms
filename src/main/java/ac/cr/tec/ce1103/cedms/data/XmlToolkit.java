@@ -105,12 +105,22 @@ public class XmlToolkit {
         }
     }
 
+    /**
+     * lee el XML de desconectar y lo interpreta
+     * @param output
+     * @param xml
+     */
     private static void readInDesconectar(Core output, Document xml) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
         output.recibirDesconectar(source, target);
     }
 
+    /**
+     * lee el XML del peso y lo interpreta
+     * @param output
+     * @param xml
+     */
     private static void readInPeso(Core output, Document xml) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
@@ -118,6 +128,12 @@ public class XmlToolkit {
         output.recibirCambiarPeso(source, target, peso);
     }
 
+    /**
+     * lee el XML del grafo y lo interpreta
+     * @param output
+     * @param xml
+     * @param updateId
+     */
     private static void readInGrafo(Core output, Document xml, String updateId) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
@@ -139,6 +155,12 @@ public class XmlToolkit {
 
     }
 
+    /**
+     * lee el XML de un mensaje y lo interpreta.
+     * @param output
+     * @param xml
+     * @param updateId
+     */
     private static void readInMessage(Core output, Document xml, String updateId) {
         long source = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
         long target = Long.parseLong(xml.getElementsByTagName(TARGET).item(HEAD).getTextContent());
@@ -157,6 +179,12 @@ public class XmlToolkit {
         }
     }
 
+    /**
+     * lee el XML de conexion y lo interpreta.
+     * @param output
+     * @param xml
+     * @param updateId
+     */
     private static void readInConnection(Core output, Document xml, String updateId) {
         if (xml.getElementsByTagName(SOURCE).getLength() != 0) {
             long target = Long.parseLong(xml.getElementsByTagName(SOURCE).item(HEAD).getTextContent());
@@ -176,7 +204,12 @@ public class XmlToolkit {
         }
     }
 
-    //////////////////////////////
+    /**
+     * crea un xml con la conexion en la fase 1
+     * @param source
+     * @param updateId
+     * @return
+     */
     public static String newConnectionPhase1(long source, String updateId) {
         Document xml = newDocument();
         Element root = xml.createElement(XmlMessage.CONNECTION.toString());
@@ -190,6 +223,13 @@ public class XmlToolkit {
         return XmlToolkit.xmlToString(xml);
     }
 
+    /**
+     * crea un XM de la conexion en la fase 2
+     * @param precio
+     * @param updateId
+     * @param type
+     * @return
+     */
     public static String newConnectionPhase2(int precio, String updateId, String type) {
         Document xml = newDocument();
         Element root = xml.createElement(XmlMessage.CONNECTION.toString());
@@ -205,6 +245,14 @@ public class XmlToolkit {
         return XmlToolkit.xmlToString(xml);
     }
 
+    /**
+     * crea un XML de nueva conexion
+     * @param id
+     * @param adyacente
+     * @param precio
+     * @param updateId
+     * @return
+     */
     public static String newConnection(long id, long adyacente, int precio, String updateId) {
         Document xml = newDocument();
         Element root = xml.createElement(XmlMessage.CONNECTION.toString());

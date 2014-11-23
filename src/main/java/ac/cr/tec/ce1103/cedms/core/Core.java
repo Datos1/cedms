@@ -32,7 +32,11 @@ public abstract class Core {
     protected boolean on = true;
     protected CoreType type;
 
-
+    /**
+     * Constructor del core
+     * @param pId
+     * @param pPort
+     */
     protected Core(long pId, int pPort) {
         this.id = pId;
         this.port = pPort;
@@ -209,6 +213,11 @@ public abstract class Core {
         difusion(XmlToolkit.crearDesconexion(source,target));
     }
 
+    /**
+     * cambia el peso de la conexion "target" con el peso ingresado
+     * @param target
+     * @param peso
+     */
     public void cambiarPesoNodo(long target, int peso) {
         for (int i = 0; i < connections.getLength(); i++) {
             Connection connection = connections.get(i);
@@ -219,6 +228,10 @@ public abstract class Core {
         }
     }
 
+    /**
+     * Eliminar la conexion con el target especificado
+     * @param target
+     */
     public void desconectar(long target) {
         for (int i = 0; i < connections.getLength(); i++) {
             Connection connection = connections.get(i);

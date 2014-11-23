@@ -16,6 +16,15 @@ public class Mensaje {
 
     private List<Long> ruta;
 
+    /**
+     *Constructor del Mensaje
+     * @param source
+     * @param target
+     * @param updateId
+     * @param titulo
+     * @param msg
+     * @param numero
+     */
     public Mensaje(long source, long target, String updateId, String titulo, String msg, int numero) {
         this.source = source;
         this.target = target;
@@ -25,6 +34,16 @@ public class Mensaje {
         this.numero = numero;
     }
 
+    /**
+     * mensaje con ruta
+     * @param source
+     * @param target
+     * @param updateId
+     * @param titulo
+     * @param msg
+     * @param numero
+     * @param ruta
+     */
     public Mensaje(long source, long target, String updateId, String titulo, String msg, int numero, List<Long> ruta) {
         this(source, target, updateId, titulo, msg, numero);
         this.ruta = ruta;
