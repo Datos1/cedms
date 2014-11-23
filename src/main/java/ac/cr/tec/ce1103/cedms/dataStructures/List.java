@@ -145,6 +145,7 @@ public class List<T> {
 
     }
 
+
     /**
      * Returns the node
      *
@@ -222,6 +223,30 @@ public class List<T> {
             ele = ele.getNext();
         }
         return false;
+    }
+
+    public boolean find(Node x) {
+        Node<T> ele = _head;
+        while (ele != null) {
+            if (ele.getData().equals(x))
+                return true;
+            ele = ele.getNext();
+        }
+        return false;
+    }
+
+    public int findPosNode(T x) {//return position of node
+        int pos=0;
+        Node<T> ele = _head;
+        while (ele != null) {
+            if (ele.getData().equals(x))
+                return pos;
+            else{
+            ele = ele.getNext();
+            pos+=1;
+            }
+        }
+        return -1;//node is not int the list.
     }
 
     public Node getNode(Node pdata){

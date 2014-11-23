@@ -198,7 +198,7 @@ public class Graph<T> {
                 }
             }
         } else {
-            System.out.println("graphnode a or graphnode are not in the list");
+            System.out.println("graphnode a or graphnode b are not in the list");
         }
     }
 
@@ -269,16 +269,30 @@ public class Graph<T> {
         num_nodes+=1;
     }
 
+    public void deleteGraphNodeAndLink(GraphNode nodo){
+        if(graph_nodes.find(nodo)){
+            graph_nodes.remove(graph_nodes.findPosNode(nodo));
+
+            //aristas.remove();
+        }
+
+    }
+
+   /* public int findPosLink(GraphNode nodo){
+        List<Link> links_nodo=nodo.getLinks();
+        for(int i=0;i<nodo.getLinks().getLength();i++){
 
 
 
-   /* public int searchIndex(int peso){
-        for(int i=0;i<aristas.getLength();i++){
-            if(peso<(int)aristas.get(i))
+        }
+    }*/
+    public int searchIndexGraphNode(GraphNode nodo){//searches the position of the node in the list.
+        for(int i=0;i<graph_nodes.getLength();i++){
+            if(nodo.equals(graph_nodes.get(i)))
                 return i;
         }
         return -1;
-    }*/
+    }
 
     /**
      *
@@ -310,4 +324,24 @@ public class Graph<T> {
         }
     }
 
+    /**
+     * prints the total nodes of the graph.
+     *
+     */
+    public void printGraphNodes(){//prints all links from a node ignoring if the a node doesnt have links and its list is null.
+        for(int i=0;i<graph_nodes.getLength();i++) {
+                System.out.println(((GraphNode) graph_nodes.get(i)).getNombre_elemento());
+        }
+    }
+
+    /**
+     * prints the total links of the graph.
+     *
+     */
+    public void printLinksNodes(){//prints all links from a node ignoring if the a node doesnt have links and its list is null.
+        for(int i=0;i<aristas.getLength();i++) {
+            System.out.println("Link de "+((Link) aristas.get(i)).getInitial().getNombre_elemento()+"a "+((Link) aristas.get(i)).getTerminal().getNombre_elemento());
+            System.out.println("\t");
+        }
+    }
 }
