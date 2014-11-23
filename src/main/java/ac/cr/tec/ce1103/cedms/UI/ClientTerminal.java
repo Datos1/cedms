@@ -35,6 +35,7 @@ public class ClientTerminal extends Terminal {
      */
     @Override
     protected void menuOpciones() {
+        printBlankSpace();
         System.out.println(OPCIONES);
         if (terminal.hasNext(OPCIONES_PATTERN)) {
             switch (Integer.parseInt(terminal.nextLine())) {
