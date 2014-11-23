@@ -92,14 +92,14 @@ public class graphNode<T> {//graphNode class
     /**
      * @return int actual links.
      */
-    public int getActual_links() {
+    public int getNumActual_links() {
         return links.getLength();
     }
 
     /**
      * @param actual_links
      */
-    public void setActual_links(int actual_links) {
+    public void setNumActual_links(int actual_links) {
         this.actual_links = actual_links;
     }
 
@@ -122,7 +122,7 @@ public class graphNode<T> {//graphNode class
     /**
      * @return gets the type of object
      */
-    public T getName() {
+    public T getElement() {
         return element;
     }
 
@@ -131,7 +131,7 @@ public class graphNode<T> {//graphNode class
      *
      * @param name
      */
-    public void setName(T name) {
+    public void setElement(T name) {
         this.element = name;
     }
 
@@ -214,5 +214,15 @@ public class graphNode<T> {//graphNode class
 
     }
 
+    /**
+     *
+     * @return true if list of links of the node are different from null.
+     */
+    public boolean hasLinks(){
+        if(links==null)
+            return false;
+        else
+            return true;
+    }
 
 }
